@@ -1,4 +1,5 @@
-console.log("Hello World");
-let x = 6;
-x++;
-console.log(x);
+const themeButton = document.getElementById("theme-toggle-button");
+
+themeButton.addEventListener("click", () => {
+    document.body.classList.toggle("debug-theme");
+});

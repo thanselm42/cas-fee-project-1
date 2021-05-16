@@ -4,12 +4,60 @@
   <meta charset="UTF-8">
   <title>Note App</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
-  <script src="scripts/index.js" type="module"></script>
-
-  <link rel="stylesheet" href="styles/index.css">
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.svg">
+  <link rel="stylesheet" href="styles/roboto-fonts.css">
+  <link rel="stylesheet" href="./styles/index.css">
 </head>
 <body>
-<h1>Note App</h1>
-
+<header class="page-header">
+    <!-- nav -->
+  <nav class="page-nav">
+    <ul class="page-nav-list">
+      <li id="top" class="page-nav-list-item">
+        <a class="page-nav-link" href="./index.html">Home</a>
+      </li>
+      <li class="page-nav-list-item">
+        <a class="page-nav-link" href="./about.html">About</a>
+      </li>
+    </ul>
+  </nav>
+  <h1 class="page-title">My Note App</h1>
+  <button type="button" id="theme-toggle-button" class="theme-button">Toggle Theme</button>
+</header>
+<main class="page-main">
+  <ul>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+    <li>note entry</li>
+      </ul>
+    </main>
+    <aside class="main-aside">
+      <p>here could be some help-text of it could be wider and then it could be used as the edit pane</p>
+    </aside>
+<footer class="page-footer">
+  <div>
+    <a class="footer-top-link" href="#top">&#8593</a>
+    <span>&copy; Tobias Hanselmann</span>
+  </div>
+  <span>v1.0 16.05.2021</span>
+</footer>
+<script src="scripts/index.js" type="module"></script>
 </body>
 </html>
