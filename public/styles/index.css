@@ -11,6 +11,8 @@
     --footer-text-color: var(--header-text-color);
     --global-font: "Roboto", sans-serif;
     --button-background-color: rgba(220, 220, 220, 1);
+    --entry-background-color: rgba(230, 230, 230, 1);
+    --entry-description-background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* themes variables overwrite */
@@ -128,6 +130,26 @@ body {
     width: 100%;
 }
 
+.list-entry-color-0 {
+    background: rgba(230, 230, 230, 0.3);
+}
+
+.list-entry-color-1 {
+    background: rgba(255, 230, 128, 0.3);
+}
+
+.list-entry-color-2 {
+    background: rgba(255, 128, 128, 0.3);
+}
+
+.list-entry-color-3 {
+    background: rgba(128, 255, 128, 0.3);
+}
+
+.list-entry-color-4 {
+    background: rgba(80, 128, 255, 0.3);
+}
+
 .list-entry-container {
     border: red;
     border-style: solid;
@@ -152,6 +174,7 @@ body {
 .list-entry-description {
     border: lightslategray;
     border-style: solid;
+    background: var(--entry-description-background-color);
     resize: none;
     width: 100%;
     height: 4em;
@@ -239,6 +262,44 @@ input:checked + .slider::before {
 }
 
 /* next/previous buttons */
+
+.edit-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.form-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-label {
+    width: 20%;
+}
+
+.form-input {
+    width: 80%;
+}
+
+.form-item-small-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.form-label-small {
+    width: 40%;
+}
+
+.form-input-small {
+    width: 40%;
+}
+
+.description-field {
+    resize: none;
+    height: 5rem;
+}
 
 .nxtprev_btn {
     text-decoration: none;

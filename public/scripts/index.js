@@ -2,10 +2,10 @@
   Mocks and testing
  ************************************** */
 const constTODOs = [
-    {id: 1, title: "Einkaufen", description: "Tomaten, Zwiebeln, Knoblauch, Spaghetti, Parmesan", importance: 1, cDate: 10, dueDate: 1001, isCompleted: false},
-    {id: 2, title: "Kochen", description: "Sauce kochen, danach Spaghetti", importance: 3, cDate: 12, dueDate: 1000, isCompleted: true},
-    {id: 3, title: "Putzen", description: "Staubsaugen und Fensterputzen", importance: 2, cDate: 13, dueDate: 1005, isCompleted: true},
-    {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, cDate: 20, dueDate: 1010, isCompleted: false},
+    {id: 1, title: "Einkaufen", description: "Tomaten, Zwiebeln, Knoblauch, Spaghetti, Parmesan", importance: 1, cDate: 10, dueDate: 1001, color: 0, isCompleted: false},
+    {id: 2, title: "Kochen", description: "Sauce kochen, danach Spaghetti", importance: 3, cDate: 12, dueDate: 1000, color: 1, isCompleted: true},
+    {id: 3, title: "Putzen", description: "Staubsaugen und Fensterputzen", importance: 2, cDate: 13, dueDate: 1005, color: 4, isCompleted: true},
+    {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, cDate: 20, dueDate: 1010, color: 3, isCompleted: false},
 ];
 let currentSortAttribute = "id";
 
@@ -99,19 +99,19 @@ function sortItemsBy(items, sort, asc) {
  */
 
 function createNewItem() {
-
+    console.log("create new item");
 }
 
 function deleteItem(id) {
-
+    console.log("deleting: " + id);
 }
 
-function editItem(id) {
-
+function modifyItem(id) {
+    console.log("modifying: " + id);
 }
 
-function setCompleteState(id,isCompleted) {
-
+function setCompleteState(id, isCompleted) {
+    console.log("set completion state for " + id + " to " + isCompleted);
 }
 
 function createImportanceElement(importance) {
@@ -130,7 +130,7 @@ function getIsCompletedElement(isCompleted) {
 function createListItem(todo) {
     return `
     <li>
-        <div class="list-entry-container" data-item-id="${todo.id}">
+        <div class="list-entry-container list-entry-color-${todo.color}" data-item-id="${todo.id}">
             <div class="list-entry-main">
                 <p class="list-entry-title">${todo.title}</p>
                 <p class="list-entry-importance">${createImportanceElement(todo.importance)}</p>
@@ -142,7 +142,7 @@ function createListItem(todo) {
                        name="todos_list_entry_is_completed"
                        data-edit-entry="complete" ${getIsCompletedElement(todo.isCompleted)}
                        data-item-id="${todo.id}"> <!-- &#9989 -->
-                <button class="list-entry-btn" data-edit-entry="edit" data-item-id="${todo.id}" type="button">&#9998
+                <button class="list-entry-btn" data-edit-entry="modify" data-item-id="${todo.id}" type="button">&#9998
                 </button>
                 <button class="list-entry-btn" data-edit-entry="delete" data-item-id="${todo.id}" type="button">&#128465
                 </button>
@@ -172,20 +172,24 @@ function bubbledClickSortButtonsEventHandler(event) {
     }
 }
 
-const entryModificatonType = { // entry modification type
+const entryModificatonType = {
     complete: (id, state) => setCompleteState(id, state),
-    edit: (id) => sortNumberDesc(id),
-    delete: (id) => sortBooleanDesc(id),
+    modify: (id) => modifyItem(id),
+    delete: (id) => deleteItem(id),
 };
 
 function bubbledClickItemEventHandler(event) {
-    console.log(event);
     const editEvent = event.target.dataset.editEntry;
     const entryID = event.target.dataset.itemId;
-    console.log(entryID + "\t" + editEvent);
 
     if (editEvent) {
+        const modifyFn = entryModificatonType[editEvent];
 
+        if (event.target.checked) {
+            modifyFn(entryID, true);
+        } else {
+            modifyFn(entryID, false);
+        }
     }
 }
 
@@ -199,7 +203,7 @@ function attachGlobalEventListeners() {
     sortButtonsElement.addEventListener("click", bubbledClickSortButtonsEventHandler);
 
     const createNewElement = document.querySelector(".new-button");
-    createNewElement.addEventListener("click", createNewElement);
+    createNewElement.addEventListener("click", createNewItem);
 
     const entryListElement = document.querySelector(".todos-list");
     entryListElement.addEventListener("click", bubbledClickItemEventHandler);
