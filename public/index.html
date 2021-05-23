@@ -10,7 +10,7 @@
 </head>
 <body>
 <header class="page-header">
-    <!-- nav -->
+    <!-- https://www.w3schools.com/howto/howto_css_tooltip.asp -->
   <nav class="page-nav">
     <ul class="page-nav-list">
       <li id="top" class="page-nav-list-item">
@@ -25,38 +25,60 @@
   <button type="button" id="theme-toggle-button" class="theme-button">Toggle Theme</button>
 </header>
 <main class="page-main">
-  <ul>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
-    <li>note entry</li>
+  <div class="overview-pane">
+    <div class="filter-pane">
+      <p>Filter</p>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <!-- https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp -->
+      <!-- https://www.w3schools.com/howto/howto_js_filter_lists.asp -->
+      <div class="filters">
+        <label class="filter">
+        <p>this is the filter pane</p>
+
+          <!--
+
+          <button class="filter_button" type="button">name</button>
+          <button class="filter_button" type="button">completed</button>
+          <button class="filter_button" type="button">completed</button>
+          <button class="filter_button" type="button">importance</button>
+          <button class="filter_button" type="button">due date</button>
+          <button class="filter_button" type="button">creation date</button>
+          </div>
+          -->
+
+        </label>
+      </div>
+    </div>
+    <div class="sort-buttons">
+      <p>Sort by: </p>
+      <button class="sort-button" data-sort-by="title" data-sort-asc="true" type="button">Title</button>
+      <button class="sort-button" data-sort-by="dueDate" data-sort-asc="false" type="button">Due date</button>
+      <button class="sort-button" data-sort-by="cDate" data-sort-asc="false" type="button">Creation date</button>
+      <button class="sort-button" data-sort-by="importance" data-sort-asc="false" type="button">Importance</button>
+      <button class="sort-button" data-sort-by="isCompleted" data-sort-asc="false" type="button">Completed</button>
+      <!-- https://www.w3schools.com/howto/howto_js_sort_list.asp-->
+    </div>
+    <div>
+      <button class="new-button" type="button">&#10010</button>
+    </div>
+    <div class="todos-list-container">
+      <ul class="todos-list">
       </ul>
-    </main>
-    <aside class="main-aside">
-      <p>here could be some help-text of it could be wider and then it could be used as the edit pane</p>
-    </aside>
-<footer class="page-footer">
-  <div>
-    <a class="footer-top-link" href="#top">&#8593</a>
-    <span>&copy; Tobias Hanselmann</span>
+    </div>
   </div>
-  <span>v1.0 16.05.2021</span>
+</main>
+   <aside class="main-aside">
+     <p>here could be some help-text of it could be wider and then it could be used as the edit pane</p>
+   </aside>
+<footer class="page-footer">
+  <div class="footer-top-link-container">
+    <a class="footer-top-link" href="#top"><span>&#10140</span></a>
+  </div>
+  <p>&copy; Tobias Hanselmann</p>
+  <p>v1.0 16.05.2021</p>
 </footer>
 <script src="scripts/index.js" type="module"></script>
 </body>
