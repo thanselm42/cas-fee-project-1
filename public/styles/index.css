@@ -169,6 +169,15 @@ body {
 
 .list-entry-title {
     font-weight: bold;
+    width: 55%;
+}
+
+.list-entry-importance {
+    width: 15%;
+}
+
+.list-entry-due-date {
+    width: 20%;
 }
 
 .list-entry-description {

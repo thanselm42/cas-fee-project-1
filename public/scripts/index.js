@@ -2,10 +2,10 @@
   Mocks and testing
  ************************************** */
 const constTODOs = [
-    {id: 1, title: "Einkaufen", description: "Tomaten, Zwiebeln, Knoblauch, Spaghetti, Parmesan", importance: 1, cDate: 10, dueDate: 1001, color: 0, isCompleted: false},
-    {id: 2, title: "Kochen", description: "Sauce kochen, danach Spaghetti", importance: 3, cDate: 12, dueDate: 1000, color: 1, isCompleted: true},
-    {id: 3, title: "Putzen", description: "Staubsaugen und Fensterputzen", importance: 2, cDate: 13, dueDate: 1005, color: 4, isCompleted: true},
-    {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, cDate: 20, dueDate: 1010, color: 3, isCompleted: false},
+    {id: 1, title: "Einkaufen", description: "Tomaten, Zwiebeln, Knoblauch, Spaghetti, Parmesan", importance: 1, cDate: 1621797650000, dueDate: 1621962800000, color: 0, isCompleted: false},
+    {id: 2, title: "Kochen", description: "Sauce kochen, danach Spaghetti", importance: 3, cDate: 1621797620000, dueDate: 1621962800000, color: 1, isCompleted: true},
+    {id: 3, title: "Putzen", description: "Staubsaugen und Fensterputzen", importance: 2, cDate: 1621797680000, dueDate: 1621962800000, color: 4, isCompleted: true},
+    {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, cDate: 1621797600000, dueDate: -1, color: 3, isCompleted: false},
 ];
 let currentSortAttribute = "id";
 
@@ -115,11 +115,15 @@ function setCompleteState(id, isCompleted) {
 }
 
 function createImportanceElement(importance) {
-    return "* * * * *";
+    return "&#10025 &#10025 &#10025 &#10025 &#10025";
 }
 
 function getHumanReadableDate(dataAsNumber) {
-    return "18:00 - 26.05.2021";
+    if (dataAsNumber < 0) {
+        return "no due date";
+    }
+    const ts = new Date(dataAsNumber);
+    return ts.toLocaleString();
 }
 
 function getIsCompletedElement(isCompleted) {

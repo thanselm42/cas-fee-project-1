@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Note App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.svg">
+    <link rel="stylesheet" href="styles/roboto-fonts.css">
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+<header class="page-header">
+    <!-- https://www.w3schools.com/howto/howto_css_tooltip.asp -->
+    <nav class="page-nav">
+        <ul class="page-nav-list">
+            <li id="top" class="page-nav-list-item">
+                <a class="page-nav-link" href="./index.html">Home</a>
+            </li>
+            <li class="page-nav-list-item">
+                <a class="page-nav-link" href="./about.html">About</a>
+            </li>
+        </ul>
+    </nav>
+    <h1 class="page-title">My Note App</h1>
+    <button type="button" id="theme-toggle-button" class="theme-button">Toggle Theme</button>
+</header>
+<main class="page-main">
+    <form class="edit-form">
+        <div class="form-item-wrapper">
+            <label class="form-label" for="title">Title</label>
+            <input id="title" class="form-input title-field" type="text" name="title" placeholder="Enter a meaningful title">
+        </div>
+        <div class="form-item-wrapper">
+            <label class="form-label" for="description">Description</label>
+            <textarea id="description" class="form-input description-field" placeholder="Enter a detailed description"></textarea>
+        </div>
+        <div class="form-item-wrapper">
+            <div class="form-item-small-wrapper">
+                <label class="form-label-small" for="importance">Importance</label>
+                <input id="importance" class="form-input-small importance-field" type="text" name="importance" placeholder="* * * * *">
+            </div>
+            <div class="form-item-small-wrapper">
+                <label class="form-label-small" for="colorlabel">Color</label>
+                <input id="colorlabel" class="form-input-small color-field" type="text" name="color" placeholder="none">
+            </div>
+        </div>
+        <div class="form-item-wrapper">
+            <div class="form-item-small-wrapper">
+                <label class="form-label-small" for="duedate">Due Date</label>
+                <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="">
+            </div>
+            <div class="form-item-small-wrapper">
+                <label class="form-label-small" for="state">State</label>
+                <input id="state" class="form-input-small state-field" type="text" name="state" readonly="">
+            </div>
+        </div>
+        <div class="form-item-wrapper">
+            ID, creation date, last mod date
+        </div>
+        <div class="form-item-wrapper">
+            <div>
+                <button>&#10094;</button>
+                <button>&#10095;</button>
+            </div>
+            <div>
+                <button>Save</button>
+                <button>Cancel</button>
+            </div>
+        </div>
+    </form>
+</main>
+<aside class="main-aside">
+    <p>here could be some help-text of it could be wider and then it could be used as the edit pane</p>
+</aside>
+<footer class="page-footer">
+    <div class="footer-top-link-container">
+        <a class="footer-top-link" href="#top"><span>&#10140</span></a>
+    </div>
+    <p>&copy; Tobias Hanselmann</p>
+    <p>v1.0 16.05.2021</p>
+</footer>
+<script src="scripts/index.js" type="module"></script>
+</body>
+</html>
