@@ -9,6 +9,15 @@ const constTODOs = [
 ];
 let currentSortAttribute = "id";
 
+const constThemes = [
+    {className: ""},
+    {className: "dark-theme"},
+    {className: "neon-theme"},
+    {className: "psycho-theme"},
+    {className: "debug-theme"},
+];
+let currentTheme = constThemes[0];
+
 /* *************************************
   Sorting stuff
  ************************************* */
@@ -197,20 +206,33 @@ function bubbledClickItemEventHandler(event) {
     }
 }
 
+function themeChangeEventHandler(event) {
+    const newTheme = constThemes[event.target.selectedIndex];
+    if (currentTheme.className.length > 0) {
+        document.body.classList.toggle(currentTheme.className);
+    }
+    if (newTheme.className.length > 0) {
+        document.body.classList.toggle(newTheme.className);
+    }
+    currentTheme = newTheme;
+}
+
 function attachGlobalEventListeners() {
-    const themeButton = document.getElementById("theme-toggle-button");
-    themeButton.addEventListener("click", () => {
-        document.body.classList.toggle("debug-theme");
-    });
+    const themeChangeButton = document.querySelector(".theme-changer");
+    themeChangeButton.addEventListener("change", themeChangeEventHandler);
 
     const sortButtonsElement = document.querySelector(".sort-buttons");
-    sortButtonsElement.addEventListener("click", bubbledClickSortButtonsEventHandler);
-
+    if (sortButtonsElement) {
+        sortButtonsElement.addEventListener("click", bubbledClickSortButtonsEventHandler);
+    }
     const createNewElement = document.querySelector(".new-button");
-    createNewElement.addEventListener("click", createNewItem);
-
+    if (createNewElement) {
+        createNewElement.addEventListener("click", createNewItem);
+    }
     const entryListElement = document.querySelector(".todos-list");
-    entryListElement.addEventListener("click", bubbledClickItemEventHandler);
+    if (entryListElement) {
+        entryListElement.addEventListener("click", bubbledClickItemEventHandler);
+    }
 }
 
 /* *********************

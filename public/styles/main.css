@@ -18,6 +18,18 @@
 }
 
 /* themes variables overwrite */
+.dark-theme {
+    --header-background-color: rgba(0, 0, 0, 1);
+}
+
+.neon-theme {
+    --header-background-color: rgba(0, 255, 255, 1);
+}
+
+.psycho-theme {
+    --header-background-color: rgba(255, 0, 255, 1);
+}
+
 .debug-theme {
     --body-background-color: rgba(255, 255, 128, 1);
     --header-background-color: rgba(255, 0, 0, 0.5);
@@ -97,8 +109,9 @@ body {
     background: var(--button-hover-color);
 }
 
-.theme-button {
+.theme-changer {
     background: var(--button-background-color);
+    text-decoration: none;
     width: 8rem;
 }
 
