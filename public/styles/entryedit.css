@@ -1,0 +1,59 @@
+.edit-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.form-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-label {
+    width: 20%;
+}
+
+.form-input {
+    width: 80%;
+}
+
+.form-item-small-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.form-label-small {
+    width: 40%;
+}
+
+.form-input-small {
+    width: 40%;
+}
+
+.description-field {
+    resize: none;
+    height: 5rem;
+}
+
+.nxtprev_btn {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 50%;
+}
+
+.nxtprev_btn:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #f1f1f1;
+    color: white;
+}

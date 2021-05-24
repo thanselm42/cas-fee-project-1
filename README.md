@@ -2,9 +2,7 @@
 Demo version: https://thanselm42.github.io/cas-fee-project-1/public/
 
 -----
-## Original emplate MD below
-
----
+## Original template-readme below
 Die Vorlage beinhaltet CSS/HTML/JS-Linter. Diese sind konfiguriert. 
 
 Getting Started
