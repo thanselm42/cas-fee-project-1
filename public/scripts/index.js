@@ -146,9 +146,9 @@ function createListItem(todo) {
                        name="todos_list_entry_is_completed"
                        data-edit-entry="complete" ${getIsCompletedElement(todo.isCompleted)}
                        data-item-id="${todo.id}"> <!-- &#9989 -->
-                <button class="list-entry-btn" data-edit-entry="modify" data-item-id="${todo.id}" type="button">&#9998
+                <button class="list-entry-btn action-button" data-edit-entry="modify" data-item-id="${todo.id}" type="button">&#9998
                 </button>
-                <button class="list-entry-btn" data-edit-entry="delete" data-item-id="${todo.id}" type="button">&#128465
+                <button class="list-entry-btn action-button" data-edit-entry="delete" data-item-id="${todo.id}" type="button">&#128465
                 </button>
             </div>
         </div>

@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/entrycolors.css">
   <link rel="stylesheet" href="styles/entrylist.css">
+  <link rel="stylesheet" href="styles/tooltip.css">
 </head>
 <body>
 <header class="page-header">
-    <!-- https://www.w3schools.com/howto/howto_css_tooltip.asp -->
   <nav class="page-nav">
     <ul class="page-nav-list">
       <li id="top" class="page-nav-list-item">
@@ -24,7 +24,7 @@
     </ul>
   </nav>
   <h1 class="page-title">My Note App</h1>
-  <button type="button" id="theme-toggle-button" class="theme-button">Toggle Theme</button>
+    <button type="button" id="theme-toggle-button" class="theme-button action-button">Toggle Theme</button>
 </header>
 <main class="page-main">
   <div class="overview-pane">
@@ -56,15 +56,15 @@
     </div>
     <div class="sort-buttons">
       <p>Sort by: </p>
-      <button class="sort-button" data-sort-by="title" data-sort-asc="true" type="button">Title</button>
-      <button class="sort-button" data-sort-by="dueDate" data-sort-asc="false" type="button">Due date</button>
-      <button class="sort-button" data-sort-by="cDate" data-sort-asc="false" type="button">Creation date</button>
-      <button class="sort-button" data-sort-by="importance" data-sort-asc="false" type="button">Importance</button>
-      <button class="sort-button" data-sort-by="isCompleted" data-sort-asc="false" type="button">Completed</button>
+      <button class="sort-button action-button" data-sort-by="title" data-sort-asc="true" type="button">Title</button>
+      <button class="sort-button action-button" data-sort-by="dueDate" data-sort-asc="false" type="button">Due date</button>
+      <button class="sort-button action-button" data-sort-by="cDate" data-sort-asc="false" type="button">Creation date</button>
+      <button class="sort-button action-button" data-sort-by="importance" data-sort-asc="false" type="button">Importance</button>
+      <button class="sort-button action-button" data-sort-by="isCompleted" data-sort-asc="false" type="button">Completed</button>
       <!-- https://www.w3schools.com/howto/howto_js_sort_list.asp-->
     </div>
     <div>
-      <button class="new-button" type="button">&#10010</button>
+      <button class="new-button action-button" type="button">&#10010</button>
     </div>
     <div class="todos-list-container">
       <ul class="todos-list">
