@@ -12,6 +12,7 @@
 .sort-buttons {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    margin-left: 5px;
 }
 
 .sort-button {
@@ -19,9 +20,43 @@
     width: 8rem;
 }
 
+.sort-button[data-is-active="true"] {
+    color: var(--active-button-text-color);
+    background: var(--active-button-background-color);
+}
+
+.sort-button[data-sort-asc="true"]::after {
+    content: " \025B2";
+}
+
+.sort-button[data-sort-asc="false"]::after {
+    content: " \025BC";
+}
+
+.sort-changer option[data-sort-asc="true"] {
+    background: green;
+}
+
+.sort-changer option[data-sort-asc="false"] {
+    background: blue;
+}
+
+.add-and-filter-pane {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .new-button {
     padding-left: 0.4rem;
     padding-right: 0.4rem;
+    color: var(--important-button-text-color);
+    background: var(--important-button-background-color);
+}
+
+.new-button:hover {
+    background: var(--important-button-hover-color);
 }
 
 .list-entry-container {

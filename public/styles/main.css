@@ -16,6 +16,11 @@
     --button-hover-color: rgba(93, 147, 186, 1);
     --button-border-color: rgb(142, 142, 142);
     --button-border-shadow: none;
+    --active-button-text-color: rgba(255, 255, 255, 1);
+    --active-button-background-color: rgba(30, 80, 255, 0.8);
+    --important-button-text-color: var(--active-button-text-color);
+    --important-button-background-color: rgba(0, 180, 50, 1);
+    --important-button-hover-color: rgba(0, 255, 0, 1);
     --entry-background-color: rgba(230, 230, 230, 1);
     --entry-description-background-color: rgba(255, 255, 255, 0.2);
     --entry-border: none;

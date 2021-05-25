@@ -7,7 +7,10 @@ const constTODOs = [
     {id: 3, title: "Putzen", description: "Staubsaugen und Fensterputzen", importance: 2, cDate: 1621797680000, dueDate: 1621962800000, color: 4, isCompleted: true},
     {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, cDate: 1621797600000, dueDate: -1, color: 3, isCompleted: false},
 ];
-let currentSortAttribute = "id";
+let currentSortAttribute = "title";
+let currentSortOrderAsc = true;
+let currentSortButton;
+let currentShowCompleted = true;
 
 const constThemes = [
     {className: ""},
@@ -94,18 +97,12 @@ function sortItemsBy(items, sort, asc) {
     return [...items].sort((a, b) => sortFn(a[sort], b[sort]));
 }
 
-/*
-    const buttonSongId = event.target.dataset.songId;
-    if (buttonSongId) {
-        const beforeSongIndex = getSongIndex(buttonSongId);
-        const buttonDelta = Number(event.target.dataset.delta);
-        rate(buttonSongId, buttonDelta);
-        const afterSongIndex = getSongIndex(buttonSongId);
-        if (afterSongIndex !== beforeSongIndex) {
-            wiggleSongElement(buttonSongId);
-        }
+function filterCompleted(items, showCompleted) {
+    if (showCompleted) {
+        return items;
     }
- */
+    return items.filter((a) => a.isCompleted === false);
+}
 
 function createNewItem() {
     console.log("create new item");
@@ -138,6 +135,10 @@ function getHumanReadableDate(dataAsNumber) {
 function getIsCompletedElement(isCompleted) {
     if (isCompleted) { return "checked=\"\""; }
     return "";
+}
+
+function getActiveSortButton() {
+    return document.querySelector(".sort-button[data-is-active=\"true\"]");
 }
 
 function createListItem(todo) {
@@ -178,10 +179,16 @@ function bubbledClickSortButtonsEventHandler(event) {
     const btnDataSet = event.target.dataset;
     const sortAsc = (btnDataSet.sortAsc === "true");
     btnDataSet.sortAsc = !sortAsc;
-
+    btnDataSet.isActive = "true";
+    if (event.target !== currentSortButton) {
+        currentSortButton.dataset.isActive = "false";
+        currentSortButton = event.target;
+    }
+    currentSortOrderAsc = !sortAsc;
     if (btnDataSet.sortBy) {
         currentSortAttribute = btnDataSet.sortBy;
-        renderItemList(sortItemsBy(constTODOs, currentSortAttribute, sortAsc));
+        renderItemList(filterCompleted(sortItemsBy(constTODOs,
+            currentSortAttribute, currentSortOrderAsc), currentShowCompleted));
     }
 }
 
@@ -216,6 +223,12 @@ function themeChangeEventHandler(event) {
     }
     currentTheme = newTheme;
 }
+function showCompletedEventHandler(event) {
+    currentShowCompleted = event.target.checked;
+    renderItemList(filterCompleted(sortItemsBy(
+        constTODOs, currentSortAttribute, currentSortOrderAsc,
+    ), currentShowCompleted));
+}
 
 function attachGlobalEventListeners() {
     const themeChangeButton = document.querySelector(".theme-changer");
@@ -229,6 +242,10 @@ function attachGlobalEventListeners() {
     if (createNewElement) {
         createNewElement.addEventListener("click", createNewItem);
     }
+    const showCompletedSwitchElement = document.querySelector(".show-completed-switch");
+    if (showCompletedSwitchElement) {
+        showCompletedSwitchElement.addEventListener("click", showCompletedEventHandler);
+    }
     const entryListElement = document.querySelector(".todos-list");
     if (entryListElement) {
         entryListElement.addEventListener("click", bubbledClickItemEventHandler);
@@ -238,5 +255,6 @@ function attachGlobalEventListeners() {
 /* *********************
  Attach Event-Listeners
  */
+currentSortButton = getActiveSortButton();
 attachGlobalEventListeners();
-renderItemList(sortItemsBy(constTODOs, currentSortAttribute, true));
+renderItemList(sortItemsBy(constTODOs, currentSortAttribute, currentSortOrderAsc));
