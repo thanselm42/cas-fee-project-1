@@ -1,12 +1,12 @@
 /* variables declaration */
 :root {
-    --body-background-color: rgba(200, 200, 200, 1);
+    --body-background-color: rgba(255, 255, 255, 1);
     --header-background-color: rgba(255, 255, 255, 1);
     --header-text-color: rgba(0, 0, 0, 1);
     --header-background-image: none;
     --content-background-color: rgba(255, 255, 255, 1);
     --content-text-color: rgba(0, 0, 0, 1);
-    --aside-background-color: rgba(255, 255, 255, 1);
+    --aside-background-color: rgba(245, 245, 245, 1);
     --aside-text-color: rgba(255, 255, 255, 1);
     --footer-background-color: var(--header-background-color);
     --footer-text-color: var(--header-text-color);
@@ -18,6 +18,9 @@
     --button-border-shadow: none;
     --entry-background-color: rgba(230, 230, 230, 1);
     --entry-description-background-color: rgba(255, 255, 255, 0.2);
+    --entry-border: none;
+    --entry-border1: 1px solid rgba(180, 180, 180, 1);
+    --entry-border-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
     --button-animation-name: none;
     --animation: none;
     --header-animation: none;
@@ -77,19 +80,32 @@
 
 /* themes variables overwrite */
 .dark-theme {
+    --body-background-color: rgba(0, 0, 0, 1);
     --header-text-color: rgba(255, 255, 255, 1);
     --header-background-color: rgba(0, 0, 0, 1);
+    --content-text-color: rgba(255, 255, 255, 1);
+    --content-background-color: var(--header-background-color);
+    --aside-text-color: var(--header-text-color);
+    --aside-background-color: var(--header-background-color);
+    --footer-text-color: var(--header-text-color);
+    --footer-background-color: var(--header-background-color);
+    --button-text-color: var(--header-text-color);
+    --button-background-color: var(--header-background-color);
+    --button-hover-color: rgba(20, 20, 128, 1);
+    --button-border-color: var(--header-text-color);
+    --entry-border-shadow: 1px 3px 4px 1px rgba(255, 255, 255, 0.2), 0 3px 10px 0 rgba(255, 255, 255, 0.19);
 }
 
 .neon-theme {
     --header-text-color: rgba(230, 255, 255, 1);
     --header-background-color: rgba(1, 10, 5, 1);
     --body-background-color: var(--header-background-color);
+    --content-text-color: var(--header-text-color);
     --content-background-color: var(--header-background-color);
-    --aside-background-color: var(--header-background-color);
     --aside-text-color: var(--header-text-color);
-    --footer-background-color: var(--header-background-color);
+    --aside-background-color: var(--header-background-color);
     --footer-text-color: var(--header-text-color);
+    --footer-background-color: var(--header-background-color);
     --button-text-color: var(--header-text-color);
     --button-background-color: var(--header-background-color);
     --button-hover-color: rgba(20, 20, 128, 1);
@@ -101,6 +117,7 @@
             0 0 0.8rem #13febca0,
             0 0 1.8rem #08e0a008,
             inset 0 0 1.3rem #08e0a0;
+    --entry-border-shadow: var(--button-border-shadow);
     --animation: none;
     --header-animation: flicker 1.5s infinite alternate;
 }
@@ -130,6 +147,7 @@
     box-sizing: border-box;
     margin: 0;
     font-family: var(--global-font);
+    color: var(--content-text-color);
 }
 
 body {
@@ -154,7 +172,6 @@ body {
     align-items: center;
     background: var(--header-background-color);
     background-image: var(--header-background-image);
-    animation: var(--header-animation);
 }
 
 .page-nav-list {
@@ -175,6 +192,8 @@ body {
 
 .page-title {
     color: var(--header-text-color);
+    font-weight: 400;
+    animation: var(--header-animation);
 }
 
 .action-button {
