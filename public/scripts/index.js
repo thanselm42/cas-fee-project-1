@@ -121,7 +121,20 @@ function setCompleteState(id, isCompleted) {
 }
 
 function createImportanceElement(importance) {
-    return "&#10025 &#10025 &#10025 &#10025 &#10025";
+    let ret = "";
+
+    for (let i = 1; i < 6; i++) {
+        ret += "<span class=\"rating-star\"";
+        if (i <= importance) {
+            ret += ` data-rating="${importance}"`;
+            ret += ">&#9733;";
+        } else {
+            ret += ">&#9734;";
+        }
+        ret += "</span>";
+    }
+
+    return ret;
 }
 
 function getHumanReadableDate(dataAsNumber) {
