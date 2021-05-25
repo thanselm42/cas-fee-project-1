@@ -27,6 +27,7 @@
         <option value="defaultTheme">Default-Theme</option>
         <option value="darkTheme">Dark-Theme</option>
         <option value="neonTheme">Neon-Theme</option>
+        <option value="psychoTheme">Psycho-Theme</option>
         <option value="debugTheme">Debug-Theme</option>
     </select>
 </header>
@@ -55,6 +56,7 @@
                 <label class="form-label-small" for="duedate">Due Date</label>
                 <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="">
             </div>
+            <div></div>
             <div class="form-item-small-wrapper">
                 <label class="form-label-small" for="state">State</label>
                 <input id="state" class="form-input-small state-field" type="text" name="state" readonly="">
@@ -65,12 +67,12 @@
         </div>
         <div class="form-item-wrapper">
             <div>
-                <button>&#10094;</button>
-                <button>&#10095;</button>
+                <button class="action-button nxtprev_btn">&#10094;</button>
+                <button class="action-button nxtprev_btn">&#10095;</button>
             </div>
             <div>
-                <button>Save</button>
-                <button>Cancel</button>
+                <button class="action-button">Save</button>
+                <button class="action-button">Cancel</button>
             </div>
         </div>
     </form>

@@ -27,6 +27,7 @@
 .list-entry-container {
     border: red;
     border-style: solid;
+    border-width: 1px;
     margin: 5px;
     padding: 5px;
     display: flex;
@@ -57,6 +58,7 @@
 .list-entry-description {
     border: lightslategray;
     border-style: solid;
+    border-width: 1px;
     background: var(--entry-description-background-color);
     resize: none;
     width: 100%;
