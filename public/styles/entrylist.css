@@ -87,7 +87,8 @@
 }
 
 .list-entry-due-date {
-    width: 10rem;
+    width: 12rem;
+    text-align: right;
 }
 
 .list-entry-description {
