@@ -10,7 +10,6 @@
     margin-top: 1rem;
     margin-right: 1rem;
     margin-left: 1rem;
-    justify-content: space-between;
 }
 
 .form-label {
@@ -21,22 +20,21 @@
     width: 80%;
 }
 
-.form-item-small-wrapper {
-    display: flex;
-    width: 100%;
-}
-
-.form-label-small {
-    width: 40%;
-}
-
 .form-input-small {
-    width: 40%;
+    width: 15rem;
+}
+
+.form-input-very-small {
+    width: 5rem;
 }
 
 .description-field {
     resize: none;
     height: 5rem;
+}
+
+.form-item-footer {
+    justify-content: space-between;
 }
 
 .nxtprev_btn {

@@ -7,7 +7,10 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.svg">
     <link rel="stylesheet" href="styles/roboto-fonts.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/entrycolors.css">
     <link rel="stylesheet" href="styles/entryedit.css">
+    <link rel="stylesheet" href="styles/ratingstars.css">
 </head>
 <body>
 <header class="page-header">
@@ -39,33 +42,41 @@
         </div>
         <div class="form-item-wrapper">
             <label class="form-label" for="description">Description</label>
-            <textarea id="description" class="form-input description-field" placeholder="Enter a detailed description"></textarea>
+            <textarea id="description" class="form-input description-field" name="description" placeholder="Enter a detailed description"></textarea>
         </div>
         <div class="form-item-wrapper">
-            <div class="form-item-small-wrapper">
-                <label class="form-label-small" for="importance">Importance</label>
-                <input id="importance" class="form-input-small importance-field" type="text" name="importance" placeholder="* * * * *">
-            </div>
-            <div class="form-item-small-wrapper">
-                <label class="form-label-small" for="colorlabel">Color</label>
-                <input id="colorlabel" class="form-input-small color-field" type="text" name="color" placeholder="none">
-            </div>
+            <label class="form-label" for="importance">Importance</label>
+            <input id="importance" class="form-input-small importance-field" type="text" name="importance" placeholder="* * * * *">
         </div>
         <div class="form-item-wrapper">
-            <div class="form-item-small-wrapper">
-                <label class="form-label-small" for="duedate">Due Date</label>
+            <label class="form-label" for="colorlabelchooser">Color</label>
+            <select id="colorlabelchooser" class="form-input-very-small" name="colorlabel">
+                <option class="list-entry-color-0" value="0"></option>
+                <option class="list-entry-color-1" value="1"></option>
+                <option class="list-entry-color-2" value="2"></option>
+                <option class="list-entry-color-3" value="3"></option>
+                <option class="list-entry-color-4" value="4"></option>
+            </select>
+<!--                <input id="colorlabel" class="form-input-small color-field" type="text" name="color" placeholder="none"> -->
+        </div>
+        <div class="form-item-wrapper">
+                <label class="form-label" for="duedate">Due Date</label>
                 <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="">
-            </div>
-            <div></div>
-            <div class="form-item-small-wrapper">
-                <label class="form-label-small" for="state">State</label>
-                <input id="state" class="form-input-small state-field" type="text" name="state" readonly="">
-            </div>
+        </div>
+        <div class ="form-item-wrapper">
+            <fieldset class="rating">
+                <legend>Please rate:</legend>
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+            </fieldset>
         </div>
         <div class="form-item-wrapper">
             ID, creation date, last mod date
         </div>
-        <div class="form-item-wrapper">
+        <div class="form-item-wrapper form-item-footer">
             <div>
                 <button class="action-button nxtprev_btn">&#10094;</button>
                 <button class="action-button nxtprev_btn">&#10095;</button>
