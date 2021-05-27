@@ -77,13 +77,19 @@
             ID, creation date, last mod date
         </div>
         <div class="form-item-wrapper form-item-footer">
-            <div>
-                <button class="action-button nxtprev_btn">&#10094;</button>
-                <button class="action-button nxtprev_btn">&#10095;</button>
+            <div class="item-nav-buttons">
+                <button class="action-button nxtprev_btn" data-nav-element="prev">&#10094;</button>
+                <button class="action-button nxtprev_btn" data-nav-element="next">&#10095;</button>
             </div>
-            <div>
-                <button class="action-button">Save</button>
-                <button class="action-button">Cancel</button>
+            <div class="action-buttons">
+                <div>
+                    <button class="action-button" data-action-command="save">Save</button>
+                    <button class="action-button" data-action-command="saveAndClose">Save and close</button>
+                </div>
+                <div>
+                    <button class="action-button" data-action-command="cancel">Cancel</button>
+                    <button class="action-button" data-action-command="cancelAndClose">Cancel and close</button>
+                </div>
             </div>
         </div>
     </form>

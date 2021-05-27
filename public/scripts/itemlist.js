@@ -100,15 +100,15 @@ function createNewItem() {
 }
 
 function deleteItem(id) {
-    console.log("deleting: " + id);
+    console.log(`deleting: ${id}`);
 }
 
 function modifyItem(id) {
-    console.log("modifying: " + id);
+    console.log(`modifying: ${id}`);
 }
 
 function setCompleteState(id, isCompleted) {
-    console.log("set completion state for " + id + " to " + isCompleted);
+    console.log(`set completion state for ${id} to ${isCompleted}`);
 }
 
 function createImportanceElement(importance) {
@@ -124,7 +124,6 @@ function createImportanceElement(importance) {
         }
         ret += "</span>";
     }
-
     return ret;
 }
 
@@ -182,7 +181,7 @@ function renderItemList(todos) {
 function bubbledClickSortButtonsEventHandler(event) {
     const btnDataSet = event.target.dataset;
     const sortAsc = (btnDataSet.sortAsc === "true");
-    btnDataSet.sortAsc = !sortAsc;
+    btnDataSet.sortAsc = (!sortAsc).toString();
     btnDataSet.isActive = "true";
     if (event.target !== currentSortButton) {
         currentSortButton.dataset.isActive = "false";
@@ -224,7 +223,7 @@ function showCompletedEventHandler(event) {
     ), currentShowCompleted));
 }
 
-function attachGlobalEventListeners() {
+function attachEventListeners() {
     const sortButtonsElement = document.querySelector(".sort-buttons");
     if (sortButtonsElement) {
         sortButtonsElement.addEventListener("click", bubbledClickSortButtonsEventHandler);
@@ -244,5 +243,5 @@ function attachGlobalEventListeners() {
 }
 
 currentSortButton = getActiveSortButton();
-attachGlobalEventListeners();
+attachEventListeners();
 renderItemList(sortItemsBy(constTODOs, currentSortAttribute, currentSortOrderAsc));
