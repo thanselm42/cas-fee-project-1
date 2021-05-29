@@ -1,5 +1,8 @@
 .edit-form {
-    width: 100%;
+    background: white;
+    width: 40rem;
+    height: 27rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -31,6 +34,13 @@
 .description-field {
     resize: none;
     height: 5rem;
+}
+
+.item-detail-infos {
+    color: rgba(128, 128, 128, 1);
+    font-weight: 300;
+    font-size: small;
+    font-style: italic;
 }
 
 .form-item-footer {

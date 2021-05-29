@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles/themes.css">
   <link rel="stylesheet" href="styles/entrycolors.css">
   <link rel="stylesheet" href="styles/entrylist.css">
+  <link rel="stylesheet" href="styles/entryedit.css">
   <link rel="stylesheet" href="styles/ratingstars.css">
   <link rel="stylesheet" href="styles/tooltip.css">
 </head>
@@ -70,7 +71,68 @@
   <p>&copy; Tobias Hanselmann</p>
   <p>v1.0 16.05.2021</p>
 </footer>
-<script src="scripts/index.js" type="module"></script>
-<script src="scripts/itemlist.js" type="module"></script>
+<div class="edit-pane" data-is-popup-visible="false">
+  <form class="edit-form">
+    <div class="edit-form-wrapper">
+      <div class="form-item-wrapper">
+        <label class="form-label" for="title">Title</label>
+        <input id="title" class="form-input title-field" type="text" name="title" placeholder="Enter a meaningful title">
+      </div>
+      <div class="form-item-wrapper">
+        <label class="form-label" for="description">Description</label>
+        <textarea id="description" class="form-input description-field" name="description" placeholder="Enter a detailed description"></textarea>
+      </div>
+      <div class="form-item-wrapper">
+        <label class="form-label" for="importance">Importance</label>
+        <input id="importance" class="form-input-small importance-field" type="text" name="importance" placeholder="* * * * *">
+      </div>
+      <div class="form-item-wrapper">
+        <label class="form-label" for="colorlabelchooser">Color</label>
+        <select id="colorlabelchooser" class="form-input-very-small" name="colorlabel">
+          <option class="list-entry-color-0" value="0"></option>
+          <option class="list-entry-color-1" value="1"></option>
+          <option class="list-entry-color-2" value="2"></option>
+          <option class="list-entry-color-3" value="3"></option>
+          <option class="list-entry-color-4" value="4"></option>
+        </select>
+        <!--                <input id="colorlabel" class="form-input-small color-field" type="text" name="color" placeholder="none"> -->
+      </div>
+      <div class="form-item-wrapper">
+        <label class="form-label" for="duedate">Due Date</label>
+        <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="">
+      </div>
+      <div class ="form-item-wrapper">
+        <fieldset class="rating">
+          <legend>Please rate:</legend>
+          <input type="radio" id="star5" name="importance" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+          <input type="radio" id="star4" name="importance" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+          <input type="radio" id="star3" name="importance" value="3" /><label for="star3" title="Meh">3 stars</label>
+          <input type="radio" id="star2" name="importance" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+          <input type="radio" id="star1" name="importance" value="1" checked/><label for="star1" title="Sucks big time">1 star</label>
+        </fieldset>
+      </div>
+      <div class="form-item-wrapper item-detail-infos">
+        ID, creation date, last mod date
+      </div>
+    </div>
+    <div class="form-item-wrapper form-item-footer">
+      <div class="item-nav-buttons">
+        <button class="action-button nxtprev_btn" data-nav-element="prev">&#10094;</button>
+        <button class="action-button nxtprev_btn" data-nav-element="next">&#10095;</button>
+      </div>
+      <div class="action-buttons">
+        <div>
+          <button class="action-button" data-action-command="save">Save</button>
+          <button class="action-button" data-action-command="saveAndClose">Save and close</button>
+        </div>
+        <div>
+          <button class="action-button" data-action-command="cancel">Cancel</button>
+          <button class="action-button" data-action-command="cancelAndClose">Cancel and close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<script src="scripts/controllers/main-controller.js" type="module"></script>
 </body>
 </html>
