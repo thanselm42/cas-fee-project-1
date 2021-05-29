@@ -2,7 +2,7 @@ import getHumanReadableDate from "../utils.js";
 import createAdditionalItemInfoString from "./common.js";
 
 function createColorChooser(todo) {
-    let ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small\" name=\"colorlabel\">";
+    let ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small form-color-chooser\" name=\"colorlabel\" required>";
 
     for (let i = 0; i < 5; i++) {
         ret += `    <option class="list-entry-color-${i}" value="${i}"`;
@@ -32,7 +32,7 @@ export default function createEditPopUp(todo) {
     return `
         <div class="form-item-wrapper">
         <label class="form-label" for="title">Title</label>
-        <input id="title" class="form-input title-field" type="text" name="title" placeholder="Enter a meaningful title" value="${todo.title}">
+        <input id="title" class="form-input title-field" type="text" name="title" placeholder="Enter a meaningful title" value="${todo.title}" required>
       </div>
       <div class="form-item-wrapper">
         <label class="form-label" for="description">Description</label>
@@ -40,11 +40,11 @@ export default function createEditPopUp(todo) {
       </div>
       <div class="form-item-wrapper">
         <label class="form-label" for="importance">Importance</label>
-        <input id="importance" class="form-input-small importance-field" type="text" name="importance" placeholder="* * * * *" value="${todo.importance}">
+        <input id="importance" class="form-input-small importance-field" type="number" name="importance" value="${todo.importance}" required>
       </div>
       <div class="form-item-wrapper">
         <label class="form-label" for="colorlabelchooser">Color</label>
-        ${createColorChooser()}
+        ${createColorChooser(todo)}
         <!--                <input id="colorlabel" class="form-input-small color-field" type="text" name="color" placeholder="none"> -->
       </div>
       <div class="form-item-wrapper">
@@ -58,7 +58,7 @@ export default function createEditPopUp(todo) {
         </fieldset>
       </div>
       <div class="form-item-wrapper">
-        <p>${createAdditionalItemInfoString(todo)}</p>
+        <p class="item-detail-infos">${createAdditionalItemInfoString(todo)}</p>
       </div>
         `;
 }

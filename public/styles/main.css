@@ -29,6 +29,7 @@
     --button-animation-name: none;
     --animation: none;
     --header-animation: none;
+    --color-chooser-background-color: var(--content-background-color);
 }
 
 /* global stuff */

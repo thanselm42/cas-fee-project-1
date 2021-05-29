@@ -15,24 +15,23 @@ export default class NoteController {
         this.currentTheme = this.themes[0];
 
         this.entryModificationType = {
-            complete: (id, state) => setCompleteState(id, state),
-            modify: (id) => modifyItem(id),
-            delete: (id) => deleteItem(id),
+            complete: (id, state) => NoteController.setCompleteState(id, state),
+            modify: (id) => this.editItem(id),
+            delete: (id) => this.deleteItem(id),
         };
 
         this.currentSortAttribute = "title";
         this.currentSortOrderAsc = true;
         this.currentSortButton = null;
         this.currentHideCompleted = false;
+        this.currentModifyingItem = null;
     }
 
     initialize() {
-        this.currentSortButton = this.getActiveSortButton();
+        this.currentSortButton = NoteController.getActiveSortButton();
         this.initEventHandlers();
         noteService.load();
-        this.renderItemList(noteService.getNotes(
-            this.currentSortAttribute, this.currentSortOrderAsc, this.currentHideCompleted,
-        ));
+        this.renderItemList();
     }
 
     initEventHandlers() {
@@ -62,27 +61,20 @@ export default class NoteController {
                 this.currentSortOrderAsc = !sortAsc;
                 if (btnDataSet.sortBy) {
                     this.currentSortAttribute = btnDataSet.sortBy;
-                    this.renderItemList(noteService.getNotes(
-                        this.currentSortAttribute,
-                        this.currentSortOrderAsc,
-                        this.currentHideCompleted,
-                    ));
+                    this.renderItemList();
                 }
             });
         }
         const createNewElement = document.querySelector(".new-button");
         if (createNewElement) {
-            createNewElement.addEventListener("click", (event) => {
-                console.log(event);
-            });
+            // eslint-disable-next-line no-unused-vars
+            createNewElement.addEventListener("click", (event) => { this.createNewItem(); });
         }
         const showCompletedSwitchElement = document.querySelector(".show-completed-switch");
         if (showCompletedSwitchElement) {
             showCompletedSwitchElement.addEventListener("click", (event) => {
                 this.currentHideCompleted = !event.target.checked;
-                this.renderItemList(noteService.getNotes(
-                    this.currentSortAttribute, this.currentSortOrderAsc, this.currentHideCompleted,
-                ));
+                this.renderItemList();
             });
         }
         const entryListElement = document.querySelector(".todos-list");
@@ -103,10 +95,37 @@ export default class NoteController {
             });
         }
 
+        const colorChooserElement = document.querySelector(".form-color-chooser");
+        if (colorChooserElement) {
+            colorChooserElement.addEventListener("change", (event) => {
+                console.log(`Chooser! ${event}`);
+            });
+        }
+
+        // actions from the edit-pane-buttons
         const actionButtonsElement = document.querySelector(".action-buttons");
         if (actionButtonsElement) {
             actionButtonsElement.addEventListener("click", (event) => {
-                console.log(event.target);
+                switch (event.target.dataset.actionCommand) {
+                case "save":
+                    this.saveItem();
+                    NoteController.renderItemEditPopUp(this.currentModifyingItem);
+                    break;
+                case "saveAndClose":
+                    this.saveItem();
+                    NoteController.hideEditPopUp();
+                    this.renderItemList();
+                    break;
+                case "cancel":
+                    NoteController.renderItemEditPopUp(this.currentModifyingItem);
+                    break;
+                case "cancelAndClose":
+                    NoteController.hideEditPopUp();
+                    this.renderItemList();
+                    break;
+                default:
+                    break;
+                }
                 event.preventDefault();
             });
         }
@@ -118,19 +137,135 @@ export default class NoteController {
                 event.preventDefault();
             });
         }
+
+        document.addEventListener("keypress", (ev) => {
+            if (ev.key === "+" && !NoteController.isEditPopUpVisible()) {
+                this.createNewItem();
+            }
+        });
+
+        document.addEventListener("keydown", (ev) => {
+            if (ev.key === "Escape" && NoteController.isEditPopUpVisible()) {
+                NoteController.hideEditPopUp();
+                this.renderItemList();
+            }
+            if (ev.code === "Space" && !NoteController.isEditPopUpVisible()) {
+                this.currentHideCompleted = !this.currentHideCompleted;
+                if (this.currentHideCompleted) {
+                    document.querySelector(".show-completed-switch").removeAttribute("checked");
+                } else {
+                    document.querySelector(".show-completed-switch").setAttribute("checked", "true");
+                }
+                this.renderItemList();
+            }
+        });
     }
 
-    getActiveSortButton() {
+    static setCompleteState(id, state) {
+        const note = noteService.getNoteById(id);
+        note.isCompleted = state;
+        noteService.updateNote(note);
+        // re-rendering is not necessary, because the checkbox has already the correct state
+    }
+
+    createNewItem() {
+        console.log("create new item");
+        const note = noteService.createNewNote();
+        this.currentModifyingItem = note;
+        NoteController.showEditPopUp();
+        NoteController.renderItemEditPopUp(note);
+    }
+
+    editItem(id) {
+        console.log(`modifying: ${id}`);
+        const note = noteService.getNoteById(id);
+        this.currentModifyingItem = note;
+        // show edit-popup
+        NoteController.showEditPopUp();
+        NoteController.renderItemEditPopUp(note);
+    }
+
+    editNextItem() {
+
+    }
+
+    editPreviousItem() {
+
+    }
+
+    deleteItem(id) {
+        console.log(`deleting: ${id}`);
+        //   const note = noteService.getNoteById(id);
+        // show delete-popup
+        // remove note from service
+        noteService.deleteNote(id);
+        // re-render list
+        this.renderItemList();
+    }
+
+    saveItem() {
+        // TODO: validate input!!!
+        const formElement = document.querySelector(".edit-form");
+        // console.log(formElement.checkValidity()); //chck form
+        const titleElement = formElement.querySelector(".title-field");
+        this.currentModifyingItem.title = titleElement.value;
+        const descriptionElement = formElement.querySelector(".description-field");
+        this.currentModifyingItem.description = descriptionElement.value;
+        const importanceElement = formElement.querySelector(".importance-field");
+        this.currentModifyingItem.importance = importanceElement.value;
+        console.log(Number(importanceElement.value).valueOf());
+        const colorElement = formElement.querySelector(".form-color-chooser");
+        this.currentModifyingItem.color = colorElement.selectedIndex;
+        console.log(colorElement.selectedIndex);
+        const dueDateElement = formElement.querySelector(".duedate-field");
+        this.currentModifyingItem.dueDate = dueDateElement.value;
+        console.log(dueDateElement.value);
+
+        this.currentModifyingItem.modificationDate = new Date().valueOf();
+
+        // update store
+        noteService.updateNote(this.currentModifyingItem);
+    }
+
+    // return array of booleans
+    checkFormValidity() {
+    }
+
+    static isEditPopUpVisible() {
+        const isVisibleAttribute = document.querySelector(".edit-pane").getAttribute("data-is-popup-visible");
+        if (isVisibleAttribute === "true") {
+            return true;
+        }
+        return false;
+    }
+
+    static getActiveSortButton() {
         return document.querySelector(".sort-button[data-is-active=\"true\"]");
     }
 
-    renderItemList(todos) {
+    static showEditPopUp() {
+        const popupPane = document.querySelector(".edit-pane");
+        popupPane.setAttribute("data-is-popup-visible", "true");
+    }
+
+    static hideEditPopUp() {
+        const popupPane = document.querySelector(".edit-pane");
+        popupPane.setAttribute("data-is-popup-visible", "false");
+    }
+
+    renderItemList() {
+        const todos = noteService.getNotes(
+            this.currentSortAttribute,
+            this.currentSortOrderAsc,
+            this.currentHideCompleted,
+        );
+
         // get DOM-List element
         const todoListElements = document.querySelector(".todos-list");
         todoListElements.innerHTML = createListItems(todos);
     }
 
-    renderItemEditPopUp(todo) {
+    static renderItemEditPopUp(todo) {
         const todoEditElement = document.querySelector(".edit-form-wrapper");
         todoEditElement.innerHTML = createEditPopUp(todo);
     }

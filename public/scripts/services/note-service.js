@@ -25,7 +25,6 @@ export class NoteService {
     }
 
     getNotes(orderBy, orderAscending, filterBy) {
-        console.log(orderBy);
         if (this.notes.length > 0) {
             return filterCompleted(sortItemsBy(this.notes, orderBy, orderAscending), filterBy);
         }
@@ -37,31 +36,66 @@ export class NoteService {
         this.save();
     }
 
-    updateNote(note) {
-        this.notes.forEach((value, index) => {
-            if (note.id === value.id) {
-                this.notes[index] = note;
+    deleteNote(id) {
+        let nbrID;
+        if (typeof (id) !== "number") {
+            nbrID = Number(id);
+        }
+        for (let i = 0; i < this.notes.length; i++) {
+            if (this.notes[i].id === nbrID) {
+                this.notes.splice(i, 1);
+                break;
             }
-        });
+        }
         this.save();
     }
 
+    updateNote(note) {
+        let isItANewNote = true;
+        this.notes.forEach((value, index) => {
+            if (note.id === value.id) {
+                this.notes[index] = note;
+                isItANewNote = false;
+            }
+        });
+
+        if (isItANewNote) {
+            this.addNote(note);
+        } else {
+            this.save();
+        }
+    }
+
     getNoteById(id) {
-        return this.notes.filter((n) => n.id === id);
+        let nbrID;
+        if (typeof (id) !== "number") {
+            nbrID = Number(id);
+        }
+        return this.notes.filter((n) => n.id === nbrID)[0];
     }
 
     createNewNote() {
         return new Note(
-            this.notes.length + 1,
+            this.generateNewID(),
             "",
             "",
             1,
             new Date().valueOf(),
             -1,
             -1,
-            0,
+            1,
             false,
         );
+    }
+
+    generateNewID() {
+        let highestID = 0;
+        for (let i = 0; i < this.notes.length; i++) {
+            if (this.notes[i].id > highestID) {
+                highestID = this.notes[i].id;
+            }
+        }
+        return ++highestID;
     }
 }
 export const noteService = new NoteService();

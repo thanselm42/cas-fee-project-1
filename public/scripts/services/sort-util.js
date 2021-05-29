@@ -59,7 +59,6 @@ const sortTypeDesc = {
 };
 
 export function sortItemsBy(items, sort, asc) {
-    console.log(sort);
     let sortFn;
     if (asc) {
         sortFn = sortTypeAsc[typeof (items[0][sort])];

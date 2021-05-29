@@ -1,3 +1,4 @@
+import createAdditionalItemInfoString from "./common.js";
 import getHumanReadableDate from "../utils.js";
 
 function createImportanceElement(importance) {
@@ -30,6 +31,7 @@ function createListItem(todo) {
                 <p class="list-entry-importance">${createImportanceElement(todo.importance)}</p>
                 <p class="list-entry-due-date">${getHumanReadableDate(todo.dueDate)}</p>
                 <textarea class="list-entry-description" readOnly="">${todo.description}</textarea>
+                <p class="item-detail-infos">${createAdditionalItemInfoString(todo)}</p>
             </div>
             <div class="list-entry-buttons">
                 <input class="list-entry-btn" type="checkbox"
