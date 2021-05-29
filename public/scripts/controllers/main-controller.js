@@ -27,6 +27,7 @@ export default class NoteController {
     }
 
     initialize() {
+        this.currentSortButton = this.getActiveSortButton();
         this.initEventHandlers();
         noteService.load();
         this.renderItemList(noteService.getNotes(
@@ -112,7 +113,7 @@ export default class NoteController {
 
         const navItemButtonsElement = document.querySelector(".item-nav-buttons");
         if (navItemButtonsElement) {
-            navItemButtonsElement.addEventListener("click",(event) => {
+            navItemButtonsElement.addEventListener("click", (event) => {
                 console.log(event.target);
                 event.preventDefault();
             });
