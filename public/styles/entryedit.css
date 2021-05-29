@@ -1,14 +1,22 @@
 .edit-form {
-    background: white;
+    background: var(--body-background-color);
+    border: var(--entry-border);
+    box-shadow: var(--entry-border-shadow);
     width: 40rem;
     height: 27rem;
-    margin: 1rem;
+    margin: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: left;
 }
 
+.edit-form-wrapper {
+    background: var(--content-background-color);
+    border-bottom: var(--entry-border);
+}
+
 .form-item-wrapper {
+    background: var(--content-background-color);
     display: flex;
     margin-top: 1rem;
     margin-right: 1rem;
@@ -17,18 +25,22 @@
 
 .form-label {
     width: 20%;
+    background: var(--content-background-color);
 }
 
 .form-input {
     width: 80%;
+    background: var(--content-background-color);
 }
 
 .form-input-small {
     width: 15rem;
+    background: var(--content-background-color);
 }
 
 .form-input-very-small {
     width: 5rem;
+    background: var(--content-background-color);
 }
 
 .description-field {
@@ -42,6 +54,8 @@
 
 .form-item-footer {
     justify-content: space-between;
+    padding-top: 0.4rem;
+    border-top: var(--entry-border1);
 }
 
 .nxtprev_btn {

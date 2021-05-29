@@ -1,31 +1,31 @@
 .rating-star {
-    color: rgba(100, 100, 100, 1);
+    color: var(--rating-star-color-0);
     font-weight: bold;
 }
 
 .rating-star[data-rating="1"] {
-    color: rgba(20, 120, 255, 1);
-    text-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    color: var(--rating-star-color-1);
+    text-shadow: var(--rating-star-shadow-color-1);
 }
 
 .rating-star[data-rating="2"] {
-    color: rgba(0, 255, 0, 1);
-    text-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    color: var(--rating-star-color-2);
+    text-shadow: var(--rating-star-shadow-color-2);
 }
 
 .rating-star[data-rating="3"] {
-    color: rgba(255, 255, 0, 1);
-    text-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    color: var(--rating-star-color-3);
+    text-shadow: var(--rating-star-shadow-color-3);
 }
 
 .rating-star[data-rating="4"] {
-    color: rgba(255, 128, 0, 1);
-    text-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    color: var(--rating-star-color-4);
+    text-shadow: var(--rating-star-shadow-color-4);
 }
 
 .rating-star[data-rating="5"] {
-    color: rgba(255, 0, 0, 1);
-    text-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    color: var(--rating-star-color-5);
+    text-shadow: var(--rating-star-shadow-color-5);
 }
 
 .rating {

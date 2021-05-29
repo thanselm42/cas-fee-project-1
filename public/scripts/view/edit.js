@@ -5,7 +5,7 @@ function createColorChooser(todo) {
     let ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small form-color-chooser\" name=\"colorlabel\" required>";
 
     for (let i = 0; i < 5; i++) {
-        ret += `    <option class="list-entry-color-${i}" value="${i}"`;
+        ret += `    <option class="color-chooser-color-${i}" value="${i}"`;
         if (todo.color === i) {
             ret += " selected";
         }

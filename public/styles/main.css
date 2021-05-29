@@ -3,12 +3,14 @@
     --body-background-color: rgba(255, 255, 255, 1);
     --header-background-color: rgba(255, 255, 255, 1);
     --header-text-color: rgba(0, 0, 0, 1);
-    --header-background-image: none;
+    --header-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
     --content-background-color: rgba(255, 255, 255, 1);
+    --body-background-image: none;
     --content-text-color: rgba(0, 0, 0, 1);
     --aside-background-color: rgba(245, 245, 245, 1);
     --aside-text-color: rgba(255, 255, 255, 1);
     --footer-background-color: var(--header-background-color);
+    --footer-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
     --footer-text-color: var(--header-text-color);
     --global-font: "Roboto", sans-serif;
     --button-text-color: rgba(10, 10, 10, 1);
@@ -17,7 +19,7 @@
     --button-border-color: rgb(142, 142, 142);
     --button-border-shadow: none;
     --active-button-text-color: rgba(255, 255, 255, 1);
-    --active-button-background-color: rgba(30, 80, 255, 0.8);
+    --active-button-background-color: rgba(30, 90, 255, 0.8);
     --important-button-text-color: var(--active-button-text-color);
     --important-button-background-color: rgba(0, 180, 50, 1);
     --important-button-hover-color: rgba(0, 255, 0, 1);
@@ -30,6 +32,18 @@
     --animation: none;
     --header-animation: none;
     --color-chooser-background-color: var(--content-background-color);
+    --rating-star-color-0: rgba(100, 100, 100, 1);
+    --rating-star-color-1: rgba(20, 120, 255, 1);
+    --rating-star-color-2: rgba(0, 255, 0, 1);
+    --rating-star-color-3: rgba(255, 255, 0, 1);
+    --rating-star-color-4: rgba(255, 128, 0, 1);
+    --rating-star-color-5: rgba(255, 0, 0, 1);
+    --rating-star-shadow-color-0: 0 0 0.1rem rgba(0, 0, 0, 1);
+    --rating-star-shadow-color-1: var(--rating-star-shadow-color-0);
+    --rating-star-shadow-color-2: var(--rating-star-shadow-color-0);
+    --rating-star-shadow-color-3: var(--rating-star-shadow-color-0);
+    --rating-star-shadow-color-4: var(--rating-star-shadow-color-0);
+    --rating-star-shadow-color-5: var(--rating-star-shadow-color-0);
 }
 
 /* global stuff */
@@ -60,8 +74,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
     background: var(--header-background-color);
     background-image: var(--header-background-image);
+    border-bottom: solid 0.1rem var(--button-border-color);
 }
 
 .page-nav-list {
@@ -70,10 +87,23 @@ body {
     padding: 0;
     list-style-type: none;
     justify-content: space-between;
+    height: 100%;
+}
+
+.page-nav-list-item {
+    padding: 0.4rem 0.7rem;
+}
+
+.page-nav-list-item[data-is-active="true"] {
+    border-bottom: solid 0.4rem var(--active-button-background-color);
+}
+
+.page-nav-list-item:hover {
+    background: var(--active-button-background-color);
 }
 
 .page-nav-list-item:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 0.1rem;
 }
 
 .page-nav-link {
@@ -116,10 +146,13 @@ body {
     display: flex;
     flex-wrap: wrap;
     background: var(--content-background-color);
+    background-image: var(--body-background-image);
 }
 
 .main-aside {
     grid-area: aside;
+    padding: 2rem;
+    font-style: italic;
     background: var(--aside-background-color);
 }
 
@@ -131,11 +164,19 @@ body {
     justify-content: space-between;
     align-items: center;
     background: var(--footer-background-color);
+    background-image: var(--footer-background-image);
+    border-top: solid 0.1rem var(--button-border-color);
 }
 
 .footer-top-link {
     text-decoration: none;
-    background: var(--button-background-color);
+    border-radius: 0.2rem;
+    color: var(--important-button-text-color);
+    background: var(--important-button-background-color);
+}
+
+.footer-top-link:hover {
+    background: var(--important-button-hover-color);
 }
 
 .footer-top-link-container {
