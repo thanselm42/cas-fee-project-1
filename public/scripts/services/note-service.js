@@ -79,11 +79,11 @@ export class NoteService {
             this.generateNewID(),
             "",
             "",
-            1,
+            2,
             new Date().valueOf(),
             -1,
             -1,
-            1,
+            0,
             false,
         );
     }

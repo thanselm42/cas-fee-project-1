@@ -222,7 +222,11 @@ export default class NoteController {
         this.currentModifyingItem.color = colorElement.selectedIndex;
         console.log(colorElement.selectedIndex);
         const dueDateElement = formElement.querySelector(".duedate-field");
-        this.currentModifyingItem.dueDate = dueDateElement.value;
+        if (dueDateElement.value.length === 0) {
+            this.currentModifyingItem.dueDate = -1;
+        } else {
+            this.currentModifyingItem.dueDate = dueDateElement.value;
+        }
         console.log(dueDateElement.value);
 
         this.currentModifyingItem.modificationDate = new Date().valueOf();

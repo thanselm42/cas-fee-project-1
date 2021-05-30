@@ -1,5 +1,5 @@
 import createAdditionalItemInfoString from "./common.js";
-import getHumanReadableDate from "../utils.js";
+import {getHumanReadableDate} from "../utils.js";
 
 function createImportanceElement(importance) {
     let ret = "";

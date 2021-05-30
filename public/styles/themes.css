@@ -67,6 +67,7 @@
     --content-background-color: rgba(20, 20, 20, 1);
     --aside-text-color: var(--content-text-color);
     --aside-background-color: rgba(40, 40, 40, 1);
+    --quote-background-color: rgba(55, 55, 55, 1);
     --footer-text-color: var(--header-text-color);
     --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(50, 50, 50, 1), rgba(20, 20, 20, 1));
@@ -98,6 +99,7 @@
     --content-background-color: var(--header-background-color);
     --aside-text-color: var(--header-text-color);
     --aside-background-color: rgba(5, 25, 10, 1);
+    --quote-background-color: rgba(0, 0, 0, 1);
     --footer-text-color: var(--header-text-color);
     --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(0, 50, 0, 1), rgba(0, 10, 0, 1));
