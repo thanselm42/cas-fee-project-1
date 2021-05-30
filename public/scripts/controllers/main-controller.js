@@ -1,6 +1,8 @@
 import {noteService} from "../services/note-service.js";
+import {quoteService} from "../services/quotes-service.js";
 import createListItems from "../view/list.js";
 import createEditPopUp from "../view/edit.js";
+import createQuote from "../view/quote.js";
 
 export default class NoteController {
     constructor() {
@@ -31,7 +33,9 @@ export default class NoteController {
         this.currentSortButton = NoteController.getActiveSortButton();
         this.initEventHandlers();
         noteService.load();
+        quoteService.load();
         this.renderItemList();
+        this.renderQuote();
     }
 
     initEventHandlers() {
@@ -268,6 +272,12 @@ export default class NoteController {
     static renderItemEditPopUp(todo) {
         const todoEditElement = document.querySelector(".edit-form-wrapper");
         todoEditElement.innerHTML = createEditPopUp(todo);
+    }
+
+    renderQuote() {
+        const quote = quoteService.getRandomQuote();
+        const asideElement = document.querySelector(".aside-quote-wrapper");
+        asideElement.innerHTML = createQuote(quote);
     }
 }
 

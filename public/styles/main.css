@@ -12,6 +12,7 @@
     --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
     --footer-text-color: var(--header-text-color);
+    --quote-background-color: rgba(235, 235, 235, 1);
     --global-font: "Roboto", sans-serif;
     --button-text-color: rgba(10, 10, 10, 1);
     --button-background-color: rgba(220, 220, 220, 1);
@@ -151,9 +152,49 @@ body {
 
 .main-aside {
     grid-area: aside;
-    padding: 2rem;
-    font-style: italic;
+    display: flex;
+    font-weight: 400;
+    flex-direction: column;
+    padding: 2rem 1rem;
     background: var(--aside-background-color);
+}
+
+.aside-info-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.aside-info-wrapper p {
+    padding-top: 1rem;
+}
+
+.aside-info-wrapper p span {
+    font-weight: 700;
+}
+
+.aside-quote-wrapper {
+    margin-top: 6rem;
+    padding: 1rem;
+    background: var(--quote-background-color);
+}
+
+.quote-text {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.quote-text::before {
+    content: "\0ab";
+}
+
+.quote-text::after {
+    content: "\0bb";
+}
+
+.quote-movie {
+    font-weight: 300;
+    font-size: small;
+    padding-top: 1rem;
 }
 
 /* footer */
