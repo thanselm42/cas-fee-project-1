@@ -32,6 +32,7 @@ export default class NoteController {
     initialize() {
         this.currentSortButton = NoteController.getActiveSortButton();
         this.initEventHandlers();
+        this.initThemes();
         noteService.load();
         quoteService.load();
         this.renderItemList();
@@ -42,13 +43,7 @@ export default class NoteController {
         const themeChangeButton = document.querySelector(".theme-changer");
         themeChangeButton.addEventListener("change", (event) => {
             const newTheme = this.themes[event.target.selectedIndex];
-            if (this.currentTheme.className.length > 0) {
-                document.body.classList.toggle(this.currentTheme.className);
-            }
-            if (newTheme.className.length > 0) {
-                document.body.classList.toggle(newTheme.className);
-            }
-            this.currentTheme = newTheme;
+            this.changeTheme(newTheme);
         });
 
         const sortButtonsElement = document.querySelector(".sort-buttons");
@@ -142,12 +137,14 @@ export default class NoteController {
             });
         }
 
+        // add key-listener for + to add a new note faster
         document.addEventListener("keypress", (ev) => {
             if (ev.key === "+" && !NoteController.isEditPopUpVisible()) {
                 this.createNewItem();
             }
         });
 
+        // add key-listener for esc to cancel the edit-window
         document.addEventListener("keydown", (ev) => {
             if (ev.key === "Escape" && NoteController.isEditPopUpVisible()) {
                 NoteController.hideEditPopUp();
@@ -163,6 +160,30 @@ export default class NoteController {
                 this.renderItemList();
             }
         });
+    }
+
+    initThemes() {
+        // get system color-scheme
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+        // if the system is set to dark-mode, use dark-mode as well
+        if (prefersDarkScheme.matches) {
+            document.querySelector(".theme-changer option[value=\"darkTheme\"]").setAttribute("selected", "true");
+            this.changeTheme(this.themes[1]);
+        } else {
+            document.querySelector(".theme-changer option[value=\"defaultTheme\"]").setAttribute("selected", "true");
+            this.changeTheme(this.themes[0]);
+        }
+    }
+
+    changeTheme(newTheme) {
+        if (this.currentTheme.className.length > 0) {
+            document.body.classList.toggle(this.currentTheme.className);
+        }
+        if (newTheme.className.length > 0) {
+            document.body.classList.toggle(newTheme.className);
+        }
+        this.currentTheme = newTheme;
     }
 
     static setCompleteState(id, state) {
@@ -210,25 +231,20 @@ export default class NoteController {
     saveItem() {
         // TODO: validate input!!!
         const formElement = document.querySelector(".edit-form");
-        // console.log(formElement.checkValidity()); //chck form
+        // console.log(formElement.checkValidity()); //check form
         const titleElement = formElement.querySelector(".title-field");
         this.currentModifyingItem.title = titleElement.value;
         const descriptionElement = formElement.querySelector(".description-field");
         this.currentModifyingItem.description = descriptionElement.value;
-        const importanceElement = formElement.querySelector(".importance-field");
-        this.currentModifyingItem.importance = importanceElement.value;
-        console.log(Number(importanceElement.value).valueOf());
+        this.currentModifyingItem.importance = Number(formElement.querySelector(".importance-field input:checked").getAttribute("value")).valueOf();
         const colorElement = formElement.querySelector(".form-color-chooser");
         this.currentModifyingItem.color = colorElement.selectedIndex;
-        console.log(colorElement.selectedIndex);
         const dueDateElement = formElement.querySelector(".duedate-field");
         if (dueDateElement.value.length === 0) {
             this.currentModifyingItem.dueDate = -1;
         } else {
             this.currentModifyingItem.dueDate = dueDateElement.value;
         }
-        console.log(dueDateElement.value);
-
         this.currentModifyingItem.modificationDate = new Date().valueOf();
 
         // update store
