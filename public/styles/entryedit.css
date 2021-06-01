@@ -35,7 +35,7 @@
     background: var(--content-background-color);
 }
 
-.form-input[required] ~ .form-label::after {
+.form-input:required ~ .form-label::after {
     content: ' *';
     color: red;
 }
@@ -46,7 +46,7 @@
     background: var(--content-background-color);
 }
 
-.form-input-small[required] ~ .form-label::after {
+.form-input-small:required ~ .form-label::after {
     content: ' *';
     color: red;
 }
@@ -57,7 +57,7 @@
     background: var(--content-background-color);
 }
 
-.form-input-very-small[required] ~ .form-label::after {
+.form-input-very-small:required ~ .form-label::after {
     content: ' *';
     color: red;
 }

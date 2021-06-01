@@ -17,7 +17,6 @@ export class QuoteService {
 
     getRandomQuote() {
         const rawRandom = Math.random();
-        console.log(this.storage.length);
         const maxRandom = rawRandom * this.quotes.length;
         const random = Math.floor(maxRandom);
         return this.quotes[random];

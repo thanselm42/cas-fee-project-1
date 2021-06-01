@@ -14,7 +14,7 @@
     backdrop-filter: blur(2px);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
@@ -39,7 +39,7 @@
 
 .sort-button {
     background: var(--button-background-color);
-    width: 8rem;
+    width: 9rem;
 }
 
 .sort-button[data-is-active="true"] {
@@ -53,14 +53,6 @@
 
 .sort-button[data-sort-asc="false"]::after {
     content: " \025BC";
-}
-
-.sort-changer option[data-sort-asc="true"] {
-    background: green;
-}
-
-.sort-changer option[data-sort-asc="false"] {
-    background: blue;
 }
 
 .add-and-filter-pane {
@@ -139,7 +131,7 @@
     width: 1.5rem;
 }
 
-/* The switch - the box around the slider */
+/* show/hide completed switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -162,8 +154,8 @@
     left: 0;
     right: 0;
     bottom: 0;
+    border-radius: 22px;
     background-color: var(--button-background-color);
-    -webkit-transition: 0.4s;
     transition: 0.4s;
 }
 
@@ -174,8 +166,8 @@
     width: 17px;
     left: 3px;
     bottom: 3px;
+    border-radius: 50%;
     background-color: var(--active-button-text-color);
-    -webkit-transition: 0.4s;
     transition: 0.4s;
 }
 
@@ -191,13 +183,4 @@ input:checked + .slider::before {
     -webkit-transform: translateX(17px);
     -ms-transform: translateX(17px);
     transform: translateX(17px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 22px;
-}
-
-.slider.round::before {
-    border-radius: 50%;
 }

@@ -12,5 +12,6 @@ export function getDateAsISOString(dataAsNumber) {
     }
     const ts = new Date(dataAsNumber);
     const dateAsISOString = ts.toISOString();
-    return dateAsISOString.substr(0, dateAsISOString.length - 1); // remove Z at the end
+    // remove Z at the end otherwise the date-chooser can not handle it.
+    return dateAsISOString.substr(0, dateAsISOString.length - 1);
 }

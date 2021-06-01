@@ -194,7 +194,6 @@ export default class NoteController {
     }
 
     createNewItem() {
-        console.log("create new item");
         const note = noteService.createNewNote();
         this.currentModifyingItem = note;
         NoteController.showEditPopUp();
@@ -202,10 +201,8 @@ export default class NoteController {
     }
 
     editItem(id) {
-        console.log(`modifying: ${id}`);
         const note = noteService.getNoteById(id);
         this.currentModifyingItem = note;
-        // show edit-popup
         NoteController.showEditPopUp();
         NoteController.renderItemEditPopUp(note);
     }
@@ -284,7 +281,6 @@ export default class NoteController {
             this.currentHideCompleted,
         );
 
-        // get DOM-List element
         const todoListElements = document.querySelector(".todos-list");
         todoListElements.innerHTML = createListItems(todos);
     }

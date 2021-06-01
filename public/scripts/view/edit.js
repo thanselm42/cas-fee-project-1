@@ -2,7 +2,8 @@ import {getDateAsISOString} from "../utils.js";
 import createAdditionalItemInfoString from "./common.js";
 
 function createColorChooser(todo) {
-    let ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small form-color-chooser\" name=\"colorlabel\">";
+    let ret;
+    ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small form-color-chooser\" name=\"colorlabel\">";
 
     for (let i = 0; i < 5; i++) {
         ret += `    <option class="color-chooser-color-${i}" value="${i}"`;
@@ -15,7 +16,7 @@ function createColorChooser(todo) {
     return ret;
 }
 
-function addCheckedForImportanceRadioInputField(todo, pos){
+function addCheckedForImportanceRadioInputField(todo, pos) {
     if (todo.importance === pos) {
         return " checked";
     }
