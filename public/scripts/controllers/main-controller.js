@@ -142,14 +142,16 @@ export default class NoteController {
                 this.renderItemList();
             }
             // left arrow
-            if (ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
                 this.handleEditPopupAction("prev");
                 this.renderItemList();
+                ev.preventDefault();
             }
             // right arrow
-            if (ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.key === "ArrowRight" && NoteController.isEditPopUpVisible()) {
                 this.handleEditPopupAction("next");
                 this.renderItemList();
+                ev.preventDefault();
             }
             // space, toggle show/hide completed filter
             if (ev.code === "Space" && !NoteController.isEditPopUpVisible()) {
