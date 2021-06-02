@@ -153,9 +153,10 @@ body {
 .main-aside {
     grid-area: aside;
     display: flex;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: smaller;
     flex-direction: column;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
     background: var(--aside-background-color);
 }
 
@@ -164,8 +165,14 @@ body {
     flex-direction: column;
 }
 
+.aside-info-wrapper h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+}
+
 .aside-info-wrapper p {
-    padding-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
 }
 
 .aside-info-wrapper p span {

@@ -105,26 +105,7 @@ export default class NoteController {
         const actionButtonsElement = document.querySelector(".action-buttons");
         if (actionButtonsElement) {
             actionButtonsElement.addEventListener("click", (event) => {
-                switch (event.target.dataset.actionCommand) {
-                case "save":
-                    this.saveItem();
-                    NoteController.renderItemEditPopUp(this.currentModifyingItem);
-                    break;
-                case "saveAndClose":
-                    this.saveItem();
-                    NoteController.hideEditPopUp();
-                    this.renderItemList();
-                    break;
-                case "cancel":
-                    NoteController.renderItemEditPopUp(this.currentModifyingItem);
-                    break;
-                case "cancelAndClose":
-                    NoteController.hideEditPopUp();
-                    this.renderItemList();
-                    break;
-                default:
-                    break;
-                }
+                this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
             });
         }
@@ -132,24 +113,45 @@ export default class NoteController {
         const navItemButtonsElement = document.querySelector(".item-nav-buttons");
         if (navItemButtonsElement) {
             navItemButtonsElement.addEventListener("click", (event) => {
-                console.log(event.target);
+                this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
             });
         }
 
-        // add key-listener for + to add a new note faster
+        // add keypress-listener for + to add a new note faster
         document.addEventListener("keypress", (ev) => {
             if (ev.key === "+" && !NoteController.isEditPopUpVisible()) {
                 this.createNewItem();
             }
         });
 
-        // add key-listener for esc to cancel the edit-window
+        // add keydown-listener for capturing special keys
         document.addEventListener("keydown", (ev) => {
+            // esc, cancel edit-window
             if (ev.key === "Escape" && NoteController.isEditPopUpVisible()) {
-                NoteController.hideEditPopUp();
+                this.handleEditPopupAction("cancelAndClose");
+            }
+            // ctrl+s save note
+            if (ev.ctrlKey && ev.key === "s" && NoteController.isEditPopUpVisible()) {
+                this.handleEditPopupAction("save");
+                ev.preventDefault(); // prevent the browser of trying to save the page
+            }
+            // ctrl+shift+s save note and close edit-window
+            if (ev.ctrlKey && ev.shiftKey && ev.key === "S" && NoteController.isEditPopUpVisible()) {
+                this.handleEditPopupAction("saveAndClose");
                 this.renderItemList();
             }
+            // left arrow
+            if (ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
+                this.handleEditPopupAction("prev");
+                this.renderItemList();
+            }
+            // right arrow
+            if (ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
+                this.handleEditPopupAction("next");
+                this.renderItemList();
+            }
+            // space, toggle show/hide completed filter
             if (ev.code === "Space" && !NoteController.isEditPopUpVisible()) {
                 this.currentHideCompleted = !this.currentHideCompleted;
                 if (this.currentHideCompleted) {
@@ -160,6 +162,59 @@ export default class NoteController {
                 this.renderItemList();
             }
         });
+    }
+
+    handleEditPopupAction(action) {
+        switch (action) {
+        case "save":
+            this.saveItem();
+            NoteController.renderItemEditPopUp(this.currentModifyingItem);
+            break;
+        case "saveAndClose":
+            this.saveItem();
+            NoteController.hideEditPopUp();
+            this.renderItemList();
+            break;
+        case "cancel":
+            NoteController.renderItemEditPopUp(this.currentModifyingItem);
+            break;
+        case "cancelAndClose":
+            NoteController.hideEditPopUp();
+            this.renderItemList();
+            break;
+        case "prev": {
+            console.log("prev");
+            const prevNote = noteService.getPreviousNoteById(
+                this.currentModifyingItem.id,
+                this.currentSortAttribute,
+                this.currentSortOrderAsc,
+                this.currentHideCompleted,
+            );
+            console.log(prevNote);
+            if (prevNote != null) {
+                this.currentModifyingItem = prevNote;
+                NoteController.renderItemEditPopUp(this.currentModifyingItem);
+            }
+            break;
+        }
+        case "next": {
+            console.log("next");
+            const nextNote = noteService.getNextNoteById(
+                this.currentModifyingItem.id,
+                this.currentSortAttribute,
+                this.currentSortOrderAsc,
+                this.currentHideCompleted,
+            );
+            console.log(nextNote);
+            if (nextNote != null) {
+                this.currentModifyingItem = nextNote;
+                NoteController.renderItemEditPopUp(this.currentModifyingItem);
+            }
+            break;
+        }
+        default:
+            break;
+        }
     }
 
     initThemes() {

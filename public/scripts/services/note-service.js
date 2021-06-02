@@ -74,6 +74,32 @@ export class NoteService {
         return this.notes.filter((n) => n.id === nbrID)[0];
     }
 
+    getNextNoteById(id, sort, asc, completed) {
+        let ret = null;
+        const tempNotes = this.getNotes(sort, asc, completed);
+        tempNotes.forEach((value, index) => {
+            if (value.id === id) {
+                if (index < tempNotes.length - 1) {
+                    ret = tempNotes[index + 1];
+                }
+            }
+        });
+        return ret;
+    }
+
+    getPreviousNoteById(id, sort, asc, completed) {
+        let ret = null;
+        const tempNotes = this.getNotes(sort, asc, completed);
+        tempNotes.forEach((value, index) => {
+            if (value.id === id) {
+                if (index > 0) {
+                    ret = tempNotes[index - 1];
+                }
+            }
+        });
+        return ret;
+    }
+
     createNewNote() {
         return new Note(
             this.generateNewID(),
