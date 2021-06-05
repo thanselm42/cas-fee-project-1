@@ -1,7 +1,7 @@
 import {noteService} from "../services/note-service.js";
 import {quoteService} from "../services/quotes-service.js";
 import createListItems from "../view/list.js";
-import createEditPopUp from "../view/edit.js";
+import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
 import createQuote from "../view/quote.js";
 
 export default class NoteController {
@@ -10,7 +10,7 @@ export default class NoteController {
             {className: ""},
             {className: "dark-theme"},
             {className: "neon-theme"},
-            {className: "psycho-theme"},
+            {className: "rainbow-theme"},
             {className: "debug-theme"},
         ];
 
@@ -19,7 +19,7 @@ export default class NoteController {
         this.entryModificationType = {
             complete: (id, state) => NoteController.setCompleteState(id, state),
             modify: (id) => this.editItem(id),
-            delete: (id) => this.deleteItem(id),
+            delete: (id) => this.showDeletePopUp(id),
         };
 
         this.currentSortAttribute = "title";
@@ -94,10 +94,18 @@ export default class NoteController {
             });
         }
 
-        const colorChooserElement = document.querySelector(".form-color-chooser");
-        if (colorChooserElement) {
-            colorChooserElement.addEventListener("change", (event) => {
-                console.log(`Chooser! ${event}`);
+        const deleteConfirmButtonElement = document.querySelector(".delete-confirm");
+        if (deleteConfirmButtonElement) {
+            deleteConfirmButtonElement.addEventListener("click", evt => {
+                this.deleteItem(this.currentModifyingItem.id);
+                NoteController.hideDeletePopUp();
+            });
+        }
+
+        const deleteConfirmCancelButtonElement = document.querySelector(".delete-cancel");
+        if (deleteConfirmCancelButtonElement) {
+            deleteConfirmCancelButtonElement.addEventListener("click", evt => {
+                NoteController.hideDeletePopUp();
             });
         }
 
@@ -168,49 +176,55 @@ export default class NoteController {
 
     handleEditPopupAction(action) {
         switch (action) {
-        case "save":
-            this.saveItem();
-            NoteController.renderItemEditPopUp(this.currentModifyingItem);
+        case "save": {
+            const saveRet = this.saveItem();
+            if (saveRet === "") {
+                this.renderItemEditPopUp(this.currentModifyingItem);
+            } else {
+                this.showValidityWarning(saveRet);
+            }
             break;
-        case "saveAndClose":
-            this.saveItem();
-            NoteController.hideEditPopUp();
-            this.renderItemList();
+        }
+        case "saveAndClose": {
+            const saveRet = this.saveItem();
+            if (saveRet === "") {
+                NoteController.hideEditPopUp();
+                this.renderItemList();
+            } else {
+                this.showValidityWarning(saveRet);
+            }
             break;
+        }
         case "cancel":
-            NoteController.renderItemEditPopUp(this.currentModifyingItem);
+            this.renderItemEditPopUp(this.currentModifyingItem);
             break;
         case "cancelAndClose":
             NoteController.hideEditPopUp();
             this.renderItemList();
             break;
         case "prev": {
-            console.log("prev");
             const prevNote = noteService.getPreviousNoteById(
                 this.currentModifyingItem.id,
                 this.currentSortAttribute,
                 this.currentSortOrderAsc,
                 this.currentHideCompleted,
             );
-            console.log(prevNote);
             if (prevNote != null) {
                 this.currentModifyingItem = prevNote;
-                NoteController.renderItemEditPopUp(this.currentModifyingItem);
+                this.renderItemEditPopUp(this.currentModifyingItem);
             }
             break;
         }
         case "next": {
-            console.log("next");
             const nextNote = noteService.getNextNoteById(
                 this.currentModifyingItem.id,
                 this.currentSortAttribute,
                 this.currentSortOrderAsc,
                 this.currentHideCompleted,
             );
-            console.log(nextNote);
             if (nextNote != null) {
                 this.currentModifyingItem = nextNote;
-                NoteController.renderItemEditPopUp(this.currentModifyingItem);
+                this.renderItemEditPopUp(this.currentModifyingItem);
             }
             break;
         }
@@ -254,39 +268,28 @@ export default class NoteController {
         const note = noteService.createNewNote();
         this.currentModifyingItem = note;
         NoteController.showEditPopUp();
-        NoteController.renderItemEditPopUp(note);
+        this.renderItemEditPopUp(note);
     }
 
     editItem(id) {
         const note = noteService.getNoteById(id);
         this.currentModifyingItem = note;
         NoteController.showEditPopUp();
-        NoteController.renderItemEditPopUp(note);
-    }
-
-    editNextItem() {
-
-    }
-
-    editPreviousItem() {
-
+        this.renderItemEditPopUp(note);
     }
 
     deleteItem(id) {
-        console.log(`deleting: ${id}`);
-        //   const note = noteService.getNoteById(id);
-        // show delete-popup
-        // remove note from service
         noteService.deleteNote(id);
         // re-render list
         this.renderItemList();
     }
 
     saveItem() {
-        // TODO: validate input!!!
         const formElement = document.querySelector(".edit-form");
-        // console.log(formElement.checkValidity()); //check form
         const titleElement = formElement.querySelector(".title-field");
+        if (titleElement.value === "") {
+            return "Please enter a title";
+        }
         this.currentModifyingItem.title = titleElement.value;
         const descriptionElement = formElement.querySelector(".description-field");
         this.currentModifyingItem.description = descriptionElement.value;
@@ -303,10 +306,20 @@ export default class NoteController {
 
         // update store
         noteService.updateNote(this.currentModifyingItem);
+
+        return "";
     }
 
     // return array of booleans
-    checkFormValidity() {
+    showValidityWarning(text) {
+        const validityMessageElement = document.querySelector(".validation-message");
+        validityMessageElement.innerHTML = createValidityMessage(text);
+    }
+
+    colorSelectorChange(newColorIndex) {
+        this.currentModifyingItem.color = newColorIndex;
+        const editColorChooserElement = document.querySelector(".color-chooser-wrapper");
+        editColorChooserElement.innerHTML = createColorChooser(this.currentModifyingItem);
     }
 
     static isEditPopUpVisible() {
@@ -331,6 +344,17 @@ export default class NoteController {
         popupPane.setAttribute("data-is-popup-visible", "false");
     }
 
+    showDeletePopUp(id) {
+        this.currentModifyingItem = noteService.getNoteById(id);
+        const popupPane = document.querySelector(".confirm-delete-popup");
+        popupPane.setAttribute("data-is-popup-visible", "true");
+    }
+
+    static hideDeletePopUp() {
+        const popupPane = document.querySelector(".confirm-delete-popup");
+        popupPane.setAttribute("data-is-popup-visible", "false");
+    }
+
     renderItemList() {
         const todos = noteService.getNotes(
             this.currentSortAttribute,
@@ -342,9 +366,18 @@ export default class NoteController {
         todoListElements.innerHTML = createListItems(todos);
     }
 
-    static renderItemEditPopUp(todo) {
+    renderItemEditPopUp(todo) {
         const todoEditElement = document.querySelector(".edit-form-wrapper");
         todoEditElement.innerHTML = createEditPopUp(todo);
+
+        // need to add event-listener for the color-chooser here, because it does not exist before
+        // createEditPopUp is called
+        const colorChooserElement = document.querySelector(".form-color-chooser");
+        if (colorChooserElement) {
+            colorChooserElement.addEventListener("change", (event) => {
+                this.colorSelectorChange(event.target.selectedIndex);
+            });
+        }
     }
 
     renderQuote() {

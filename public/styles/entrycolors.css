@@ -2,38 +2,38 @@
     background: rgba(200, 200, 200, 0.2);
 }
 
-.color-chooser-color-0 {
-    background: rgba(200, 200, 200, 0.2);
+.form-item-wrapper .color-chooser-color-0 {
+    background: rgba(200, 200, 200, 1);
 }
 
 .list-entry-color-1 {
     background: rgba(255, 230, 128, 0.2);
 }
 
-.color-chooser-color-1 {
-    background: rgba(255, 223, 72, 0.6);
+.form-item-wrapper .color-chooser-color-1 {
+    background: rgba(255, 223, 72, 1);
 }
 
 .list-entry-color-2 {
     background: rgba(255, 128, 128, 0.2);
 }
 
-.color-chooser-color-2 {
-    background: rgba(255, 60, 60, 0.55);
+.form-item-wrapper .color-chooser-color-2 {
+    background: rgba(255, 60, 60, 1);
 }
 
 .list-entry-color-3 {
     background: rgba(128, 255, 128, 0.2);
 }
 
-.color-chooser-color-3 {
-    background: rgba(104, 255, 104, 0.55);
+.form-item-wrapper .color-chooser-color-3 {
+    background: rgba(104, 255, 104, 1);
 }
 
 .list-entry-color-4 {
     background: rgba(80, 128, 255, 0.2);
 }
 
-.color-chooser-color-4 {
-    background: rgba(54, 127, 255, 0.6);
+.form-item-wrapper .color-chooser-color-4 {
+    background: rgba(54, 127, 255, 1);
 }

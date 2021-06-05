@@ -131,7 +131,7 @@
     --rating-star-shadow-color-5: 0 0 0.2rem var(--rating-star-color-5);
 }
 
-.psycho-theme {
+.rainbow-theme {
     --header-text-color: rgba(255, 255, 255, 1);
     --header-background-color: rgba(255, 0, 255, 1);
     --header-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);

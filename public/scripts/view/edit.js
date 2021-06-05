@@ -1,9 +1,9 @@
 import {getDateAsISOString} from "../utils.js";
 import createAdditionalItemInfoString from "./common.js";
 
-function createColorChooser(todo) {
+export function createColorChooser(todo) {
     let ret;
-    ret = "<select id=\"colorlabelchooser\" class=\"form-input-very-small form-color-chooser\" name=\"colorlabel\">";
+    ret = `<select id="colorlabelchooser" class="color-chooser-color-${todo.color} form-input-very-small form-color-chooser" name="colorlabel">`;
 
     for (let i = 0; i < 5; i++) {
         ret += `    <option class="color-chooser-color-${i}" value="${i}"`;
@@ -13,6 +13,7 @@ function createColorChooser(todo) {
         ret += "></option>";
     }
     ret += "</select>";
+    ret += "<label class=\"form-label\" for=\"colorlabelchooser\">Color</label>";
     return ret;
 }
 
@@ -45,16 +46,21 @@ export default function createEditPopUp(todo) {
         </div>
         <label class="form-label" for="importance">Importance</label>        
       </div>
-      <div class="form-item-wrapper">
+      <div class="form-item-wrapper color-chooser-wrapper">
         ${createColorChooser(todo)}
-        <label class="form-label" for="colorlabelchooser">Color</label>
       </div>
       <div class="form-item-wrapper">
         <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="" value="${getDateAsISOString(todo.dueDate)}">
         <label class="form-label" for="duedate">Due Date</label>
       </div>
+      <div class="form-item-wrapper validation-message">
+      </div>
       <div class="form-item-wrapper">
         <p class="item-detail-infos">${createAdditionalItemInfoString(todo)}</p>
       </div>
         `;
+}
+
+export function createValidityMessage(msg) {
+    return `<p>${msg}</p>`;
 }

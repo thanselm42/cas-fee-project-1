@@ -40,7 +40,10 @@ export class NoteService {
         let nbrID;
         if (typeof (id) !== "number") {
             nbrID = Number(id);
+        } else {
+            nbrID = id;
         }
+
         for (let i = 0; i < this.notes.length; i++) {
             if (this.notes[i].id === nbrID) {
                 this.notes.splice(i, 1);

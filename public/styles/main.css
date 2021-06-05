@@ -45,6 +45,8 @@
     --rating-star-shadow-color-3: var(--rating-star-shadow-color-0);
     --rating-star-shadow-color-4: var(--rating-star-shadow-color-0);
     --rating-star-shadow-color-5: var(--rating-star-shadow-color-0);
+    --warning-header-background-color: rgba(200, 0, 0, 1);
+    --warning-header-text-color: rgba(255, 255, 255, 1);
 }
 
 /* global stuff */

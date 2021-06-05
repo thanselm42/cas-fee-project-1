@@ -3,7 +3,7 @@
     border: var(--entry-border);
     box-shadow: var(--entry-border-shadow);
     width: 40rem;
-    height: 21.5rem;
+    height: 23.7rem;
     margin: 2rem;
     display: flex;
     flex-direction: column;
@@ -67,8 +67,14 @@
     height: 5rem;
 }
 
-.form-color-chooser {
-    background: var(--color-chooser-background-color);
+.validation-message {
+    min-height: 1.2rem;
+    width: 90%;
+}
+
+.validation-message :not(:empty) {
+    width: 100%;
+    background: rgba(255, 255, 0, 0.3);
 }
 
 .form-item-footer {
@@ -82,10 +88,4 @@
     display: inline-block;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 22rem;
 }

@@ -9,7 +9,7 @@
     padding: 0.1rem;
 }
 
-.edit-pane {
+.blocking-popup {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
     width: 100%;
@@ -21,6 +21,59 @@
     left: 0;
     display: flex; /* none */
     justify-content: center;
+}
+
+.confirm-delete-popup[data-is-popup-visible="true"] {
+    display: flex;
+}
+
+.confirm-delete-popup[data-is-popup-visible="false"] {
+    display: none;
+}
+
+.delete-popup-content-wrapper {
+    width: 23rem;
+    height: 10rem;
+    margin: 2rem;
+    background: var(--content-background-color);
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    grid-template-rows: 2rem auto 3rem;
+    grid-template-areas:
+        "header header"
+        "icon content"
+        "footer footer";
+}
+
+.delete-popup-content-wrapper .delete-header {
+    grid-area: header;
+    align-self: center;
+    padding: 0.5rem;
+    background: var(--warning-header-background-color);
+    color: var(--warning-header-text-color);
+    font-weight: bold;
+    text-align: center;
+}
+
+.delete-popup-content-wrapper .delete-content {
+    grid-area: content;
+    padding-top: 1rem;
+}
+
+.delete-popup-content-wrapper .action-buttons {
+    grid-area: footer;
+    margin: 0.5rem;
+}
+
+.delete-confirm,
+.delete-cancel {
+    width: 8rem;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 22rem;
 }
 
 .edit-pane[data-is-popup-visible="true"] {

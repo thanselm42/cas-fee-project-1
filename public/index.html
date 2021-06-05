@@ -32,7 +32,7 @@
     <option value="defaultTheme">Default-Theme</option>
     <option value="darkTheme">Dark-Theme</option>
     <option value="neonTheme">Neon-Theme</option>
-    <option value="psychoTheme">Psycho-Theme</option>
+    <option value="rainbowTheme">Rainbow-Theme</option>
     <option value="debugTheme">Debug-Theme</option>
   </select>
 </header>
@@ -45,6 +45,7 @@
       <button class="sort-button action-button" data-sort-by="creationDate" data-sort-asc="true" data-is-active="false" type="button">Creation date</button>
       <button class="sort-button action-button" data-sort-by="modificationDate" data-sort-asc="true" data-is-active="false" type="button">Modification date</button>
       <button class="sort-button action-button" data-sort-by="importance" data-sort-asc="true" data-is-active="false" type="button">Importance</button>
+      <button class="sort-button action-button" data-sort-by="color" data-sort-asc="true" data-is-active="false" type="button">Color-Label</button>
       <button class="sort-button action-button" data-sort-by="isCompleted" data-sort-asc="true" data-is-active="false" type="button">Completed</button>
     </div>
     <div class="add-and-filter-pane">
@@ -86,7 +87,7 @@
   <p>&copy; Tobias Hanselmann</p>
   <p>v1.0 16.05.2021</p>
 </footer>
-<div class="edit-pane" data-is-popup-visible="false">
+<div class="blocking-popup edit-pane" data-is-popup-visible="false">
   <form class="edit-form">
     <div class="edit-form-wrapper">
     </div>
@@ -107,6 +108,16 @@
       </div>
     </div>
   </form>
+</div>
+<div class="blocking-popup confirm-delete-popup" data-is-popup-visible="false">
+  <div class="delete-popup-content-wrapper">
+    <p class="delete-header">Do you really want to delete this item?</p>
+    <p class="delete-content">Deleted items can't be restored!</p>
+    <div class="action-buttons">
+      <button class="action-button delete-confirm">OK</button>
+      <button class="action-button delete-cancel">Cancel</button>
+    </div>
+  </div>
 </div>
 <script src="scripts/controllers/main-controller.js" type="module"></script>
 </body>
