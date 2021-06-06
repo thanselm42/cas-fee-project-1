@@ -1,10 +1,10 @@
-import NoteStorage from "./data/note-storage.js";
+import NoteStorageMock from "./data/note-storage-local.js";
 import Note from "./note.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
 
 export class NoteService {
     constructor(storage) {
-        this.storage = storage || new NoteStorage();
+        this.storage = storage || new NoteStorageMock();
         this.notes = [];
     }
 

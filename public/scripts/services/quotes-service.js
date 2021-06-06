@@ -1,9 +1,9 @@
-import QuoteStorage from "./data/quote-storage.js";
+import QuoteStorageLocal from "./data/quote-storage-local.js";
 import Quote from "./quote.js";
 
 export class QuoteService {
     constructor(storage) {
-        this.storage = storage || new QuoteStorage();
+        this.storage = storage || new QuoteStorageLocal();
         this.quotes = [];
         this.load();
     }
