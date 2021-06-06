@@ -105,6 +105,8 @@
     --aside-text-color: var(--header-text-color);
     --aside-background-color: rgba(5, 25, 10, 1);
     --quote-background-color: rgba(0, 0, 0, 1);
+    --url-color: rgba(10, 120, 100, 1);
+    --url-hover-color: rgba(40, 200, 120, 1);
     --footer-text-color: var(--header-text-color);
     --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(0, 50, 0, 1), rgba(0, 10, 0, 1));
@@ -143,6 +145,8 @@
     --header-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     --footer-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     --content-background-color: rgba(255, 255, 255, 0);
+    --url-color: rgba(180, 0, 180, 1);
+    --url-hover-color: rgba(255, 20, 255, 1);
     --entry-background-color: rgba(230, 230, 230, 0.5);
     --animation: rainbow 7s infinite alternate;
     --body-background-image:
