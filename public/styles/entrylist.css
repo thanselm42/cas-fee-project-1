@@ -35,7 +35,8 @@
     width: 23rem;
     height: 10rem;
     margin: 2rem;
-    background: var(--content-background-color);
+    background: var(--popup-background-color);
+    background-image: var(--popup-background-image);
     display: grid;
     grid-template-columns: 10rem 1fr;
     grid-template-rows: 2rem auto 3rem;

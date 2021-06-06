@@ -155,16 +155,3 @@
         );
     --popup-background-image: var(--body-background-image);
 }
-
-.debug-theme {
-    --body-background-color: rgba(255, 255, 128, 1);
-    --header-background-color: rgba(255, 0, 0, 0.5);
-    --header-text-color: rgba(255, 255, 255, 1);
-    --content-background-color: rgba(200, 200, 200, 0.8);
-    --content-text-color: rgba(0, 0, 0, 1);
-    --aside-background-color: rgba(0, 0, 255, 0.5);
-    --aside-text-color: rgba(255, 255, 255, 1);
-    --footer-background-color: rgba(0, 200, 0, 0.5);
-    --footer-text-color: rgba(255, 255, 255, 1);
-    --button-background-color: rgb(93, 147, 186);
-}

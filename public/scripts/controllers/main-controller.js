@@ -11,7 +11,6 @@ export default class NoteController {
             {className: "dark-theme"},
             {className: "neon-theme"},
             {className: "rainbow-theme"},
-            {className: "debug-theme"},
         ];
 
         this.currentTheme = this.themes[0];
