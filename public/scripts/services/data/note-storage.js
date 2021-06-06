@@ -9,6 +9,7 @@ export default class NoteStorage {
             {id: 4, title: "Schlafen", description: "...selbsterklärend...", importance: 5, creationDate: 1621797600000, dueDate: -1, modificationDate: 10, color: 3, isCompleted: false},
         ];
         this.notes = notes;
+        this.name = "static local";
     }
 
     getAll() {
@@ -17,5 +18,9 @@ export default class NoteStorage {
 
     update(notes) {
         this.notes = notes;
+    }
+
+    getName() {
+        return this.name;
     }
 }

@@ -1,0 +1,41 @@
+.about-pane {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-pane > div {
+    margin-bottom: 1.5rem;
+    max-width: 50rem;
+}
+
+.about-pane h3 {
+    margin-bottom: 0.3rem;
+}
+
+.about-pane p {
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+
+.about-pane a {
+    text-decoration: none;
+    font-weight: bolder;
+    color: var(--url-color);
+}
+
+.about-pane a:hover {
+    color: var(--url-hover-color);
+}
+
+.resources ul {
+    padding-top: 0.5rem;
+}
+
+.resources ul li {
+    padding-bottom: 0.2rem;
+}
+
+.stats span{
+    font-style: italic;
+}

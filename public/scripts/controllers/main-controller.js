@@ -3,6 +3,7 @@ import {quoteService} from "../services/quotes-service.js";
 import createListItems from "../view/list.js";
 import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
 import createQuote from "../view/quote.js";
+import createStats from "../view/stats.js";
 
 export default class NoteController {
     constructor() {
@@ -36,6 +37,7 @@ export default class NoteController {
         quoteService.load();
         this.renderItemList();
         this.renderQuote();
+        this.renderStats();
     }
 
     initEventHandlers() {
@@ -362,7 +364,9 @@ export default class NoteController {
         );
 
         const todoListElements = document.querySelector(".todos-list");
-        todoListElements.innerHTML = createListItems(todos);
+        if (todoListElements) {
+            todoListElements.innerHTML = createListItems(todos);
+        }
     }
 
     renderItemEditPopUp(todo) {
@@ -383,6 +387,16 @@ export default class NoteController {
         const quote = quoteService.getRandomQuote();
         const asideElement = document.querySelector(".aside-quote-wrapper");
         asideElement.innerHTML = createQuote(quote);
+    }
+
+    renderStats() {
+        const statsElement = document.querySelector(".stats");
+        if (statsElement) {
+            statsElement.innerHTML = createStats(noteService.getAllNotesCount(),
+                noteService.getCompletedNotesCount(),
+                noteService.getOpenNotesCount(),
+                noteService.getStorageName());
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 /* variables declaration */
 :root {
+    --global-font: "Roboto", sans-serif;
     --body-background-color: rgba(255, 255, 255, 1);
     --header-background-color: rgba(255, 255, 255, 1);
     --header-text-color: rgba(0, 0, 0, 1);
@@ -13,7 +14,8 @@
     --footer-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
     --footer-text-color: var(--header-text-color);
     --quote-background-color: rgba(235, 235, 235, 1);
-    --global-font: "Roboto", sans-serif;
+    --url-color: rgba(0, 40, 160, 1);
+    --url-hover-color: rgba(40, 90, 255, 1);
     --button-text-color: rgba(10, 10, 10, 1);
     --button-background-color: rgba(220, 220, 220, 1);
     --button-hover-color: rgba(93, 147, 186, 1);

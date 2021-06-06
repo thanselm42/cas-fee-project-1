@@ -69,6 +69,8 @@
     --aside-text-color: var(--content-text-color);
     --aside-background-color: rgba(40, 40, 40, 1);
     --quote-background-color: rgba(55, 55, 55, 1);
+    --url-color: rgba(10, 70, 200, 1);
+    --url-hover-color: rgba(40, 120, 255, 1);
     --footer-text-color: var(--header-text-color);
     --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(50, 50, 50, 1), rgba(20, 20, 20, 1));

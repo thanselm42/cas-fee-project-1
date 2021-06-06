@@ -126,5 +126,21 @@ export class NoteService {
         }
         return ++highestID;
     }
+
+    getAllNotesCount() {
+        return this.notes.length;
+    }
+
+    getOpenNotesCount() {
+        return this.notes.filter((value) => value.isCompleted === false).length;
+    }
+
+    getCompletedNotesCount() {
+        return this.notes.filter((value) => value.isCompleted === true).length;
+    }
+
+    getStorageName() {
+        return this.storage.getName();
+    }
 }
 export const noteService = new NoteService();

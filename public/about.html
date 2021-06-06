@@ -7,52 +7,93 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.svg">
     <link rel="stylesheet" href="styles/roboto-fonts.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/about.css">
 </head>
 <body>
 <header class="page-header">
-    <!-- nav -->
     <nav class="page-nav">
         <ul class="page-nav-list">
-            <li id="top" class="page-nav-list-item">
+            <li id="top" class="page-nav-list-item" data-is-active="false" >
                 <a class="page-nav-link" href="./index.html">Home</a>
             </li>
-            <li class="page-nav-list-item">
+            <li class="page-nav-list-item" data-is-active="true" >
                 <a class="page-nav-link" href="./about.html">About</a>
             </li>
         </ul>
     </nav>
-    <h1 class="page-title">My Note App</h1>
+    <h1 class="page-title">Toby's Note App</h1>
     <select class="theme-changer action-button">
         <option value="defaultTheme">Default-Theme</option>
         <option value="darkTheme">Dark-Theme</option>
         <option value="neonTheme">Neon-Theme</option>
-        <option value="psychoTheme">Psycho-Theme</option>
+        <option value="rainbowTheme">Rainbow-Theme</option>
     </select>
 </header>
 <main class="page-main">
-    <p>coming soon</p>
-    <h3>Ressources</h3>
-    <p>This page was created with the help and resources of the following sources</p>
-    <ul>
-        <li>Course Material CAS Front End Engineering</li>
-        <li>w3schools.com</li>
-        <li>mdn developer.mozilla.org</li>
-        <li>selfhtml.org</li>
-        <li>css-tricks.com</li>
-        <li>http://lea.verou.me/2011/08/accessible-star-rating-widget-with-pure-css/</li>
-        <li>https://google-webfonts-helper.herokuapp.com/fonts</li>
-        <li>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></li>
-    </ul>
+    <div class="about-pane">
+        <div class="intro">
+            <h3>Introduction</h3>
+            <p>
+                Need to get order in your mess of ToDo-lists and post-its?
+                <strong>This is your app!</strong>
+                Organize your notes by importance, due date and more. Or set a color label to group similar notes.
+            </p>
+            <p>
+                To speed up your work, use the key-bindings described in the side-text on the right.
+            </p>
+            <p>
+                This app was made as part of the <a href="https://www.ost.ch/de/weiterbildung/weiterbildungsangebot/informatik/cas-frontend-engineering/" target="_blank">CAS-FEE</a> Project-1 at <a href="https://www.ost.ch/" target="_blank">OST</a>.
+            </p>
+            <p>
+                Check out the source-code on <a href="https://github.com/thanselm42/cas-fee-project-1" target="_blank">GitHub</a>.
+            </p>
+        </div>
+        <div class="resources">
+            <h3>Resources / Credits</h3>
+            <p>This page was created with the help and resources of the following sources</p>
+            <ul>
+                <li>Course material CAS Front End Engineering</li>
+                <li><a href="https://www.w3schools.com/" target="_blank">W3schools</a></li>
+                <li><a href="https://developer.mozilla.org" target="_blank">MDN</a></li>
+                <li><a href="https://selfhtml.org" target="_blank">selfhtml</a></li>
+                <li><a href="https://css-tricks.com" target="_blank">CSS-TRICKS</a></li>
+                <li><a href="https://lea.verou.me/2011/08/accessible-star-rating-widget-with-pure-css/" target="_blank">Rating-Stars...</a></li>
+                <li><a href="https://google-webfonts-helper.herokuapp.com/fonts" target="_blank">Google-Web-Fonts Helper</a></li>
+                <li><a href="https://fonts.google.com/" target="_blank">Google Fonts</a></li>
+                <li>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></li>
+            </ul>
+        </div>
+        <div class="admin">
+            <h3>Administration</h3>
+            <div class="stats">
+            </div>
+            <!-- add export-as-json link -->
+        </div>
+    </div>
 </main>
 <aside class="main-aside">
-    <p>coming soon</p>
+    <div class="aside-info-wrapper">
+        <h2>Quick edit key bindings</h2>
+        <h3>List-View</h3>
+        <p>Press <span>+</span> key to add a new note.</p>
+        <p>Press the <span>space</span> key to hide/show completed notes.</p>
+        <h3>Edit-View</h3>
+        <p>Press the <span>esc</span> key to cancel and close the edit-view.</p>
+        <p>Press <span>ctrl+s</span> to save the current note.</p>
+        <p>Press <span>ctrl+shift+s</span> to save the current note and close the edit-view.</p>
+        <p>Press the <span>ctrl+&#8592;</span> key to cancel the current note and open the previous one.</p>
+        <p>Press the <span>ctrl+&#8594;</span> key to cancel the current note and open the next one.</p>
+    </div>
+    <div class="aside-quote-wrapper">
+    </div>
 </aside>
 <footer class="page-footer">
-    <div>
-        <a href="#top">&#8593</a>
-        <span>&copy; Tobias Hanselmann</span>
+    <div class="footer-top-link-container">
+        <a class="footer-top-link" href="#top"><span>&#10140</span></a>
     </div>
-    <span>v1.0 16.05.2021</span>
+    <p>&copy; Tobias Hanselmann</p>
+    <p>v1.0 16.05.2021</p>
 </footer>
 <script src="scripts/controllers/main-controller.js" type="module"></script>
 </body>
