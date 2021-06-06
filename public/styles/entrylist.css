@@ -55,6 +55,14 @@
     text-align: center;
 }
 
+.delete-popup-content-wrapper .delete-img {
+    grid-area: icon;
+    align-self: center;
+    margin-left: 1rem;
+    width: 4rem;
+    height: 4rem;
+}
+
 .delete-popup-content-wrapper .delete-content {
     grid-area: content;
     padding-top: 1rem;

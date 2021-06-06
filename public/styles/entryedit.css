@@ -1,5 +1,6 @@
 .edit-form {
-    background: var(--body-background-color);
+    background: var(--popup-background-color);
+    background-image: var(--popup-background-image);
     border: var(--entry-border);
     box-shadow: var(--entry-border-shadow);
     width: 40rem;
@@ -11,7 +12,7 @@
 }
 
 .edit-form-wrapper {
-    background: var(--content-background-color);
+    background: rgba(255, 255, 255, 0) var(--popup-background-image);
     border-bottom: var(--entry-border);
 }
 
@@ -32,7 +33,7 @@
 .form-input {
     order: 2;
     width: 80%;
-    background: var(--content-background-color);
+    background: var(--entry-background-color);
 }
 
 .form-input:required ~ .form-label::after {
@@ -40,10 +41,14 @@
     color: red;
 }
 
+.form-input-small.nobackground {
+    background: var(--content-background-color);
+}
+
 .form-input-small {
     order: 2;
     width: 15rem;
-    background: var(--content-background-color);
+    background: var(--entry-background-color);
 }
 
 .form-input-small:required ~ .form-label::after {
@@ -54,7 +59,7 @@
 .form-input-very-small {
     order: 2;
     width: 5rem;
-    background: var(--content-background-color);
+    background: var(--entry-background-color);
 }
 
 .form-input-very-small:required ~ .form-label::after {
@@ -69,6 +74,7 @@
 
 .validation-message {
     min-height: 1.2rem;
+    background: rgba(255, 255, 255, 0);
     width: 90%;
 }
 

@@ -24,7 +24,9 @@
     --important-button-text-color: var(--active-button-text-color);
     --important-button-background-color: rgba(0, 180, 50, 1);
     --important-button-hover-color: rgba(0, 255, 0, 1);
-    --entry-background-color: rgba(230, 230, 230, 1);
+    --popup-background-color: var(--body-background-color);
+    --popup-background-image: none;
+    --entry-background-color: rgba(230, 230, 230, 0.5);
     --entry-description-background-color: rgba(255, 255, 255, 0.2);
     --entry-border: none;
     --entry-border1: 1px solid rgba(180, 180, 180, 1);

@@ -65,6 +65,7 @@
     --header-background-color: rgba(20, 20, 20, 1);
     --content-text-color: rgba(190, 190, 190, 1);
     --content-background-color: rgba(20, 20, 20, 1);
+    --entry-background-color: rgba(80, 80, 80, 0.5);
     --aside-text-color: var(--content-text-color);
     --aside-background-color: rgba(40, 40, 40, 1);
     --quote-background-color: rgba(55, 55, 55, 1);
@@ -82,6 +83,7 @@
     --important-button-hover-color: rgb(0, 168, 0);
     --entry-border1: 1px solid rgba(100, 100, 100, 1);
     --entry-border-shadow: 1px 3px 4px 1px rgba(255, 255, 255, 0.2), 0 3px 10px 0 rgba(255, 255, 255, 0.19);
+    --popup-background-color: var(--body-background-color);
     --rating-star-color-0: rgb(104, 104, 104);
     --rating-star-color-1: rgb(30, 95, 184);
     --rating-star-color-2: rgb(0, 146, 0);
@@ -97,6 +99,7 @@
     --body-background-color: var(--header-background-color);
     --content-text-color: var(--header-text-color);
     --content-background-color: var(--header-background-color);
+    --entry-background-color: rgba(0, 50, 50, 0.5);
     --aside-text-color: var(--header-text-color);
     --aside-background-color: rgba(5, 25, 10, 1);
     --quote-background-color: rgba(0, 0, 0, 1);
@@ -117,6 +120,7 @@
     --entry-border-shadow: var(--button-border-shadow);
     --animation: none;
     --header-animation: flicker 1.5s infinite alternate;
+    --popup-background-color: var(--body-background-color);
     --rating-star-color-0: rgb(170, 170, 170);
     --rating-star-color-1: rgb(18, 120, 255);
     --rating-star-color-2: rgb(0, 255, 0);
@@ -136,8 +140,20 @@
     --header-background-color: rgba(255, 0, 255, 1);
     --header-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     --footer-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    --content-background-color: rgba(255, 255, 255, 0);
+    --entry-background-color: rgba(230, 230, 230, 0.5);
     --animation: rainbow 7s infinite alternate;
-    --body-background-image: radial-gradient(rgb(253, 165, 165), #f8f8ab, #b3ffb3);
+    --body-background-image:
+        linear-gradient(
+            rgba(255, 0, 0, 0.1),
+            rgba(255, 165, 0, 0.1),
+            rgba(255, 255, 0, 0.1),
+            rgba(0, 128, 0, 0.1),
+            rgba(0, 0, 255, 0.1),
+            rgba(75, 0, 130, 0.1),
+            rgba(238, 130, 238, 0.1)
+        );
+    --popup-background-image: var(--body-background-image);
 }
 
 .debug-theme {

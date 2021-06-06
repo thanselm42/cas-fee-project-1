@@ -35,7 +35,7 @@ export default function createEditPopUp(todo) {
         <label class="form-label" for="description">Description</label>
       </div>
       <div class="form-item-wrapper">
-        <div class="form-input-small">
+        <div class="form-input-small nobackground">
             <fieldset id="importance" class="rating importance-field">
                 <input type="radio" id="star5" name="rating" value="5"${addCheckedForImportanceRadioInputField(todo, 5)}><label class = "full" for="star5" title="5"></label>
                 <input type="radio" id="star4" name="rating" value="4"${addCheckedForImportanceRadioInputField(todo, 4)}><label class = "full" for="star4" title="4"></label>
