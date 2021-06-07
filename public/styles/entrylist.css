@@ -110,11 +110,11 @@
 }
 
 .sort-button[data-sort-asc="true"]::after {
-    content: " \025B2;";
+    content: " \025B2";
 }
 
 .sort-button[data-sort-asc="false"]::after {
-    content: " \025BC;";
+    content: " \025BC";
 }
 
 .add-and-filter-pane {
@@ -242,7 +242,5 @@ input:focus + .slider {
 }
 
 input:checked + .slider::before {
-    -webkit-transform: translateX(17px);
-    -ms-transform: translateX(17px);
     transform: translateX(17px);
 }

@@ -28,14 +28,15 @@
     color: var(--url-hover-color);
 }
 
-.resources ul {
+.about-pane ul {
     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
-.resources ul li {
+.about-pane ul li {
     padding-bottom: 0.2rem;
 }
 
-.stats span{
+.stats span {
     font-style: italic;
 }
