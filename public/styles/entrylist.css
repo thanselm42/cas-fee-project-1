@@ -9,6 +9,12 @@
     padding: 0.1rem;
 }
 
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 22rem;
+}
+
 .blocking-popup {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
@@ -79,12 +85,6 @@
     width: 8rem;
 }
 
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 22rem;
-}
-
 .edit-pane[data-is-popup-visible="true"] {
     display: flex;
 }
@@ -110,11 +110,11 @@
 }
 
 .sort-button[data-sort-asc="true"]::after {
-    content: " \025B2";
+    content: " \025B2;";
 }
 
 .sort-button[data-sort-asc="false"]::after {
-    content: " \025BC";
+    content: " \025BC;";
 }
 
 .add-and-filter-pane {

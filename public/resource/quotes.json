@@ -622,5 +622,275 @@
     "quote": "Dr Ray Stantz: Where do these stairs go? Dr. Peter Venkman: They go up!",
     "movie": "Ghostbusters",
     "year": 1984
+  },
+  {
+    "place": 1005,
+    "quote": "Homer Simpson: D'Oh!",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1006,
+    "quote": "Homer Simpson: To alcohol! The cause of, and solution to, all of life's problems.",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1007,
+    "quote": "Homer Simpson: Operator! Give me the number for 911!",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1008,
+    "quote": "Homer Simpson: Nucular... It's pronounced Nucular.",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1009,
+    "quote": "Bender: We’re making beer. I’m the brewery!",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1010,
+    "quote": "Bender: Blackmail is such an ugly word. I prefer extortion. The ‘x’ makes it sound cool.",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1011,
+    "quote": "Bender: I’m Bender, baby! Oh god, please insert liquor!",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1012,
+    "quote": "Bender: I'm So Embarrassed. I Wish Everybody Else Was Dead.",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1013,
+    "quote": "Fry: Valentine's Day Is Coming? Oh Crap - I Forgot To Get A Girlfriend Again.",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1014,
+    "quote": "Professor Farnsworth: Now, Now. There Will Be Plenty Of Time To Discuss Your Objections When And If You Return.",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1015,
+    "quote": "Amy: Finally, A Uniform I'd Be Happy To Be Caught Dead In!",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1016,
+    "quote": "Fry: Did Everything Just Taste Purple For A Second?",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1017,
+    "quote": "Bender 2: My Story Is A Lot Like Yours, Only More Interesting 'Cause It Involves Robots.",
+    "movie": "Futurama",
+    "year": 0
+  },
+  {
+    "place": 1018,
+    "quote": "Bart Simpson: Eat my shorts!",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1019,
+    "quote": "Bart Simpson: ¡Ay, caramba!",
+    "movie": "The Simpsons",
+    "year": 0
+  },
+  {
+    "place": 1020,
+    "quote": "Clive Gollings: There's a Alien in the back making bagels and coffee! Graeme Willy: Why you want tea?",
+    "movie": "Paul",
+    "year": 2011
+  },
+  {
+    "place": 1021,
+    "quote": "Clive Gollings: They are going to rape us and break our arms! Graeme Willy: I don't want my arms broke!",
+    "movie": "Paul",
+    "year": 2011
+  },
+  {
+    "place": 1022,
+    "quote": "Leonard to Sheldon: Sometimes your movements are so lifelike I forget you are not a real boy.",
+    "movie": "The Big Bang Theory",
+    "year": -2019
+  },
+  {
+    "place": 1023,
+    "quote": "Bernadette: “Why don’t you want to work with me? I know I can be tough, but that’s just because I’m surrounded by useless idiots.",
+    "movie": "The Big Bang Theory",
+    "year": -2019
+  },
+  {
+    "place": 1024,
+    "quote": "Sheldon: “I am not crazy. My mother had me tested.",
+    "movie": "The Big Bang Theory",
+    "year": -2019
+  },
+  {
+    "place": 1025,
+    "quote": "That rug really tied the room together.",
+    "movie": "The Big Lebowski",
+    "year": 1998
+  },
+  {
+    "place": 1026,
+    "quote": "I’m the Dude, so that’s what you call me. That or, uh, His Dudeness, or uh, Duder, or El Duderino, if you’re not into the whole brevity thing.",
+    "movie": "The Big Lebowski",
+    "year": 1998
+  },
+  {
+    "place": 1027,
+    "quote": "Smokey, this is not Vietnam, this is bowling. There are rules.",
+    "movie": "The Big Lebowski",
+    "year": 1998
+  },
+  {
+    "place": 1028,
+    "quote": "Yeah, well, you know, that’s just, like, your opinion, man.",
+    "movie": "The Big Lebowski",
+    "year": 1998
+  },
+  {
+    "place": 1029,
+    "quote": "Obviously, you are not a golfer.",
+    "movie": "The Big Lebowski",
+    "year": 1998
+  },
+  {
+    "place": 1030,
+    "quote": "Han Solo: It’s not my fault.",
+    "movie": "Star Wars",
+    "year": 1977
+  },
+  {
+    "place": 1031,
+    "quote": "Obi-Wan Kenobi: In my experience there is no such thing as luck.",
+    "movie": "Star Wars",
+    "year": 1977
+  },
+  {
+    "place": 1032,
+    "quote": "Spock: Live long, and prosper.",
+    "movie": "Star Trek",
+    "year": 1966
+  },
+  {
+    "place": 1033,
+    "quote": "Barney Stinson: A lie is just a great story that someone ruined with the truth.",
+    "movie": "How I Met Your Mother",
+    "year": -2014
+  },
+  {
+    "place": 1034,
+    "quote": "Barney Stinson: Suit up!",
+    "movie": "How I Met Your Mother",
+    "year": -2014
+  },
+  {
+    "place": 1035,
+    "quote": "Capt. Marko Ramius: Give me a ping, Vasili. One ping only, please.",
+    "movie": "The Hunt For Red October",
+    "year": 1990
+  },
+  {
+    "place": 1036,
+    "quote": "Capt. Marko Ramius: Ryan some things in here don't react well to bullets.",
+    "movie": "The Hunt For Red October",
+    "year": 1990
+  },
+  {
+    "place": 1037,
+    "quote": "Capt. Bart Mancuso: My Morse is so rusty I could be sending him dimensions on Playmate of the Month.",
+    "movie": "The Hunt For Red October",
+    "year": 1990
+  },
+  {
+    "place": 1038,
+    "quote": "Mathilda: Is life always this hard, or is it just when you're a kid? Leon: Always like this",
+    "movie": "Léon the Professional",
+    "year": 1994
+  },
+  {
+    "place": 1039,
+    "quote": "You call this archaeology?",
+    "movie": "Indiana Jones and the Last Crusade",
+    "year": 1989
+  },
+  {
+    "place": 1040,
+    "quote": "No ticket!",
+    "movie": "Indiana Jones and the Last Crusade",
+    "year": 1989
+  },
+  {
+    "place": 1041,
+    "quote": "We do not follow maps to buried treasure, and X never, ever marks the spot.",
+    "movie": "Indiana Jones",
+    "year": 1989
+  },
+  {
+    "place": 1042,
+    "quote": "Don’t call me Junior!",
+    "movie": "Indiana Jones and the Last Crusade",
+    "year": 1989
+  },
+  {
+    "place": 1043,
+	"quote": "Neo: We need guns. Lots of guns.",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1044,
+	"quote": "Morpheus: Do you think that's air you're breathing now?",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1045,
+	"quote": "Cypher: Why oh why, didn't I take the blue pill?",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1046,
+	"quote": "Agent Smith: Good bye, Mr. Anderson.",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1047,
+	"quote": "Morpheus: There is a difference between knowing the path and walking the path.",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1048,
+	"quote": "Morpheus: Welcome... To the real world.",
+    "movie": "The Matrix",
+    "year": 1999
+  },
+  {
+    "place": 1048,
+	"quote": "Neo: Ever have that feeling where you’re not sure if you’re awake or dreaming? ",
+    "movie": "The Matrix",
+    "year": 1999
   }
 ]
