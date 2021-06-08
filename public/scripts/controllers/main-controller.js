@@ -22,6 +22,8 @@ export default class NoteController {
             delete: (id) => this.showDeletePopUp(id),
         };
 
+        this.showTimerBasedNotifications = false;
+
         this.currentSortAttribute = "title";
         this.currentSortOrderAsc = true;
         this.currentSortButton = null;
@@ -38,6 +40,20 @@ export default class NoteController {
         this.renderItemList();
         this.renderQuote();
         this.renderStats();
+        this.initNotification();
+    }
+
+    async initNotification() {
+
+        this.notificationPermission = Notification.permission;
+        if (this.notificationPermission !== "granted") {
+            this.notificationPermission = await Notification.requestPermission();
+        }
+        if (this.showTimerBasedNotifications) {
+            this.workerThread = new Worker("./scripts/controllers/note-timer.js");
+            this.workerThread.onmessage = (ev) => this.notificationCheck(ev);
+        }
+        this.notificationCheck();
     }
 
     initEventHandlers() {
@@ -349,6 +365,28 @@ export default class NoteController {
         this.currentModifyingItem = noteService.getNoteById(id);
         const popupPane = document.querySelector(".confirm-delete-popup");
         popupPane.setAttribute("data-is-popup-visible", "true");
+    }
+
+    notificationCheck() {
+        const now = new Date();
+        const notes = noteService.getAllOpenNotesUnSorted();
+        // check for notes where the due-date will expire in the next 10 minutes
+        const filteredNotes = notes.filter((value) => value.dueDate > 0
+            && (value.dueDate <= now.valueOf() + (1000 * 60 * 10)));
+        this.showNotification(filteredNotes);
+    }
+
+    showNotification(ids) {
+        let notificationMessage;
+        if (Array.isArray(ids)) {
+            notificationMessage = "There are several uncompleted TODOs that have reached the due-date or will reach the due-date soon!";
+        } else {
+            notificationMessage = `The Due-Date for ${ids[0].title} has already been reached or will be reached soon`;
+        }
+
+        if (this.notificationPermission === "granted") {
+            this.greeting = new Notification(notificationMessage);
+        }
     }
 
     static hideDeletePopUp() {

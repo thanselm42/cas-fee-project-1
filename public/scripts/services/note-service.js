@@ -24,9 +24,16 @@ export class NoteService {
         this.storage.update(this.notes.map((n) => n.toJSON()));
     }
 
-    getNotes(orderBy, orderAscending, filterBy) {
+    getNotes(orderBy, orderAscending, hideCompleted) {
         if (this.notes.length > 0) {
-            return filterCompleted(sortItemsBy(this.notes, orderBy, orderAscending), filterBy);
+            return filterCompleted(sortItemsBy(this.notes, orderBy, orderAscending), hideCompleted);
+        }
+        return [];
+    }
+
+    getAllOpenNotesUnSorted() {
+        if (this.notes.length > 0) {
+            return filterCompleted(this.notes, true);
         }
         return [];
     }
@@ -90,9 +97,9 @@ export class NoteService {
         return ret;
     }
 
-    getPreviousNoteById(id, sort, asc, completed) {
+    getPreviousNoteById(id, sort, asc, hideCompleted) {
         let ret = null;
-        const tempNotes = this.getNotes(sort, asc, completed);
+        const tempNotes = this.getNotes(sort, asc, hideCompleted);
         tempNotes.forEach((value, index) => {
             if (value.id === id) {
                 if (index > 0) {
