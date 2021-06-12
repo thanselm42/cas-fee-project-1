@@ -1,3 +1,5 @@
+import Quote from '../quote';
+
 export default class QuoteStorageLocal {
     constructor() {
         const request = new XMLHttpRequest();
@@ -10,3 +12,13 @@ export default class QuoteStorageLocal {
         return this.quotes;
     }
 }
+
+/*
+load() {
+    this.quotes = this.storage.getAll().map((n) => new Quote(n.place,
+        n.quote,
+        n.movie,
+        n.year));
+}
+*/
+ */

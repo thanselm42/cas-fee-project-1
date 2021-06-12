@@ -1,6 +1,6 @@
 import Note from "./note.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
-import {httpService} from "./http-service.js";
+import {httpService} from "./util/http-service.js";
 
 export class NoteService {
     constructor() {
