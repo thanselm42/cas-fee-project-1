@@ -1,4 +1,4 @@
-import NoteStorageMock from "./data/note-storage-mock.js";
+import NoteStorageMock from "./data/note-storage-local.js";
 import Note from "./note.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
 
