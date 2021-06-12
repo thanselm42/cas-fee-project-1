@@ -17,7 +17,7 @@ export default class NoteController {
         this.currentTheme = this.themes[0];
 
         this.entryModificationType = {
-            complete: (id, state) => NoteController.setCompleteState(id, state),
+            complete: (id, state) => this.setCompleteState(id, state),
             modify: (id) => this.editItem(id),
             delete: (id) => this.showDeletePopUp(id),
         };
@@ -31,20 +31,18 @@ export default class NoteController {
         this.currentModifyingItem = null;
     }
 
-    initialize() {
+    async initialize() {
         this.currentSortButton = NoteController.getActiveSortButton();
-        this.initEventHandlers();
+        await this.initEventHandlers();
         this.initThemes();
-        noteService.load();
         quoteService.load();
-        this.renderItemList();
+        await this.renderItemList();
         this.renderQuote();
-        this.renderStats();
-        this.initNotification();
+        await this.renderStats();
+        await this.initNotification();
     }
 
     async initNotification() {
-
         this.notificationPermission = Notification.permission;
         if (this.notificationPermission !== "granted") {
             this.notificationPermission = await Notification.requestPermission();
@@ -53,7 +51,7 @@ export default class NoteController {
             this.workerThread = new Worker("./scripts/controllers/note-timer.js");
             this.workerThread.onmessage = (ev) => this.notificationCheck(ev);
         }
-        this.notificationCheck();
+        await this.notificationCheck();
     }
 
     initEventHandlers() {
@@ -65,7 +63,7 @@ export default class NoteController {
 
         const sortButtonsElement = document.querySelector(".sort-buttons");
         if (sortButtonsElement) {
-            sortButtonsElement.addEventListener("click", (event) => {
+            sortButtonsElement.addEventListener("click", async (event) => {
                 const btnDataSet = event.target.dataset;
                 const sortAsc = (btnDataSet.sortAsc === "true");
                 btnDataSet.sortAsc = (!sortAsc).toString();
@@ -77,7 +75,7 @@ export default class NoteController {
                 this.currentSortOrderAsc = !sortAsc;
                 if (btnDataSet.sortBy) {
                     this.currentSortAttribute = btnDataSet.sortBy;
-                    this.renderItemList();
+                    await this.renderItemList();
                 }
             });
         }
@@ -88,9 +86,9 @@ export default class NoteController {
         }
         const showCompletedSwitchElement = document.querySelector(".show-completed-switch");
         if (showCompletedSwitchElement) {
-            showCompletedSwitchElement.addEventListener("click", (event) => {
+            showCompletedSwitchElement.addEventListener("click", async (event) => {
                 this.currentHideCompleted = !event.target.checked;
-                this.renderItemList();
+                await this.renderItemList();
             });
         }
         const entryListElement = document.querySelector(".todos-list");
@@ -113,15 +111,15 @@ export default class NoteController {
 
         const deleteConfirmButtonElement = document.querySelector(".delete-confirm");
         if (deleteConfirmButtonElement) {
-            deleteConfirmButtonElement.addEventListener("click", evt => {
-                this.deleteItem(this.currentModifyingItem.id);
+            deleteConfirmButtonElement.addEventListener("click", async (evt) => {
+                await this.deleteItem(this.currentModifyingItem.id);
                 NoteController.hideDeletePopUp();
             });
         }
 
         const deleteConfirmCancelButtonElement = document.querySelector(".delete-cancel");
         if (deleteConfirmCancelButtonElement) {
-            deleteConfirmCancelButtonElement.addEventListener("click", evt => {
+            deleteConfirmCancelButtonElement.addEventListener("click", (evt) => {
                 NoteController.hideDeletePopUp();
             });
         }
@@ -129,16 +127,16 @@ export default class NoteController {
         // actions from the edit-pane-buttons
         const actionButtonsElement = document.querySelector(".action-buttons");
         if (actionButtonsElement) {
-            actionButtonsElement.addEventListener("click", (event) => {
-                this.handleEditPopupAction(event.target.dataset.actionCommand);
+            actionButtonsElement.addEventListener("click", async (event) => {
+                await this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
             });
         }
 
         const navItemButtonsElement = document.querySelector(".item-nav-buttons");
         if (navItemButtonsElement) {
-            navItemButtonsElement.addEventListener("click", (event) => {
-                this.handleEditPopupAction(event.target.dataset.actionCommand);
+            navItemButtonsElement.addEventListener("click", async (event) => {
+                await this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
             });
         }
@@ -151,31 +149,31 @@ export default class NoteController {
         });
 
         // add keydown-listener for capturing special keys
-        document.addEventListener("keydown", (ev) => {
+        document.addEventListener("keydown", async (ev) => {
             // esc, cancel edit-window
             if (ev.key === "Escape" && NoteController.isEditPopUpVisible()) {
-                this.handleEditPopupAction("cancelAndClose");
+                await this.handleEditPopupAction("cancelAndClose");
             }
             // ctrl+s save note
             if (ev.ctrlKey && ev.key === "s" && NoteController.isEditPopUpVisible()) {
-                this.handleEditPopupAction("save");
+                await this.handleEditPopupAction("save");
                 ev.preventDefault(); // prevent the browser of trying to save the page
             }
             // ctrl+shift+s save note and close edit-window
             if (ev.ctrlKey && ev.shiftKey && ev.key === "S" && NoteController.isEditPopUpVisible()) {
-                this.handleEditPopupAction("saveAndClose");
-                this.renderItemList();
+                await this.handleEditPopupAction("saveAndClose");
+                await this.renderItemList();
             }
             // left arrow
             if (ev.ctrlKey && ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
-                this.handleEditPopupAction("prev");
-                this.renderItemList();
+                await this.handleEditPopupAction("prev");
+                await this.renderItemList();
                 ev.preventDefault();
             }
             // right arrow
             if (ev.ctrlKey && ev.key === "ArrowRight" && NoteController.isEditPopUpVisible()) {
-                this.handleEditPopupAction("next");
-                this.renderItemList();
+                await this.handleEditPopupAction("next");
+                await this.renderItemList();
                 ev.preventDefault();
             }
             // space, toggle show/hide completed filter
@@ -186,15 +184,15 @@ export default class NoteController {
                 } else {
                     document.querySelector(".show-completed-switch").setAttribute("checked", "true");
                 }
-                this.renderItemList();
+                await this.renderItemList();
             }
         });
     }
 
-    handleEditPopupAction(action) {
+    async handleEditPopupAction(action) {
         switch (action) {
         case "save": {
-            const saveRet = this.saveItem();
+            const saveRet = await this.saveItem();
             if (saveRet === "") {
                 this.renderItemEditPopUp(this.currentModifyingItem);
             } else {
@@ -203,10 +201,10 @@ export default class NoteController {
             break;
         }
         case "saveAndClose": {
-            const saveRet = this.saveItem();
+            const saveRet = await this.saveItem();
             if (saveRet === "") {
                 NoteController.hideEditPopUp();
-                this.renderItemList();
+                await this.renderItemList();
             } else {
                 this.showValidityWarning(saveRet);
             }
@@ -217,10 +215,10 @@ export default class NoteController {
             break;
         case "cancelAndClose":
             NoteController.hideEditPopUp();
-            this.renderItemList();
+            await this.renderItemList();
             break;
         case "prev": {
-            const prevNote = noteService.getPreviousNoteById(
+            const prevNote = await noteService.getPreviousNoteById(
                 this.currentModifyingItem.id,
                 this.currentSortAttribute,
                 this.currentSortOrderAsc,
@@ -233,7 +231,7 @@ export default class NoteController {
             break;
         }
         case "next": {
-            const nextNote = noteService.getNextNoteById(
+            const nextNote = await noteService.getNextNoteById(
                 this.currentModifyingItem.id,
                 this.currentSortAttribute,
                 this.currentSortOrderAsc,
@@ -274,10 +272,10 @@ export default class NoteController {
         this.currentTheme = newTheme;
     }
 
-    static setCompleteState(id, state) {
-        const note = noteService.getNoteById(id);
+    async setCompleteState(id, state) {
+        const note = await noteService.getNoteById(id);
         note.isCompleted = state;
-        noteService.updateNote(note);
+        await noteService.updateNote(note);
         // re-rendering is not necessary, because the checkbox has already the correct state
     }
 
@@ -288,20 +286,20 @@ export default class NoteController {
         this.renderItemEditPopUp(note);
     }
 
-    editItem(id) {
-        const note = noteService.getNoteById(id);
+    async editItem(id) {
+        const note = await noteService.getNoteById(id);
         this.currentModifyingItem = note;
         NoteController.showEditPopUp();
         this.renderItemEditPopUp(note);
     }
 
-    deleteItem(id) {
-        noteService.deleteNote(id);
+    async deleteItem(id) {
+        await noteService.deleteNote(id);
         // re-render list
-        this.renderItemList();
+        await this.renderItemList();
     }
 
-    saveItem() {
+    async saveItem() {
         const formElement = document.querySelector(".edit-form");
         const titleElement = formElement.querySelector(".title-field");
         if (titleElement.value === "") {
@@ -321,8 +319,12 @@ export default class NoteController {
         }
         this.currentModifyingItem.modificationDate = new Date().valueOf();
 
-        // update store
-        noteService.updateNote(this.currentModifyingItem);
+        // check if it is a new note and add note or update store
+        if (this.currentModifyingItem.id !== "") {
+            await noteService.updateNote(this.currentModifyingItem);
+        } else {
+            await noteService.addNote(this.currentModifyingItem);
+        }
 
         return "";
     }
@@ -361,15 +363,15 @@ export default class NoteController {
         popupPane.setAttribute("data-is-popup-visible", "false");
     }
 
-    showDeletePopUp(id) {
-        this.currentModifyingItem = noteService.getNoteById(id);
+    async showDeletePopUp(id) {
+        this.currentModifyingItem = await noteService.getNoteById(id);
         const popupPane = document.querySelector(".confirm-delete-popup");
         popupPane.setAttribute("data-is-popup-visible", "true");
     }
 
-    notificationCheck() {
+    async notificationCheck() {
         const now = new Date();
-        const notes = noteService.getAllOpenNotesUnSorted();
+        const notes = await noteService.getAllOpenNotesUnSorted();
         // check for notes where the due-date will expire in the next 10 minutes
         const filteredNotes = notes.filter((value) => value.dueDate > 0
             && (value.dueDate <= now.valueOf() + (1000 * 60 * 10)));
@@ -394,8 +396,8 @@ export default class NoteController {
         popupPane.setAttribute("data-is-popup-visible", "false");
     }
 
-    renderItemList() {
-        const todos = noteService.getNotes(
+    async renderItemList() {
+        const todos = await noteService.getNotes(
             this.currentSortAttribute,
             this.currentSortOrderAsc,
             this.currentHideCompleted,
@@ -427,13 +429,13 @@ export default class NoteController {
         asideElement.innerHTML = createQuote(quote);
     }
 
-    renderStats() {
+    async renderStats() {
         const statsElement = document.querySelector(".stats");
         if (statsElement) {
-            statsElement.innerHTML = createStats(noteService.getAllNotesCount(),
-                noteService.getCompletedNotesCount(),
-                noteService.getOpenNotesCount(),
-                noteService.getStorageName());
+            statsElement.innerHTML = createStats(await noteService.getAllNotesCount(),
+                await noteService.getCompletedNotesCount(),
+                await noteService.getOpenNotesCount(),
+                await noteService.getStorageName());
         }
     }
 }

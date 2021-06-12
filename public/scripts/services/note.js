@@ -1,6 +1,6 @@
 export default class Note {
-    constructor(id, title, description, importance,
-        creationDate, dueDate, modificationDate, color, isCompleted) {
+    constructor(title, description, importance,
+        creationDate, dueDate, modificationDate, color, isCompleted, id) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -14,7 +14,6 @@ export default class Note {
 
     toJSON() {
         return {
-            id: this.id,
             title: this.title,
             description: this.description,
             importance: this.importance,
@@ -22,7 +21,8 @@ export default class Note {
             dueDate: this.dueDate,
             modificationDate: this.modificationDate,
             color: this.color,
-            isCompleted: this.isCompleted
+            isCompleted: this.isCompleted,
+            id: this.id,
         };
     }
 }

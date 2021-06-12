@@ -1,15 +1,15 @@
-import NoteStorageMock from "./data/note-storage-mock.js";
 import Note from "./note.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
+import {httpService} from "./http-service.js";
 
 export class NoteService {
-    constructor(storage) {
-        this.storage = storage || new NoteStorageMock();
-        this.notes = [];
+    constructor() {
+        this.apiURL = "/api/v1/notes/";
     }
 
-    load() {
-        this.notes = this.storage.getAll().map((n) => new Note(n.id,
+    async getRemoteNotes() {
+        const notes = await httpService.ajax("GET", this.apiURL, undefined);
+        return notes.map((n) => new Note(
             n.title,
             n.description,
             n.importance,
@@ -17,76 +17,57 @@ export class NoteService {
             n.dueDate,
             n.modificationDate,
             n.color,
-            n.isCompleted));
+            n.isCompleted,
+            n._id,
+        ));
     }
 
-    save() {
-        this.storage.update(this.notes.map((n) => n.toJSON()));
-    }
-
-    getNotes(orderBy, orderAscending, hideCompleted) {
-        if (this.notes.length > 0) {
-            return filterCompleted(sortItemsBy(this.notes, orderBy, orderAscending), hideCompleted);
+    async getNotes(orderBy, orderAscending, hideCompleted) {
+        const notes = await this.getRemoteNotes();
+        if (notes.length > 0) {
+            return filterCompleted(sortItemsBy(notes, orderBy, orderAscending), hideCompleted);
         }
         return [];
     }
 
-    getAllOpenNotesUnSorted() {
-        if (this.notes.length > 0) {
-            return filterCompleted(this.notes, true);
+    async getAllOpenNotesUnSorted() {
+        const notes = await this.getRemoteNotes();
+
+        if (notes.length > 0) {
+            return filterCompleted(notes, true);
         }
         return [];
     }
 
-    addNote(note) {
-        this.notes.push(note);
-        this.save();
+    async addNote(note) {
+        return httpService.ajax("POST", this.apiURL, note.toJSON());
     }
 
-    deleteNote(id) {
-        let nbrID;
-        if (typeof (id) !== "number") {
-            nbrID = Number(id);
-        } else {
-            nbrID = id;
-        }
-
-        for (let i = 0; i < this.notes.length; i++) {
-            if (this.notes[i].id === nbrID) {
-                this.notes.splice(i, 1);
-                break;
-            }
-        }
-        this.save();
+    async deleteNote(id) {
+        return httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
     }
 
-    updateNote(note) {
-        let isItANewNote = true;
-        this.notes.forEach((value, index) => {
-            if (note.id === value.id) {
-                this.notes[index] = note;
-                isItANewNote = false;
-            }
-        });
-
-        if (isItANewNote) {
-            this.addNote(note);
-        } else {
-            this.save();
-        }
+    async updateNote(note) {
+        return httpService.ajax("POST", `${this.apiURL}${note.id}`, note.toJSON());
     }
 
-    getNoteById(id) {
-        let nbrID;
-        if (typeof (id) !== "number") {
-            nbrID = Number(id);
-        }
-        return this.notes.filter((n) => n.id === nbrID)[0];
+    async getNoteById(id) {
+        const n = await httpService.ajax("GET", `${this.apiURL}${id}`, undefined);
+        return new Note(
+            n.title,
+            n.description,
+            n.importance,
+            n.creationDate,
+            n.dueDate,
+            n.modificationDate,
+            n.color,
+            n.isCompleted,
+            n._id);
     }
 
-    getNextNoteById(id, sort, asc, completed) {
+    async getNextNoteById(id, sort, asc, completed) {
         let ret = null;
-        const tempNotes = this.getNotes(sort, asc, completed);
+        const tempNotes = await this.getNotes(sort, asc, completed);
         tempNotes.forEach((value, index) => {
             if (value.id === id) {
                 if (index < tempNotes.length - 1) {
@@ -97,9 +78,9 @@ export class NoteService {
         return ret;
     }
 
-    getPreviousNoteById(id, sort, asc, hideCompleted) {
+    async getPreviousNoteById(id, sort, asc, hideCompleted) {
         let ret = null;
-        const tempNotes = this.getNotes(sort, asc, hideCompleted);
+        const tempNotes = await this.getNotes(sort, asc, hideCompleted);
         tempNotes.forEach((value, index) => {
             if (value.id === id) {
                 if (index > 0) {
@@ -112,7 +93,6 @@ export class NoteService {
 
     createNewNote() {
         return new Note(
-            this.generateNewID(),
             "",
             "",
             2,
@@ -121,33 +101,29 @@ export class NoteService {
             -1,
             0,
             false,
+            "",
         );
     }
 
-    generateNewID() {
-        let highestID = 0;
-        for (let i = 0; i < this.notes.length; i++) {
-            if (this.notes[i].id > highestID) {
-                highestID = this.notes[i].id;
-            }
-        }
-        return ++highestID;
+    async getAllNotesCount() {
+        const notes = await this.getRemoteNotes();
+        return notes.length;
     }
 
-    getAllNotesCount() {
-        return this.notes.length;
+    async getOpenNotesCount() {
+        const notes = await this.getAllOpenNotesUnSorted();
+        return notes.length;
     }
 
-    getOpenNotesCount() {
-        return this.notes.filter((value) => value.isCompleted === false).length;
-    }
+    async getCompletedNotesCount() {
+        const openNotes = await this.getAllOpenNotesUnSorted();
+        const allNotes = await this.getRemoteNotes();
 
-    getCompletedNotesCount() {
-        return this.notes.filter((value) => value.isCompleted === true).length;
+        return allNotes.length - openNotes.length;
     }
 
     getStorageName() {
-        return this.storage.getName();
+        return "nedb";
     }
 }
 export const noteService = new NoteService();
