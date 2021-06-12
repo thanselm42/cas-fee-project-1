@@ -40,15 +40,45 @@ export class NoteService {
     }
 
     async addNote(note) {
-        return httpService.ajax("POST", this.apiURL, note.toJSON());
+        const n = await httpService.ajax("POST", this.apiURL, note.toJSON());
+        return new Note(
+            n.title,
+            n.description,
+            n.importance,
+            n.creationDate,
+            n.dueDate,
+            n.modificationDate,
+            n.color,
+            n.isCompleted,
+            n._id);
     }
 
     async deleteNote(id) {
-        return httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
+        const n = await httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
+        return new Note(
+            n.title,
+            n.description,
+            n.importance,
+            n.creationDate,
+            n.dueDate,
+            n.modificationDate,
+            n.color,
+            n.isCompleted,
+            n._id);
     }
 
     async updateNote(note) {
-        return httpService.ajax("POST", `${this.apiURL}${note.id}`, note.toJSON());
+        const n = await httpService.ajax("POST", `${this.apiURL}${note.id}`, note.toJSON());
+        return new Note(
+            n.title,
+            n.description,
+            n.importance,
+            n.creationDate,
+            n.dueDate,
+            n.modificationDate,
+            n.color,
+            n.isCompleted,
+            n._id);
     }
 
     async getNoteById(id) {

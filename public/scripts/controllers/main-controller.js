@@ -128,16 +128,16 @@ export default class NoteController {
         const actionButtonsElement = document.querySelector(".action-buttons");
         if (actionButtonsElement) {
             actionButtonsElement.addEventListener("click", async (event) => {
-                await this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
+                await this.handleEditPopupAction(event.target.dataset.actionCommand);
             });
         }
 
         const navItemButtonsElement = document.querySelector(".item-nav-buttons");
         if (navItemButtonsElement) {
             navItemButtonsElement.addEventListener("click", async (event) => {
-                await this.handleEditPopupAction(event.target.dataset.actionCommand);
                 event.preventDefault();
+                await this.handleEditPopupAction(event.target.dataset.actionCommand);
             });
         }
 
@@ -167,13 +167,13 @@ export default class NoteController {
             // left arrow
             if (ev.ctrlKey && ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("prev");
-                await this.renderItemList();
+//                await this.renderItemList();
                 ev.preventDefault();
             }
             // right arrow
             if (ev.ctrlKey && ev.key === "ArrowRight" && NoteController.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("next");
-                await this.renderItemList();
+ //               await this.renderItemList();
                 ev.preventDefault();
             }
             // space, toggle show/hide completed filter
@@ -319,13 +319,15 @@ export default class NoteController {
         }
         this.currentModifyingItem.modificationDate = new Date().valueOf();
 
+        console.log("saveing...");
+
         // check if it is a new note and add note or update store
         if (this.currentModifyingItem.id !== "") {
-            await noteService.updateNote(this.currentModifyingItem);
+            this.currentModifyingItem = await noteService.updateNote(this.currentModifyingItem);
         } else {
-            await noteService.addNote(this.currentModifyingItem);
+            this.currentModifyingItem = await noteService.addNote(this.currentModifyingItem);
         }
-
+        console.log("saved!");
         return "";
     }
 
