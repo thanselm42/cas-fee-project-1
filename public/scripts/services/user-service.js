@@ -4,15 +4,22 @@ import UserSettings from "./user-Settings.js";
 export class UserService {
     constructor(storage) {
         this.storage = storage || new UserSettingsStorage();
-        this.settings = new UserSettings("default");
         this.load();
     }
 
     load() {
         const tempSettings = this.storage.getSettings();
-        this.settings = new UserSettings(tempSettings.userName,
-            tempSettings.theme,
-            tempSettings.lastNotification);
+
+        if (tempSettings) {
+            this.settings = new UserSettings(tempSettings.userName,
+                tempSettings.theme,
+                tempSettings.autoTheme,
+                tempSettings.showNotifications,
+                tempSettings.lastNotification);
+        } else {
+            this.settings = new UserSettings("default", "auto", "", true, 0);
+            this.save(this.settings);
+        }
     }
 
     save(settings) {
@@ -29,6 +36,10 @@ export class UserService {
 
     getAutoTheme() {
         return this.settings.autoTheme;
+    }
+
+    getShowNotifications() {
+        return this.settings.showNotifications;
     }
 
     getLastNotification() {
@@ -50,9 +61,14 @@ export class UserService {
         this.save(this.settings);
     }
 
+    setShowNotifications(show) {
+        this.settings.showNotifications = show;
+        this.save(this.settings);
+    }
+
     setLastNotification(ts) {
         this.settings.lastNotification = ts;
-        this.save();
+        this.save(this.settings);
     }
 }
 

@@ -21,17 +21,17 @@ export default class NoteController {
             delete: (id) => this.showDeletePopUp(id),
         };
 
-        this.showTimerBasedNotifications = false;
-
         this.currentSortAttribute = "creationDate";
         this.currentSortOrderAsc = true;
-        this.currentSortButton = null;
         this.currentHideCompleted = false;
         this.currentModifyingItem = null;
     }
 
     async initialize() {
         this.currentSortButton = NoteController.getActiveSortButton();
+        if (this.currentSortButton) {
+            this.currentSortAttribute = this.currentSortButton.dataset.sortBy;
+        }
         await this.initEventHandlers();
         this.initThemes();
         quoteService.load();
@@ -46,10 +46,8 @@ export default class NoteController {
         if (this.notificationPermission !== "granted") {
             this.notificationPermission = await Notification.requestPermission();
         }
-        if (this.showTimerBasedNotifications) {
-            this.workerThread = new Worker("./scripts/controllers/note-timer.js");
-            this.workerThread.onmessage = (ev) => this.notificationCheck(ev);
-        }
+        this.workerThread = new Worker("./scripts/controllers/note-timer.js");
+        this.workerThread.onmessage = (ev) => this.notificationCheck(ev);
         await this.notificationCheck();
     }
 
@@ -388,17 +386,27 @@ export default class NoteController {
     }
 
     async notificationCheck() {
-        const now = new Date();
-        const notes = await noteService.getAllOpenNotesUnSorted();
-        // check for notes where the due-date will expire in the next 10 minutes
-        const filteredNotes = notes.filter((value) => value.dueDate > 0
-            && (value.dueDate <= now.valueOf() + (1000 * 60 * 10)));
-        this.showNotification(filteredNotes);
+        if (userService.getShowNotifications()) {
+            const now = new Date();
+            const notes = await noteService.getAllOpenNotesUnSorted();
+
+            // check for notes where the due-date will expire in the next 60 minutes
+            const filteredNotes = notes.filter((value) => value.dueDate > 0
+                && (value.dueDate <= now.valueOf() + (1000 * 60 * 60)));
+
+            if(filteredNotes.length > 0) {
+                // prevent showing notifications to often (max every 10min)
+                if (userService.getLastNotification() + (1000 * 60 * 10) < now.valueOf()) {
+                    userService.setLastNotification(now.valueOf());
+                    this.showNotification(filteredNotes);
+                }
+            }
+        }
     }
 
     showNotification(ids) {
         let notificationMessage;
-        if (Array.isArray(ids)) {
+        if (Array.isArray(ids) && ids.length > 1) {
             notificationMessage = "There are several uncompleted TODOs that have reached the due-date or will reach the due-date soon!";
         } else {
             notificationMessage = `The Due-Date for ${ids[0].title} has already been reached or will be reached soon`;
