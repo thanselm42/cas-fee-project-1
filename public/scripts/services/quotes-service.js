@@ -1,6 +1,5 @@
 // import QuoteStorageLocal from "./data/quote-storage-local.js";
 import QuoteStorage from "./data/quote-storage-remote.js";
-import Quote from "./quote.js";
 
 export class QuoteService {
     constructor(storage) {

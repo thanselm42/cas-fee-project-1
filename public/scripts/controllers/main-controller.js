@@ -1,5 +1,6 @@
 import {noteService} from "../services/note-service.js";
 import {quoteService} from "../services/quotes-service.js";
+import {userService} from "../services/user-service.js";
 import createListItems from "../view/list.js";
 import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
 import createQuote from "../view/quote.js";
@@ -8,14 +9,12 @@ import createStats from "../view/stats.js";
 export default class NoteController {
     constructor() {
         this.themes = [
-            {className: ""},
-            {className: "dark-theme"},
-            {className: "neon-theme"},
-            {className: "rainbow-theme"},
+            "auto",
+            "light-theme",
+            "dark-theme",
+            "neon-theme",
+            "rainbow-theme",
         ];
-
-        this.currentTheme = this.themes[0];
-
         this.entryModificationType = {
             complete: (id, state) => this.setCompleteState(id, state),
             modify: (id) => this.editItem(id),
@@ -24,7 +23,7 @@ export default class NoteController {
 
         this.showTimerBasedNotifications = false;
 
-        this.currentSortAttribute = "title";
+        this.currentSortAttribute = "creationDate";
         this.currentSortOrderAsc = true;
         this.currentSortButton = null;
         this.currentHideCompleted = false;
@@ -58,7 +57,7 @@ export default class NoteController {
         const themeChangeButton = document.querySelector(".theme-changer");
         themeChangeButton.addEventListener("change", (event) => {
             const newTheme = this.themes[event.target.selectedIndex];
-            this.changeTheme(newTheme);
+            this.changeTheme(newTheme, false);
         });
 
         const sortButtonsElement = document.querySelector(".sort-buttons");
@@ -167,13 +166,11 @@ export default class NoteController {
             // left arrow
             if (ev.ctrlKey && ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("prev");
-//                await this.renderItemList();
                 ev.preventDefault();
             }
             // right arrow
             if (ev.ctrlKey && ev.key === "ArrowRight" && NoteController.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("next");
- //               await this.renderItemList();
                 ev.preventDefault();
             }
             // space, toggle show/hide completed filter
@@ -251,25 +248,44 @@ export default class NoteController {
     initThemes() {
         // get system color-scheme
         const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-
         // if the system is set to dark-mode, use dark-mode as well
         if (prefersDarkScheme.matches) {
-            document.querySelector(".theme-changer option[value=\"darkTheme\"]").setAttribute("selected", "true");
-            this.changeTheme(this.themes[1]);
+            userService.setAutoTheme(this.themes[2]);
         } else {
-            document.querySelector(".theme-changer option[value=\"defaultTheme\"]").setAttribute("selected", "true");
-            this.changeTheme(this.themes[0]);
+            userService.setAutoTheme(this.themes[1]);
         }
+        // select appropriate theme
+        document.querySelector(`.theme-changer option[value="${userService.getTheme()}"]`)
+            .setAttribute("selected", "true");
+
+        this.changeTheme(userService.getTheme(), true);
     }
 
-    changeTheme(newTheme) {
-        if (this.currentTheme.className.length > 0) {
-            document.body.classList.toggle(this.currentTheme.className);
+    changeTheme(newTheme, isInitCall) {
+        if (userService.getTheme() === "auto") {
+            if (userService.getAutoTheme() !== "light-theme" && !isInitCall) {
+                document.body.classList.toggle(userService.getAutoTheme());
+            }
+            if (newTheme !== "light-theme") {
+                if (newTheme !== "auto") {
+                    document.body.classList.toggle(newTheme);
+                } else {
+                    document.body.classList.toggle(userService.getAutoTheme());
+                }
+            }
+        } else {
+            if (userService.getTheme() !== "light-theme" && !isInitCall) {
+                document.body.classList.toggle(userService.getTheme());
+            }
+            if (newTheme !== "light-theme") {
+                if (newTheme !== "auto") {
+                    document.body.classList.toggle(newTheme);
+                } else {
+                    document.body.classList.toggle(userService.getAutoTheme());
+                }
+            }
         }
-        if (newTheme.className.length > 0) {
-            document.body.classList.toggle(newTheme.className);
-        }
-        this.currentTheme = newTheme;
+        userService.setTheme(newTheme);
     }
 
     async setCompleteState(id, state) {

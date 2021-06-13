@@ -4,7 +4,7 @@
     border: var(--entry-border);
     box-shadow: var(--entry-border-shadow);
     width: 40rem;
-    height: 23.7rem;
+    height: 25rem;
     margin: 2rem;
     display: flex;
     flex-direction: column;
