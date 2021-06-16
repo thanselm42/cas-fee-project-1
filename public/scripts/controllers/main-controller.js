@@ -344,15 +344,12 @@ export default class NoteController {
         }
         this.currentModifyingItem.modificationDate = new Date().valueOf();
 
-        console.log("saveing...");
-
         // check if it is a new note and add note or update store
         if (this.currentModifyingItem.id !== "") {
             this.currentModifyingItem = await noteService.updateNote(this.currentModifyingItem);
         } else {
             this.currentModifyingItem = await noteService.addNote(this.currentModifyingItem);
         }
-        console.log("saved!");
         return "";
     }
 

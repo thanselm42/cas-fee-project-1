@@ -8,7 +8,6 @@ export class NoteStorage {
 
     async add(note) {
         const emptyNote = this.constructNote(note);
-        console.log(emptyNote);
         return this.db.insert(emptyNote);
     }
 
@@ -17,7 +16,6 @@ export class NoteStorage {
         delete emptyNote._id;
         await this.db.update({_id: id}, {$set: emptyNote});
         const ret = await this.getByID(id);
-        console.log(ret);
         return ret;
     }
 
