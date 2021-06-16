@@ -6,12 +6,10 @@ export function getHumanReadableDate(dataAsNumber) {
     return ts.toLocaleString();
 }
 
-export function getDateAsISOString(dataAsNumber) {
+export function getLocalDateTimeAsISOString(dataAsNumber) {
     if (dataAsNumber < 0) {
         return "";
     }
     const ts = new Date(dataAsNumber);
-    const dateAsISOString = ts.toISOString();
-    // remove Z at the end otherwise the date-chooser can not handle it.
-    return dateAsISOString.substr(0, dateAsISOString.length - 1);
+    return `${ts.getFullYear()}-${(ts.getMonth() + 1).toString().padStart(2, "0")}-${ts.getDate().toString().padStart(2, "0")}T${ts.getHours().toString().padStart(2, "0")}:${ts.getMinutes().toString().padStart(2, "0")}:${ts.getSeconds().toString().padStart(2, "0")}.000`;
 }

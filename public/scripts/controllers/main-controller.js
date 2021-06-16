@@ -52,12 +52,14 @@ export default class NoteController {
     }
 
     initEventHandlers() {
+        // Theme change
         const themeChangeButton = document.querySelector(".theme-changer");
         themeChangeButton.addEventListener("change", (event) => {
             const newTheme = this.themes[event.target.selectedIndex];
             this.changeTheme(newTheme, false);
         });
 
+        // Sort-Buttons
         const sortButtonsElement = document.querySelector(".sort-buttons");
         if (sortButtonsElement) {
             sortButtonsElement.addEventListener("click", async (event) => {
@@ -76,11 +78,15 @@ export default class NoteController {
                 }
             });
         }
+
+        // Create New event
         const createNewElement = document.querySelector(".new-button");
         if (createNewElement) {
             // eslint-disable-next-line no-unused-vars
             createNewElement.addEventListener("click", (event) => { this.createNewItem(); });
         }
+
+        // show / hide completed Switch event
         const showCompletedSwitchElement = document.querySelector(".show-completed-switch");
         if (showCompletedSwitchElement) {
             showCompletedSwitchElement.addEventListener("click", async (event) => {
@@ -88,6 +94,8 @@ export default class NoteController {
                 await this.renderItemList();
             });
         }
+
+        // bubble-events for all modifications on list-items
         const entryListElement = document.querySelector(".todos-list");
         if (entryListElement) {
             entryListElement.addEventListener("click", (event) => {
@@ -106,6 +114,7 @@ export default class NoteController {
             });
         }
 
+        // delete-confirmation event
         const deleteConfirmButtonElement = document.querySelector(".delete-confirm");
         if (deleteConfirmButtonElement) {
             deleteConfirmButtonElement.addEventListener("click", async (evt) => {
@@ -114,6 +123,7 @@ export default class NoteController {
             });
         }
 
+        // delete-cancel event
         const deleteConfirmCancelButtonElement = document.querySelector(".delete-cancel");
         if (deleteConfirmCancelButtonElement) {
             deleteConfirmCancelButtonElement.addEventListener("click", (evt) => {
@@ -130,6 +140,7 @@ export default class NoteController {
             });
         }
 
+        // navigation events from the edit-pane
         const navItemButtonsElement = document.querySelector(".item-nav-buttons");
         if (navItemButtonsElement) {
             navItemButtonsElement.addEventListener("click", async (event) => {
@@ -290,7 +301,7 @@ export default class NoteController {
         const note = await noteService.getNoteById(id);
         note.isCompleted = state;
         await noteService.updateNote(note);
-        // re-rendering is not necessary, because the checkbox has already the correct state
+        await this.renderItemList();
     }
 
     createNewItem() {
@@ -329,7 +340,7 @@ export default class NoteController {
         if (dueDateElement.value.length === 0) {
             this.currentModifyingItem.dueDate = -1;
         } else {
-            this.currentModifyingItem.dueDate = dueDateElement.value;
+            this.currentModifyingItem.dueDate = new Date(dueDateElement.value).valueOf();
         }
         this.currentModifyingItem.modificationDate = new Date().valueOf();
 
