@@ -84,6 +84,12 @@ body {
     border-bottom: solid 0.1rem var(--button-border-color);
 }
 
+.action-button,
+.page-nav-list-item,
+.footer-top-link {
+    transition: background 0.7s cubic-bezier(0.17, 0.67, 0.43, 1);
+}
+
 .page-nav-list {
     display: flex;
     margin: 0;
@@ -95,7 +101,6 @@ body {
 
 .page-nav-list-item {
     padding: 0.4rem 0.7rem;
-    transition: background 1s cubic-bezier(0.17, 0.67, 0.43, 1);
 }
 
 .page-nav-list-item[data-is-active="true"] {
@@ -131,7 +136,6 @@ body {
     box-shadow: var(--button-border-shadow);
     padding: 0.25rem;
     animation: var(--animation);
-    transition: background 0.7s cubic-bezier(0.17, 0.67, 0.43, 1);
 }
 
 .action-button:hover {
