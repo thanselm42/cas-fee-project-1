@@ -2,17 +2,13 @@
 :root {
     --global-font: "Roboto", sans-serif;
     --body-background-color: rgba(255, 255, 255, 1);
-    --header-background-color: rgba(255, 255, 255, 1);
-    --header-text-color: rgba(0, 0, 0, 1);
-    --header-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
-    --content-background-color: rgba(255, 255, 255, 1);
+    --body-text-color: rgba(0, 0, 0, 1);
     --body-background-image: none;
-    --content-text-color: rgba(0, 0, 0, 1);
+    --header-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
+    --content-background-color: var(--body-background-color);
+    --content-text-color: var(--body-text-color);
     --aside-background-color: rgba(245, 245, 245, 1);
-    --aside-text-color: rgba(255, 255, 255, 1);
-    --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
-    --footer-text-color: var(--header-text-color);
     --quote-background-color: rgba(235, 235, 235, 1);
     --url-color: rgba(0, 40, 160, 1);
     --url-hover-color: rgba(40, 90, 255, 1);
@@ -83,7 +79,7 @@ body {
     align-items: center;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
-    background: var(--header-background-color);
+    background: var(--body-background-color);
     background-image: var(--header-background-image);
     border-bottom: solid 0.1rem var(--button-border-color);
 }
@@ -118,7 +114,7 @@ body {
 }
 
 .page-title {
-    color: var(--header-text-color);
+    color: var(--body-text-color);
     font-weight: 400;
     animation: var(--header-animation);
 }
@@ -217,7 +213,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--footer-background-color);
+    background: var(--body-background-color);
     background-image: var(--footer-background-image);
     border-top: solid 0.1rem var(--button-border-color);
 }

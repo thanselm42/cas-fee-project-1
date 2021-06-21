@@ -7,12 +7,14 @@ export class NoteStorage {
     }
 
     async add(note) {
-        const emptyNote = this.constructNote(note);
+        const emptyNote = NoteStorage.constructNote(note);
         return this.db.insert(emptyNote);
     }
 
     async update(note, id) {
-        const emptyNote = this.constructNote(note);
+        const emptyNote = NoteStorage.constructNote(note);
+        // need to delete _id otherwise the DB will have a problem.
+        // eslint-disable-next-line no-underscore-dangle
         delete emptyNote._id;
         await this.db.update({_id: id}, {$set: emptyNote});
         const ret = await this.getByID(id);
@@ -38,7 +40,7 @@ export class NoteStorage {
         return ret.filter((n) => !n.state);
     }
 
-    constructNote(n) {
+    static constructNote(n) {
         return new Note(
             n.title,
             n.description,
