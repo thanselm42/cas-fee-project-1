@@ -14,7 +14,7 @@
     --url-hover-color: rgba(40, 90, 255, 1);
     --button-text-color: rgba(10, 10, 10, 1);
     --button-background-color: rgba(220, 220, 220, 1);
-    --button-hover-color: rgba(93, 147, 186, 1);
+    --button-hover-color: rgb(112, 181, 224);
     --button-border-color: rgb(142, 142, 142);
     --button-border-shadow: none;
     --active-button-text-color: rgba(255, 255, 255, 1);
@@ -95,6 +95,7 @@ body {
 
 .page-nav-list-item {
     padding: 0.4rem 0.7rem;
+    transition: background 1s cubic-bezier(0.17, 0.67, 0.43, 1);
 }
 
 .page-nav-list-item[data-is-active="true"] {
@@ -130,6 +131,7 @@ body {
     box-shadow: var(--button-border-shadow);
     padding: 0.25rem;
     animation: var(--animation);
+    transition: background 0.7s cubic-bezier(0.17, 0.67, 0.43, 1);
 }
 
 .action-button:hover {
