@@ -35,8 +35,7 @@ export class NoteService {
     }
 
     async deleteNote(id) {
-        const n = await httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
-        return NoteService.createNote(n);
+        await httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
     }
 
     async updateNote(note) {

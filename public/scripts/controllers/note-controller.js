@@ -3,7 +3,7 @@ import createListItems from "../view/list.js";
 import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
 import {userService} from "../services/user-service.js";
 
-export default class NoteController {
+class NoteController {
     constructor() {
         this.entryModificationType = {
             complete: (id, state) => this.setCompleteState(id, state),
@@ -97,6 +97,7 @@ export default class NoteController {
         // delete-confirmation event
         const deleteConfirmButtonElement = document.querySelector(".delete-confirm");
         if (deleteConfirmButtonElement) {
+            // eslint-disable-next-line no-unused-vars
             deleteConfirmButtonElement.addEventListener("click", async (evt) => {
                 await this.deleteItem(this.currentModifyingItem.id);
                 NoteController.hideDeletePopUp();
@@ -106,6 +107,7 @@ export default class NoteController {
         // delete-cancel event
         const deleteConfirmCancelButtonElement = document.querySelector(".delete-cancel");
         if (deleteConfirmCancelButtonElement) {
+            // eslint-disable-next-line no-unused-vars
             deleteConfirmCancelButtonElement.addEventListener("click", (evt) => {
                 NoteController.hideDeletePopUp();
             });
@@ -182,7 +184,7 @@ export default class NoteController {
             if (saveRet === "") {
                 this.renderItemEditPopUp(this.currentModifyingItem);
             } else {
-                this.showValidityWarning(saveRet);
+                NoteController.showValidityWarning(saveRet);
             }
             break;
         }
@@ -192,7 +194,7 @@ export default class NoteController {
                 NoteController.hideEditPopUp();
                 await this.renderItemList();
             } else {
-                this.showValidityWarning(saveRet);
+                NoteController.showValidityWarning(saveRet);
             }
             break;
         }
@@ -290,8 +292,7 @@ export default class NoteController {
         return "";
     }
 
-    // return array of booleans
-    showValidityWarning(text) {
+    static showValidityWarning(text) {
         const validityMessageElement = document.querySelector(".validation-message");
         validityMessageElement.innerHTML = createValidityMessage(text);
     }
@@ -304,10 +305,7 @@ export default class NoteController {
 
     static isEditPopUpVisible() {
         const isVisibleAttribute = document.querySelector(".edit-pane").getAttribute("data-is-popup-visible");
-        if (isVisibleAttribute === "true") {
-            return true;
-        }
-        return false;
+        return isVisibleAttribute === "true";
     }
 
     static getActiveSortButton() {

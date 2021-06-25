@@ -2,7 +2,7 @@ import {quoteService} from "../services/quotes-service.js";
 import {userService} from "../services/user-service.js";
 import createQuote from "../view/quote.js";
 
-export default class MainController {
+class MainController {
     constructor() {
         this.themes = [
             "auto",
@@ -17,7 +17,7 @@ export default class MainController {
         await this.initEventHandlers();
         this.initThemes();
         await quoteService.load();
-        this.renderQuote();
+        MainController.renderQuote();
     }
 
     initEventHandlers() {
@@ -25,7 +25,7 @@ export default class MainController {
         const themeChangeButton = document.querySelector(".theme-changer");
         themeChangeButton.addEventListener("change", (event) => {
             const newTheme = this.themes[event.target.selectedIndex];
-            this.changeTheme(newTheme, false);
+            MainController.changeTheme(newTheme, false);
         });
     }
 
@@ -42,10 +42,10 @@ export default class MainController {
         document.querySelector(`.theme-changer option[value="${userService.getTheme()}"]`)
             .setAttribute("selected", "true");
 
-        this.changeTheme(userService.getTheme(), true);
+        MainController.changeTheme(userService.getTheme(), true);
     }
 
-    changeTheme(newTheme, isInitCall) {
+    static changeTheme(newTheme, isInitCall) {
         if (userService.getTheme() === "auto") {
             if (userService.getAutoTheme() !== "light-theme" && !isInitCall) {
                 document.body.classList.toggle(userService.getAutoTheme());
@@ -72,7 +72,7 @@ export default class MainController {
         userService.setTheme(newTheme);
     }
 
-    renderQuote() {
+    static renderQuote() {
         const quote = quoteService.getRandomQuote();
         const asideElement = document.querySelector(".aside-quote-wrapper");
         asideElement.innerHTML = createQuote(quote);
