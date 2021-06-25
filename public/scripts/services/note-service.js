@@ -1,6 +1,7 @@
+// if you like to run a local demo-version use a local quote-storage
+// import NoteStorage from "./data/note-storage-local.js";
+import NoteStorage from "./data/note-storage-remote.js";
 import Note from "./note.js";
-//import NoteStorage from "./data/note-storage-remote.js";
-import NoteStorage from "./data/note-storage-local.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
 
 export class NoteService {
