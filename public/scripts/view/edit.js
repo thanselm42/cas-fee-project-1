@@ -1,5 +1,5 @@
 import {getLocalDateTimeAsISOString} from "../utils.js";
-import createAdditionalItemInfoString from "./common.js";
+import {createAdditionalItemInfoString} from "./common.js";
 
 export function createColorChooser(todo) {
     let ret;

@@ -1,4 +1,4 @@
-import createAdditionalItemInfoString from "./common.js";
+import {createAdditionalItemInfoString} from "./common.js";
 import {getHumanReadableDate} from "../utils.js";
 
 function createImportanceElement(importance) {

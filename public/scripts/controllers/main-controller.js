@@ -2,6 +2,7 @@ import {quoteService} from "../services/quotes-service.js";
 import {userService} from "../services/user-service.js";
 import createQuote from "../view/quote.js";
 import {noteService} from "../services/note-service.js";
+import {getAsideContent, getHeaderContent, getPageFooter} from "../view/common.js";
 
 class MainController {
     constructor() {
@@ -15,12 +16,15 @@ class MainController {
     }
 
     async initialize() {
-        await this.initEventHandlers();
-        this.initThemes();
         await quoteService.load();
-        await this.initNotification();
+        MainController.renderHeader();
         MainController.renderNotificationButton();
+        MainController.renderAside();
         MainController.renderQuote();
+        MainController.renderFooter();
+        this.initThemes();
+        await this.initEventHandlers();
+        await this.initNotification();
     }
 
     initEventHandlers() {
@@ -127,6 +131,11 @@ class MainController {
         MainController.renderNotificationButton();
     }
 
+    static renderHeader() {
+        const headerElement = document.querySelector(".page-header");
+        headerElement.innerHTML = getHeaderContent(headerElement.dataset.currentPage);
+    }
+
     static renderNotificationButton() {
         const notificationSwitch = document.querySelector(".alarm-button");
         if (userService.getShowNotifications()) {
@@ -136,10 +145,20 @@ class MainController {
         }
     }
 
+    static renderAside() {
+        const asideElement = document.querySelector(".main-aside");
+        asideElement.innerHTML = getAsideContent();
+    }
+
     static renderQuote() {
         const quote = quoteService.getRandomQuote();
         const asideElement = document.querySelector(".aside-quote-wrapper");
         asideElement.innerHTML = createQuote(quote);
+    }
+
+    static renderFooter() {
+        const footerElement = document.querySelector(".page-footer");
+        footerElement.innerHTML = getPageFooter();
     }
 }
 

@@ -75,6 +75,7 @@ body {
 .page-header {
     grid-area: header;
     display: flex;
+    min-height: 2.7rem;
     justify-content: space-between;
     align-items: center;
     padding-top: 0.1rem;
@@ -146,6 +147,7 @@ body {
 .alarm-button {
     padding: 0;
     font-size: 1.1rem;
+    min-width: 2rem;
 }
 
 .alarm-button[data-is-selected="true"]::after {

@@ -10,28 +10,7 @@
     <link rel="stylesheet" href="styles/about.css">
 </head>
 <body>
-<header class="page-header">
-    <nav class="page-nav">
-        <ul class="page-nav-list">
-            <li id="top" class="page-nav-list-item" data-is-active="false" >
-                <a class="page-nav-link" href="./index.html">Home</a>
-            </li>
-            <li class="page-nav-list-item" data-is-active="true" >
-                <a class="page-nav-link" href="./about.html">About</a>
-            </li>
-        </ul>
-    </nav>
-    <h1 class="page-title">Toby's Note App</h1>
-    <div>
-        <button class="action-button alarm-button" data-is-selected="true"></button>
-        <select class="theme-changer action-button">
-            <option value="auto">AUTO-Theme</option>
-            <option value="light-theme">Light-Theme</option>
-            <option value="dark-theme">Dark-Theme</option>
-            <option value="neon-theme">Neon-Theme</option>
-            <option value="rainbow-theme">Rainbow-Theme</option>
-        </select>
-    </div>
+<header class="page-header" data-current-page="about">
 </header>
 <main class="page-main">
     <div class="about-pane">
@@ -43,13 +22,26 @@
                 Organize your notes by importance, due date and more. Or set a color label to group similar notes.
             </p>
             <p>
-                To speed up your work, use the key-bindings described in the side-text on the right.
-            </p>
-            <p>
                 This app was made as part of the <a href="https://www.ost.ch/de/weiterbildung/weiterbildungsangebot/informatik/cas-frontend-engineering/" target="_blank">CAS-FEE</a> Project-1 at <a href="https://www.ost.ch/" target="_blank">OST</a>.
             </p>
             <p>
                 Check out the source-code on <a href="https://github.com/thanselm42/cas-fee-project-1" target="_blank">GitHub</a>.
+            </p>
+        </div>
+        <div>
+            <h3>Features</h3>
+            <p>
+                To speed up your work, use the <strong>key-bindings</strong> described in the side-text on the right.
+            </p>
+            <p>
+                Per default, the color-theme of the page is on <strong>Auto-Theme</strong>. That means it uses your Operating System settings to display the page in a dark- or light-theme.
+            </p>
+            <p>
+                The App will <strong>notify</strong> you every 10min if you have Tasks where the due-date is expired or will expire in the next 60min. You can enable or disable this feature by pressing the &#x1F514; / &#x1F515; button on the left of the theme-chooser.
+            </p>
+            <p>
+                Check the <a href="#stats">Statistics and Administration</a> section to see how many notes you have.
+
             </p>
         </div>
         <div class="resources">
@@ -84,7 +76,7 @@
             </ul>
         </div>
         <div class="admin">
-            <h3>Statistics and Administration</h3>
+            <h3 id="stats">Statistics and Administration</h3>
             <div class="stats">
             </div>
             <!-- add export-as-json link -->
@@ -92,27 +84,8 @@
     </div>
 </main>
 <aside class="main-aside">
-    <div class="aside-info-wrapper">
-        <h2>Quick edit key bindings</h2>
-        <h3>List-View</h3>
-        <p>Press <span>+</span> key to add a new note.</p>
-        <p>Press the <span>space</span> key to hide/show completed notes.</p>
-        <h3>Edit-View</h3>
-        <p>Press the <span>esc</span> key to cancel and close the edit-view.</p>
-        <p>Press <span>ctrl+s</span> to save the current note.</p>
-        <p>Press <span>ctrl+shift+s</span> to save the current note and close the edit-view.</p>
-        <p>Press the <span>ctrl+&#8592;</span> key to cancel the current note and open the previous one.</p>
-        <p>Press the <span>ctrl+&#8594;</span> key to cancel the current note and open the next one.</p>
-    </div>
-    <div class="aside-quote-wrapper">
-    </div>
 </aside>
 <footer class="page-footer">
-    <div class="footer-top-link-container">
-        <a class="footer-top-link" href="#top"><span>&#10140</span></a>
-    </div>
-    <p>&copy; Tobias Hanselmann</p>
-    <p>v1.0 16.05.2021</p>
 </footer>
 <script src="scripts/controllers/main-controller.js" type="module"></script>
 <script src="scripts/controllers/about-controller.js" type="module"></script>
