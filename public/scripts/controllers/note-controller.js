@@ -1,7 +1,6 @@
 import {noteService} from "../services/note-service.js";
 import createListItems from "../view/list.js";
 import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
-import {userService} from "../services/user-service.js";
 
 class NoteController {
     constructor() {
@@ -25,17 +24,6 @@ class NoteController {
 
         await this.initEventHandlers();
         await this.renderItemList();
-        await this.initNotification();
-    }
-
-    async initNotification() {
-        this.notificationPermission = Notification.permission;
-        if (this.notificationPermission !== "granted") {
-            this.notificationPermission = await Notification.requestPermission();
-        }
-        this.workerThread = new Worker("./scripts/controllers/note-timer.js");
-        this.workerThread.onmessage = (ev) => this.notificationCheck(ev);
-        await this.notificationCheck();
     }
 
     initEventHandlers() {
@@ -326,38 +314,6 @@ class NoteController {
         this.currentModifyingItem = await noteService.getNoteById(id);
         const popupPane = document.querySelector(".confirm-delete-popup");
         popupPane.setAttribute("data-is-popup-visible", "true");
-    }
-
-    async notificationCheck() {
-        if (userService.getShowNotifications()) {
-            const now = new Date();
-            const notes = await noteService.getAllOpenNotesUnSorted();
-
-            // check for notes where the due-date will expire in the next 60 minutes
-            const filteredNotes = notes.filter((value) => value.dueDate > 0
-                && (value.dueDate <= now.valueOf() + (1000 * 60 * 60)));
-
-            if (filteredNotes.length > 0) {
-                // prevent showing notifications to often (max every 10min)
-                if (userService.getLastNotification() + (1000 * 60 * 10) < now.valueOf()) {
-                    userService.setLastNotification(now.valueOf());
-                    this.showNotification(filteredNotes);
-                }
-            }
-        }
-    }
-
-    showNotification(ids) {
-        let notificationMessage;
-        if (Array.isArray(ids) && ids.length > 1) {
-            notificationMessage = "There are several uncompleted TODOs that have reached the due-date or will reach the due-date soon!";
-        } else {
-            notificationMessage = `The Due-Date for ${ids[0].title} has already been reached or will be reached soon`;
-        }
-
-        if (this.notificationPermission === "granted") {
-            this.greeting = new Notification(notificationMessage);
-        }
     }
 
     static hideDeletePopUp() {

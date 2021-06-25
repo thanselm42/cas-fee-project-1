@@ -143,6 +143,19 @@ body {
     color: var(--button-text-color);
 }
 
+.alarm-button {
+    padding: 0;
+    font-size: 1.1rem;
+}
+
+.alarm-button[data-is-selected="true"]::after {
+    content: "\1F514";
+}
+
+.alarm-button[data-is-selected="false"]::after {
+    content: "\1F515";
+}
+
 .theme-changer {
     background: var(--button-background-color);
     text-decoration: none;
