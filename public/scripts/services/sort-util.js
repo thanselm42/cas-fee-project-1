@@ -65,7 +65,6 @@ export function sortItemsBy(items, sort, asc) {
     } else {
         sortFn = sortTypeDesc[typeof (items[0][sort])];
     }
-
     return [...items].sort((a, b) => sortFn(a[sort], b[sort]));
 }
 

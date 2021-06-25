@@ -4,7 +4,7 @@
     border: var(--entry-border);
     box-shadow: var(--entry-border-shadow);
     width: 40rem;
-    height: 23.7rem;
+    height: 25rem;
     margin: 2rem;
     display: flex;
     flex-direction: column;
@@ -30,41 +30,36 @@
     order: 1;
 }
 
-.form-input {
-    order: 2;
-    width: 80%;
-    background: var(--entry-background-color);
-}
-
-.form-input:required ~ .form-label::after {
-    content: ' *';
-    color: red;
-}
-
-.form-input-small.nobackground {
-    background: var(--content-background-color);
-}
-
-.form-input-small {
-    order: 2;
-    width: 15rem;
-    background: var(--entry-background-color);
-}
-
-.form-input-small:required ~ .form-label::after {
-    content: ' *';
-    color: red;
-}
-
+.form-input,
+.form-input-small,
 .form-input-very-small {
     order: 2;
-    width: 5rem;
     background: var(--entry-background-color);
 }
 
+.form-input:required ~ .form-label::after,
+.form-input-small:required ~ .form-label::after,
 .form-input-very-small:required ~ .form-label::after {
     content: ' *';
     color: red;
+}
+
+.form-input.nobackground,
+.form-input-small.nobackground,
+.form-input-very-small.nobackground {
+    background: var(--content-background-color);
+}
+
+.form-input {
+    width: 80%;
+}
+
+.form-input-small {
+    width: 15rem;
+}
+
+.form-input-very-small {
+    width: 5rem;
 }
 
 .description-field {

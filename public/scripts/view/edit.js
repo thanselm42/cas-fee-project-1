@@ -1,5 +1,5 @@
-import {getDateAsISOString} from "../utils.js";
-import createAdditionalItemInfoString from "./common.js";
+import {getLocalDateTimeAsISOString} from "../utils.js";
+import {createAdditionalItemInfoString} from "./common.js";
 
 export function createColorChooser(todo) {
     let ret;
@@ -50,7 +50,7 @@ export default function createEditPopUp(todo) {
         ${createColorChooser(todo)}
       </div>
       <div class="form-item-wrapper">
-        <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="" value="${getDateAsISOString(todo.dueDate)}">
+        <input id="duedate" class="form-input-small duedate-field" type="datetime-local" name="duedate" placeholder="" value="${getLocalDateTimeAsISOString(todo.dueDate)}">
         <label class="form-label" for="duedate">Due Date</label>
       </div>
       <div class="form-item-wrapper validation-message">

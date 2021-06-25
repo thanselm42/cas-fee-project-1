@@ -14,32 +14,15 @@
   <link rel="stylesheet" href="styles/ratingstars.css">
 </head>
 <body>
-<header class="page-header">
-  <nav class="page-nav">
-    <ul class="page-nav-list">
-      <li id="top" class="page-nav-list-item" data-is-active="true" >
-        <a class="page-nav-link" href="./index.html">Home</a>
-      </li>
-      <li class="page-nav-list-item" data-is-active="false" >
-        <a class="page-nav-link" href="./about.html">About</a>
-      </li>
-    </ul>
-  </nav>
-  <h1 class="page-title">Toby's Note App</h1>
-  <select class="theme-changer action-button">
-    <option value="defaultTheme">Default-Theme</option>
-    <option value="darkTheme">Dark-Theme</option>
-    <option value="neonTheme">Neon-Theme</option>
-    <option value="rainbowTheme">Rainbow-Theme</option>
-  </select>
+<header class="page-header" data-current-page="index">
 </header>
 <main class="page-main">
   <div class="overview-pane">
     <div class="sort-buttons">
       <span>Sort by: </span>
-      <button class="sort-button action-button" data-sort-by="title" data-sort-asc="true" data-is-active="true" type="button">Title</button>
+      <button class="sort-button action-button" data-sort-by="title" data-sort-asc="true" data-is-active="false" type="button">Title</button>
       <button class="sort-button action-button" data-sort-by="dueDate" data-sort-asc="true" data-is-active="false" type="button">Due date</button>
-      <button class="sort-button action-button" data-sort-by="creationDate" data-sort-asc="true" data-is-active="false" type="button">Creation date</button>
+      <button class="sort-button action-button" data-sort-by="creationDate" data-sort-asc="true" data-is-active="true" type="button">Creation date</button>
       <button class="sort-button action-button" data-sort-by="modificationDate" data-sort-asc="true" data-is-active="false" type="button">Modification date</button>
       <button class="sort-button action-button" data-sort-by="importance" data-sort-asc="true" data-is-active="false" type="button">Importance</button>
       <button class="sort-button action-button" data-sort-by="color" data-sort-asc="true" data-is-active="false" type="button">Color-Label</button>
@@ -62,28 +45,10 @@
   </div>
 </main>
 <aside class="main-aside">
-  <div class="aside-info-wrapper">
-    <h2>Quick edit key bindings</h2>
-    <h3>List-View</h3>
-    <p>Press <span>+</span> key to add a new note.</p>
-    <p>Press the <span>space</span> key to hide/show completed notes.</p>
-    <h3>Edit-View</h3>
-    <p>Press the <span>esc</span> key to cancel and close the edit-view.</p>
-    <p>Press <span>ctrl+s</span> to save the current note.</p>
-    <p>Press <span>ctrl+shift+s</span> to save the current note and close the edit-view.</p>
-    <p>Press the <span>ctrl+&#8592;</span> key to cancel the current note and open the previous one.</p>
-    <p>Press the <span>ctrl+&#8594;</span> key to cancel the current note and open the next one.</p>
-  </div>
-  <div class="aside-quote-wrapper">
-  </div>
 </aside>
 <footer class="page-footer">
-  <div class="footer-top-link-container">
-    <a class="footer-top-link" href="#top"><span>&#10140;</span></a>
-  </div>
-  <p>&copy; Tobias Hanselmann</p>
-  <p>v1.0 16.05.2021</p>
 </footer>
+<!-- hidden sections. they will only be visible if needed -->
 <div class="blocking-popup edit-pane" data-is-popup-visible="false">
   <form class="edit-form">
     <div class="edit-form-wrapper">
@@ -117,6 +82,8 @@
     </div>
   </div>
 </div>
+<!-- End of hidden sections. -->
 <script src="scripts/controllers/main-controller.js" type="module"></script>
+<script src="scripts/controllers/note-controller.js" type="module"></script>
 </body>
 </html>

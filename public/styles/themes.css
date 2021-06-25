@@ -2,31 +2,31 @@
 
 @keyframes rainbow {
     0% {
-        background-color: red;
+        background-color: rgba(255, 0, 0, 1);
     }
 
     16% {
-        background-color: orange;
+        background-color: rgba(255, 165, 0, 1);
     }
 
     33% {
-        background-color: yellow;
+        background-color: rgba(255, 255, 0, 1);
     }
 
     49% {
-        background-color: green;
+        background-color: rgba(10, 160, 10, 1);
     }
 
     66% {
-        background-color: aquamarine;
+        background-color: rgba(127, 255, 212, 1);
     }
 
     82% {
-        background-color: yellow;
+        background-color: rgba(65, 105, 255, 1);
     }
 
     100% {
-        background-color: violet;
+        background-color: rgba(238, 130, 238, 1);
     }
 }
 
@@ -40,14 +40,14 @@
     57%,
     100% {
         text-shadow:
-            0 0 4px #fff,
-            0 0 11px #fff,
-            0 0 19px #fff,
-            0 0 40px #0fa,
-            0 0 80px #0fa,
-            0 0 90px #0fa,
-            0 0 100px #0fa,
-            0 0 150px #0fa;
+            0 0 4px rgba(255, 255, 255, 1),
+            0 0 11px rgba(255, 255, 255, 1),
+            0 0 19px rgba(255, 255, 255, 1),
+            0 0 40px rgba(0, 255, 170, 1),
+            0 0 80px rgba(0, 255, 170, 1),
+            0 0 90px rgba(0, 255, 170, 1),
+            0 0 100px rgba(0, 255, 170, 1),
+            0 0 150px rgba(0, 255, 170, 1);
     }
 
     20%,
@@ -60,19 +60,15 @@
 /* themes variables overwrite */
 .dark-theme {
     --body-background-color: rgba(20, 20, 20, 1);
-    --header-text-color: rgba(190, 190, 190, 1);
+    --body-text-color: rgba(190, 190, 190, 1);
     --header-background-image: linear-gradient(to bottom right, rgba(50, 50, 50, 1), rgba(20, 20, 20, 1));
-    --header-background-color: rgba(20, 20, 20, 1);
-    --content-text-color: rgba(190, 190, 190, 1);
-    --content-background-color: rgba(20, 20, 20, 1);
+    --content-text-color: var(--body-text-color);
+    --content-background-color: var(--body-background-color);
     --entry-background-color: rgba(80, 80, 80, 0.5);
-    --aside-text-color: var(--content-text-color);
     --aside-background-color: rgba(40, 40, 40, 1);
     --quote-background-color: rgba(55, 55, 55, 1);
     --url-color: rgba(10, 70, 200, 1);
     --url-hover-color: rgba(40, 120, 255, 1);
-    --footer-text-color: var(--header-text-color);
-    --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(50, 50, 50, 1), rgba(20, 20, 20, 1));
     --button-text-color: rgba(170, 170, 170, 1);
     --button-background-color: rgba(40, 40, 40, 1);
@@ -95,32 +91,28 @@
 }
 
 .neon-theme {
-    --header-text-color: rgba(230, 255, 255, 1);
+    --body-background-color: rgba(1, 10, 5, 1);
+    --body-text-color: rgba(230, 255, 255, 1);
     --header-background-image: linear-gradient(to bottom right, rgba(0, 50, 0, 1), rgba(0, 10, 0, 1));
-    --header-background-color: rgba(1, 10, 5, 1);
-    --body-background-color: var(--header-background-color);
-    --content-text-color: var(--header-text-color);
-    --content-background-color: var(--header-background-color);
+    --content-text-color: var(--body-text-color);
+    --content-background-color: var(--body-background-color);
     --entry-background-color: rgba(0, 50, 50, 0.5);
-    --aside-text-color: var(--header-text-color);
     --aside-background-color: rgba(5, 25, 10, 1);
     --quote-background-color: rgba(0, 0, 0, 1);
     --url-color: rgba(10, 120, 100, 1);
     --url-hover-color: rgba(40, 200, 120, 1);
-    --footer-text-color: var(--header-text-color);
-    --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(0, 50, 0, 1), rgba(0, 10, 0, 1));
-    --button-text-color: var(--header-text-color);
-    --button-background-color: var(--header-background-color);
+    --button-text-color: var(--body-text-color);
+    --button-background-color: var(--body-background-color);
     --button-hover-color: rgba(20, 20, 200, 1);
-    --button-border-color: var(--header-background-color);
+    --button-border-color: var(--body-background-color);
     --button-border-shadow:
-        0 0 0.2rem #fff,
-        0 0 0.2rem #fff,
-        0 0 2rem #13febca0,
-        0 0 0.8rem #13febca0,
-        0 0 1.8rem #08e0a008,
-        inset 0 0 1.3rem #08e0a0;
+        0 0 0.2rem rgba(255, 255, 255, 1),
+        0 0 0.2rem rgba(255, 255, 255, 1),
+        0 0 2rem rgba(19, 254, 188, 0.63),
+        0 0 0.8rem rgba(19, 254, 188, 0.63),
+        0 0 1.8rem rgba(8, 224, 160, 0.03),
+        inset 0 0 1.3rem rgba(8, 224, 160, 1);
     --entry-border-shadow: var(--button-border-shadow);
     --animation: none;
     --header-animation: flicker 1.5s infinite alternate;
@@ -140,8 +132,8 @@
 }
 
 .rainbow-theme {
-    --header-text-color: rgba(255, 255, 255, 1);
-    --header-background-color: rgba(255, 0, 255, 1);
+    --body-background-color: rgba(255, 255, 255, 1);
+    --body-text-color: rgba(255, 255, 255, 1);
     --header-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     --footer-background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     --content-background-color: rgba(255, 255, 255, 0);

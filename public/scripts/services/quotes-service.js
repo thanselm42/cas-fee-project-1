@@ -1,18 +1,15 @@
-import QuoteStorageLocal from "./data/quote-storage-local.js";
-import Quote from "./quote.js";
+// if you like to run a local demo-version use a local quote-storage
+// import QuoteStorage from "./data/quote-storage-local.js";
+import QuoteStorage from "./data/quote-storage-remote.js";
 
 export class QuoteService {
     constructor(storage) {
-        this.storage = storage || new QuoteStorageLocal();
+        this.storage = storage || new QuoteStorage();
         this.quotes = [];
-        this.load();
     }
 
-    load() {
-        this.quotes = this.storage.getAll().map((n) => new Quote(n.place,
-            n.quote,
-            n.movie,
-            n.year));
+    async load() {
+        this.quotes = await this.storage.getAll();
     }
 
     getRandomQuote() {

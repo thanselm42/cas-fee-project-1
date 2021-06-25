@@ -2,23 +2,19 @@
 :root {
     --global-font: "Roboto", sans-serif;
     --body-background-color: rgba(255, 255, 255, 1);
-    --header-background-color: rgba(255, 255, 255, 1);
-    --header-text-color: rgba(0, 0, 0, 1);
-    --header-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
-    --content-background-color: rgba(255, 255, 255, 1);
+    --body-text-color: rgba(0, 0, 0, 1);
     --body-background-image: none;
-    --content-text-color: rgba(0, 0, 0, 1);
+    --header-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
+    --content-background-color: var(--body-background-color);
+    --content-text-color: var(--body-text-color);
     --aside-background-color: rgba(245, 245, 245, 1);
-    --aside-text-color: rgba(255, 255, 255, 1);
-    --footer-background-color: var(--header-background-color);
     --footer-background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 1));
-    --footer-text-color: var(--header-text-color);
     --quote-background-color: rgba(235, 235, 235, 1);
     --url-color: rgba(0, 40, 160, 1);
     --url-hover-color: rgba(40, 90, 255, 1);
     --button-text-color: rgba(10, 10, 10, 1);
     --button-background-color: rgba(220, 220, 220, 1);
-    --button-hover-color: rgba(93, 147, 186, 1);
+    --button-hover-color: rgb(112, 181, 224);
     --button-border-color: rgb(142, 142, 142);
     --button-border-shadow: none;
     --active-button-text-color: rgba(255, 255, 255, 1);
@@ -79,13 +75,20 @@ body {
 .page-header {
     grid-area: header;
     display: flex;
+    min-height: 2.7rem;
     justify-content: space-between;
     align-items: center;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
-    background: var(--header-background-color);
+    background: var(--body-background-color);
     background-image: var(--header-background-image);
     border-bottom: solid 0.1rem var(--button-border-color);
+}
+
+.action-button,
+.page-nav-list-item,
+.footer-top-link {
+    transition: background 0.7s cubic-bezier(0.17, 0.67, 0.43, 1);
 }
 
 .page-nav-list {
@@ -118,7 +121,7 @@ body {
 }
 
 .page-title {
-    color: var(--header-text-color);
+    color: var(--body-text-color);
     font-weight: 400;
     animation: var(--header-animation);
 }
@@ -139,6 +142,20 @@ body {
 .action-button:hover {
     background: var(--button-hover-color);
     color: var(--button-text-color);
+}
+
+.alarm-button {
+    padding: 0;
+    font-size: 1.1rem;
+    min-width: 2rem;
+}
+
+.alarm-button[data-is-selected="true"]::after {
+    content: "\1F514";
+}
+
+.alarm-button[data-is-selected="false"]::after {
+    content: "\1F515";
 }
 
 .theme-changer {
@@ -217,7 +234,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--footer-background-color);
+    background: var(--body-background-color);
     background-image: var(--footer-background-image);
     border-top: solid 0.1rem var(--button-border-color);
 }

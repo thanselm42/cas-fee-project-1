@@ -1,4 +1,4 @@
-export default class QuoteStorageLocal {
+export default class QuoteStorage {
     constructor() {
         const request = new XMLHttpRequest();
         request.open("GET", "./resource/quotes.json", false);

@@ -1,92 +1,55 @@
-import NoteStorageMock from "./data/note-storage-local.js";
+// if you like to run a local demo-version use a local quote-storage
+// import NoteStorage from "./data/note-storage-local.js";
+import NoteStorage from "./data/note-storage-remote.js";
 import Note from "./note.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
 
 export class NoteService {
-    constructor(storage) {
-        this.storage = storage || new NoteStorageMock();
-        this.notes = [];
+    constructor() {
+        this.apiURL = "/api/v1/notes/";
+        this.storage = new NoteStorage();
     }
 
-    load() {
-        this.notes = this.storage.getAll().map((n) => new Note(n.id,
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted));
+    async getAllNotes() {
+        return this.storage.getAll();
     }
 
-    save() {
-        this.storage.update(this.notes.map((n) => n.toJSON()));
-    }
-
-    getNotes(orderBy, orderAscending, hideCompleted) {
-        if (this.notes.length > 0) {
-            return filterCompleted(sortItemsBy(this.notes, orderBy, orderAscending), hideCompleted);
+    async getNotes(orderBy, orderAscending, hideCompleted) {
+        const notes = await this.getAllNotes();
+        if (notes.length > 0) {
+            return filterCompleted(sortItemsBy(notes, orderBy, orderAscending), hideCompleted);
         }
         return [];
     }
 
-    getAllOpenNotesUnSorted() {
-        if (this.notes.length > 0) {
-            return filterCompleted(this.notes, true);
+    async getAllOpenNotesUnSorted() {
+        const notes = await this.getAllNotes();
+
+        if (notes.length > 0) {
+            return filterCompleted(notes, true);
         }
         return [];
     }
 
-    addNote(note) {
-        this.notes.push(note);
-        this.save();
+    async addNote(note) {
+        return this.storage.add(note);
     }
 
-    deleteNote(id) {
-        let nbrID;
-        if (typeof (id) !== "number") {
-            nbrID = Number(id);
-        } else {
-            nbrID = id;
-        }
-
-        for (let i = 0; i < this.notes.length; i++) {
-            if (this.notes[i].id === nbrID) {
-                this.notes.splice(i, 1);
-                break;
-            }
-        }
-        this.save();
+    async deleteNote(id) {
+        await this.storage.delete(id);
     }
 
-    updateNote(note) {
-        let isItANewNote = true;
-        this.notes.forEach((value, index) => {
-            if (note.id === value.id) {
-                this.notes[index] = note;
-                isItANewNote = false;
-            }
-        });
-
-        if (isItANewNote) {
-            this.addNote(note);
-        } else {
-            this.save();
-        }
+    async updateNote(note) {
+        return this.storage.update(note);
     }
 
-    getNoteById(id) {
-        let nbrID;
-        if (typeof (id) !== "number") {
-            nbrID = Number(id);
-        }
-        return this.notes.filter((n) => n.id === nbrID)[0];
+    async getNoteById(id) {
+        return this.storage.getByID(id);
     }
 
-    getNextNoteById(id, sort, asc, completed) {
+    async getNextNoteById(id, sort, asc, completed) {
         let ret = null;
-        const tempNotes = this.getNotes(sort, asc, completed);
+        const tempNotes = await this.getNotes(sort, asc, completed);
         tempNotes.forEach((value, index) => {
             if (value.id === id) {
                 if (index < tempNotes.length - 1) {
@@ -97,9 +60,9 @@ export class NoteService {
         return ret;
     }
 
-    getPreviousNoteById(id, sort, asc, hideCompleted) {
+    async getPreviousNoteById(id, sort, asc, hideCompleted) {
         let ret = null;
-        const tempNotes = this.getNotes(sort, asc, hideCompleted);
+        const tempNotes = await this.getNotes(sort, asc, hideCompleted);
         tempNotes.forEach((value, index) => {
             if (value.id === id) {
                 if (index > 0) {
@@ -112,7 +75,6 @@ export class NoteService {
 
     createNewNote() {
         return new Note(
-            this.generateNewID(),
             "",
             "",
             2,
@@ -121,33 +83,29 @@ export class NoteService {
             -1,
             0,
             false,
+            this.storage.getNewID(),
         );
     }
 
-    generateNewID() {
-        let highestID = 0;
-        for (let i = 0; i < this.notes.length; i++) {
-            if (this.notes[i].id > highestID) {
-                highestID = this.notes[i].id;
-            }
-        }
-        return ++highestID;
+    async getAllNotesCount() {
+        const notes = await this.getAllNotes();
+        return notes.length;
     }
 
-    getAllNotesCount() {
-        return this.notes.length;
+    async getOpenNotesCount() {
+        const notes = await this.getAllOpenNotesUnSorted();
+        return notes.length;
     }
 
-    getOpenNotesCount() {
-        return this.notes.filter((value) => value.isCompleted === false).length;
+    async getCompletedNotesCount() {
+        const openNotes = await this.getAllOpenNotesUnSorted();
+        const allNotes = await this.getAllNotes();
+
+        return allNotes.length - openNotes.length;
     }
 
-    getCompletedNotesCount() {
-        return this.notes.filter((value) => value.isCompleted === true).length;
-    }
-
-    getStorageName() {
-        return this.storage.getName();
+    static getStorageName() {
+        return NoteStorage.getStorageName();
     }
 }
 export const noteService = new NoteService();
