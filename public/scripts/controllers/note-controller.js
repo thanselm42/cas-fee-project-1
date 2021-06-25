@@ -1,4 +1,4 @@
-import {NoteService, noteService} from "../services/note-service.js";
+import {noteService} from "../services/note-service.js";
 import createListItems from "../view/list.js";
 import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
 import {userService} from "../services/user-service.js";
@@ -244,7 +244,7 @@ class NoteController {
     }
 
     createNewItem() {
-        const note = NoteService.createNewNote();
+        const note = noteService.createNewNote();
         this.currentModifyingItem = note;
         NoteController.showEditPopUp();
         this.renderItemEditPopUp(note);

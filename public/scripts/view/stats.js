@@ -1,4 +1,4 @@
-export default function createStats(total, completed, open, storageName){
+export default function createStats(total, completed, open, storageName) {
     return `
         <p>Total items: <span className="stats-total">${total}</span></p>
         <p>Completed items: <span className="stats-completed">${completed}</span></p>

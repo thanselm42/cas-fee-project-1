@@ -1,6 +1,7 @@
 export default class UserSettingsStorage {
     constructor() {
-        this.userSettigns = JSON.parse(localStorage.getItem("ToDoStorage_user_xxx_v1"));
+        this.localStorageKey = "ToDoStorage_user_xxx_v1";
+        this.userSettigns = JSON.parse(localStorage.getItem(this.localStorageKey));
     }
 
     getSettings() {
@@ -9,6 +10,6 @@ export default class UserSettingsStorage {
 
     update(settings) {
         this.userSettigns = settings;
-        localStorage.setItem("ToDoStorage_user_xxx_v1", JSON.stringify(this.userSettigns));
+        localStorage.setItem(this.localStorageKey, JSON.stringify(this.userSettigns));
     }
 }

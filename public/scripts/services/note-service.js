@@ -1,19 +1,20 @@
 import Note from "./note.js";
+//import NoteStorage from "./data/note-storage-remote.js";
+import NoteStorage from "./data/note-storage-local.js";
 import {sortItemsBy, filterCompleted} from "./sort-util.js";
-import {httpService} from "./util/http-service.js";
 
 export class NoteService {
     constructor() {
         this.apiURL = "/api/v1/notes/";
+        this.storage = new NoteStorage();
     }
 
-    async getRemoteNotes() {
-        const notes = await httpService.ajax("GET", this.apiURL, undefined);
-        return notes.map((n) => NoteService.createNote(n));
+    async getAllNotes() {
+        return this.storage.getAll();
     }
 
     async getNotes(orderBy, orderAscending, hideCompleted) {
-        const notes = await this.getRemoteNotes();
+        const notes = await this.getAllNotes();
         if (notes.length > 0) {
             return filterCompleted(sortItemsBy(notes, orderBy, orderAscending), hideCompleted);
         }
@@ -21,7 +22,7 @@ export class NoteService {
     }
 
     async getAllOpenNotesUnSorted() {
-        const notes = await this.getRemoteNotes();
+        const notes = await this.getAllNotes();
 
         if (notes.length > 0) {
             return filterCompleted(notes, true);
@@ -30,22 +31,19 @@ export class NoteService {
     }
 
     async addNote(note) {
-        const n = await httpService.ajax("POST", this.apiURL, note.toJSON());
-        return NoteService.createNote(n);
+        return this.storage.add(note);
     }
 
     async deleteNote(id) {
-        await httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
+        await this.storage.delete(id);
     }
 
     async updateNote(note) {
-        const n = await httpService.ajax("POST", `${this.apiURL}${note.id}`, note.toJSON());
-        return NoteService.createNote(n);
+        return this.storage.update(note);
     }
 
     async getNoteById(id) {
-        const n = await httpService.ajax("GET", `${this.apiURL}${id}`, undefined);
-        return NoteService.createNote(n);
+        return this.storage.getByID(id);
     }
 
     async getNextNoteById(id, sort, asc, completed) {
@@ -74,7 +72,7 @@ export class NoteService {
         return ret;
     }
 
-    static createNewNote() {
+    createNewNote() {
         return new Note(
             "",
             "",
@@ -84,27 +82,12 @@ export class NoteService {
             -1,
             0,
             false,
-            "",
-        );
-    }
-
-    static createNote(n) {
-        return new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            // eslint-disable-next-line no-underscore-dangle
-            n._id,
+            this.storage.getNewID(),
         );
     }
 
     async getAllNotesCount() {
-        const notes = await this.getRemoteNotes();
+        const notes = await this.getAllNotes();
         return notes.length;
     }
 
@@ -115,13 +98,13 @@ export class NoteService {
 
     async getCompletedNotesCount() {
         const openNotes = await this.getAllOpenNotesUnSorted();
-        const allNotes = await this.getRemoteNotes();
+        const allNotes = await this.getAllNotes();
 
         return allNotes.length - openNotes.length;
     }
 
     static getStorageName() {
-        return "nedb";
+        return NoteStorage.getStorageName();
     }
 }
 export const noteService = new NoteService();

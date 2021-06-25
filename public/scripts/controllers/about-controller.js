@@ -1,4 +1,4 @@
-import {NoteService, noteService} from "../services/note-service.js";
+import {NoteService, noteService} from '../services/note-service.js';
 import createStats from "../view/stats.js";
 
 export default class AboutController {
