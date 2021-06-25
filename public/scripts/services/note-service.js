@@ -9,17 +9,7 @@ export class NoteService {
 
     async getRemoteNotes() {
         const notes = await httpService.ajax("GET", this.apiURL, undefined);
-        return notes.map((n) => new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            n._id,
-        ));
+        return notes.map((n) => NoteService.createNote(n));
     }
 
     async getNotes(orderBy, orderAscending, hideCompleted) {
@@ -41,58 +31,22 @@ export class NoteService {
 
     async addNote(note) {
         const n = await httpService.ajax("POST", this.apiURL, note.toJSON());
-        return new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            n._id);
+        return NoteService.createNote(n);
     }
 
     async deleteNote(id) {
         const n = await httpService.ajax("DELETE", `${this.apiURL}${id}`, undefined);
-        return new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            n._id);
+        return NoteService.createNote(n);
     }
 
     async updateNote(note) {
         const n = await httpService.ajax("POST", `${this.apiURL}${note.id}`, note.toJSON());
-        return new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            n._id);
+        return NoteService.createNote(n);
     }
 
     async getNoteById(id) {
         const n = await httpService.ajax("GET", `${this.apiURL}${id}`, undefined);
-        return new Note(
-            n.title,
-            n.description,
-            n.importance,
-            n.creationDate,
-            n.dueDate,
-            n.modificationDate,
-            n.color,
-            n.isCompleted,
-            n._id);
+        return NoteService.createNote(n);
     }
 
     async getNextNoteById(id, sort, asc, completed) {
@@ -121,7 +75,7 @@ export class NoteService {
         return ret;
     }
 
-    createNewNote() {
+    static createNewNote() {
         return new Note(
             "",
             "",
@@ -132,6 +86,21 @@ export class NoteService {
             0,
             false,
             "",
+        );
+    }
+
+    static createNote(n) {
+        return new Note(
+            n.title,
+            n.description,
+            n.importance,
+            n.creationDate,
+            n.dueDate,
+            n.modificationDate,
+            n.color,
+            n.isCompleted,
+            // eslint-disable-next-line no-underscore-dangle
+            n._id,
         );
     }
 
@@ -152,7 +121,7 @@ export class NoteService {
         return allNotes.length - openNotes.length;
     }
 
-    getStorageName() {
+    static getStorageName() {
         return "nedb";
     }
 }

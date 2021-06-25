@@ -8,8 +8,8 @@ export class QuoteService {
         this.load();
     }
 
-    load() {
-        this.storage.getAll().then((value) => this.quotes = value);
+    async load() {
+        this.quotes = await this.storage.getAll();
     }
 
     getRandomQuote() {

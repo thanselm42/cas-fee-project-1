@@ -1,9 +1,6 @@
-import UserSettings from "../user-Settings.js";
-
 export default class UserSettingsStorage {
     constructor() {
-        const settings = JSON.parse(localStorage.getItem("ToDoStorage_user_xxx_v1"));
-        this.userSettigns = settings;
+        this.userSettigns = JSON.parse(localStorage.getItem("ToDoStorage_user_xxx_v1"));
     }
 
     getSettings() {
