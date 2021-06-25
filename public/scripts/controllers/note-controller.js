@@ -51,7 +51,7 @@ class NoteController {
         const createNewElement = document.querySelector(".new-button");
         if (createNewElement) {
             // eslint-disable-next-line no-unused-vars
-            createNewElement.addEventListener("click", (event) => { this.createNewItem(); });
+            createNewElement.addEventListener("click", () => { this.createNewItem(); });
         }
 
         // show / hide completed Switch event
@@ -86,7 +86,7 @@ class NoteController {
         const deleteConfirmButtonElement = document.querySelector(".delete-confirm");
         if (deleteConfirmButtonElement) {
             // eslint-disable-next-line no-unused-vars
-            deleteConfirmButtonElement.addEventListener("click", async (evt) => {
+            deleteConfirmButtonElement.addEventListener("click", async () => {
                 await this.deleteItem(this.currentModifyingItem.id);
                 NoteController.hideDeletePopUp();
             });
@@ -96,7 +96,7 @@ class NoteController {
         const deleteConfirmCancelButtonElement = document.querySelector(".delete-cancel");
         if (deleteConfirmCancelButtonElement) {
             // eslint-disable-next-line no-unused-vars
-            deleteConfirmCancelButtonElement.addEventListener("click", (evt) => {
+            deleteConfirmCancelButtonElement.addEventListener("click", () => {
                 NoteController.hideDeletePopUp();
             });
         }

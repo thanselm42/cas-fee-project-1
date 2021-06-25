@@ -1,12 +1,12 @@
-import {NoteService, noteService} from '../services/note-service.js';
+import {NoteService, noteService} from "../services/note-service.js";
 import createStats from "../view/stats.js";
 
-export default class AboutController {
-    async initialize() {
-        await this.renderStats();
+class AboutController {
+    static async initialize() {
+        await AboutController.renderStats();
     }
 
-    async renderStats() {
+    static async renderStats() {
         const statsElement = document.querySelector(".stats");
         if (statsElement) {
             statsElement.innerHTML = createStats(await noteService.getAllNotesCount(),
@@ -17,4 +17,4 @@ export default class AboutController {
     }
 }
 
-new AboutController().initialize();
+AboutController.initialize();

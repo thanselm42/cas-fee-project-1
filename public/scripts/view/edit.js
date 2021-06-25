@@ -37,11 +37,11 @@ export default function createEditPopUp(todo) {
       <div class="form-item-wrapper">
         <div class="form-input-small nobackground">
             <fieldset id="importance" class="rating importance-field">
-                <input type="radio" id="star5" name="rating" value="5"${addCheckedForImportanceRadioInputField(todo, 5)}><label class = "full" for="star5" title="5"></label>
-                <input type="radio" id="star4" name="rating" value="4"${addCheckedForImportanceRadioInputField(todo, 4)}><label class = "full" for="star4" title="4"></label>
-                <input type="radio" id="star3" name="rating" value="3"${addCheckedForImportanceRadioInputField(todo, 3)}><label class = "full" for="star3" title="3"></label>
-                <input type="radio" id="star2" name="rating" value="2"${addCheckedForImportanceRadioInputField(todo, 2)}><label class = "full" for="star2" title="2"></label>
-                <input type="radio" id="star1" name="rating" value="1"${addCheckedForImportanceRadioInputField(todo, 1)}><label class = "full" for="star1" title="1"></label>
+                <input type="radio" id="star5" name="rating" value="5" ${addCheckedForImportanceRadioInputField(todo, 5)}><label class = "full" for="star5" title="5"></label>
+                <input type="radio" id="star4" name="rating" value="4" ${addCheckedForImportanceRadioInputField(todo, 4)}><label class = "full" for="star4" title="4"></label>
+                <input type="radio" id="star3" name="rating" value="3" ${addCheckedForImportanceRadioInputField(todo, 3)}><label class = "full" for="star3" title="3"></label>
+                <input type="radio" id="star2" name="rating" value="2" ${addCheckedForImportanceRadioInputField(todo, 2)}><label class = "full" for="star2" title="2"></label>
+                <input type="radio" id="star1" name="rating" value="1" ${addCheckedForImportanceRadioInputField(todo, 1)}><label class = "full" for="star1" title="1"></label>
             </fieldset>
         </div>
         <label class="form-label" for="importance">Importance</label>        

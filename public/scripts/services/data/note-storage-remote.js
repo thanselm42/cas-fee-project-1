@@ -45,7 +45,8 @@ export default class NoteStorage {
         );
     }
 
-    getNewID(){
+    // eslint-disable-next-line class-methods-use-this
+    getNewID() {
         return "";
     }
 

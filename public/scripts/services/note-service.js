@@ -6,7 +6,6 @@ import {sortItemsBy, filterCompleted} from "./sort-util.js";
 
 export class NoteService {
     constructor() {
-        this.apiURL = "/api/v1/notes/";
         this.storage = new NoteStorage();
     }
 
