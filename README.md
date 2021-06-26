@@ -1,8 +1,11 @@
+# CAS-FEE-Project 1
 
-Demo version: https://thanselm42.github.io/cas-fee-project-1/public/
+Eingeschränkte Demo-Version: https://thanselm42.github.io/cas-fee-project-1/public/
+
+Bedienungshinweise für die App finden sich in der About-Seite.
 
 -----
-## Original template-readme below
+### Original template-readme below
 Die Vorlage beinhaltet CSS/HTML/JS-Linter. Diese sind konfiguriert. 
 
 Getting Started
