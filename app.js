@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import {noteRoutes} from "./routes/noteRoutes.js";
-import {quoteRoutes} from "./routes/quoteRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
+import quoteRoutes from "./routes/quoteRoutes.js";
 
 // eslint-disable-next-line import/prefer-default-export
 export const app = express();

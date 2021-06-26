@@ -1,4 +1,4 @@
-import {httpService} from "../util/http-service.js";
+import httpService from "../util/http-service.js";
 import Note from "../note.js";
 
 export default class NoteStorage {
