@@ -1,6 +1,6 @@
 # CAS-FEE-Project 1
 
-Eingeschränkte Demo-Version: https://thanselm42.github.io/cas-fee-project-1/public/
+Eingeschränkte Demo-Version https://thanselm42.github.io/cas-fee-project-1/public/
 
 Bedienungshinweise für die App finden sich in der About-Seite.
 
@@ -32,4 +32,4 @@ Folgende Befehle sind dann möglich
 | npm run w3c  |   Testet ob die HTML Files in Ordnung sind. |
 | npm run eslint  |  Testet ob die JS Files in Ordnung sind. |
 | npm run all  |   Führt die Tests für CSS/HTML/JS aus. |
-| npm run start  |  Started den Web-Server: http://localhost:3000 |
+| npm run start  |  Started den Web-Server: http://localhost:3042 (http://127.0.0.1:3042) |
