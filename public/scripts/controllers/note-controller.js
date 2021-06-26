@@ -1,6 +1,6 @@
 import {noteService} from "../services/note-service.js";
-import createListItems from "../view/list.js";
-import createEditPopUp, {createColorChooser, createValidityMessage} from "../view/edit.js";
+import EditView from "../view/edit.js";
+import ListView from "../view/list.js";
 
 class NoteController {
     constructor() {
@@ -17,13 +17,13 @@ class NoteController {
     }
 
     async initialize() {
-        this.currentSortButton = NoteController.getActiveSortButton();
+        this.currentSortButton = EditView.getActiveSortButton();
         if (this.currentSortButton) {
             this.currentSortAttribute = this.currentSortButton.dataset.sortBy;
         }
 
         await this.initEventHandlers();
-        await this.renderItemList();
+        await this.refreshItemList();
     }
 
     initEventHandlers() {
@@ -42,7 +42,7 @@ class NoteController {
                 this.currentSortOrderAsc = !sortAsc;
                 if (btnDataSet.sortBy) {
                     this.currentSortAttribute = btnDataSet.sortBy;
-                    await this.renderItemList();
+                    await this.refreshItemList();
                 }
             });
         }
@@ -59,7 +59,7 @@ class NoteController {
         if (showCompletedSwitchElement) {
             showCompletedSwitchElement.addEventListener("click", async (event) => {
                 this.currentHideCompleted = !event.target.checked;
-                await this.renderItemList();
+                await this.refreshItemList();
             });
         }
 
@@ -88,7 +88,7 @@ class NoteController {
             // eslint-disable-next-line no-unused-vars
             deleteConfirmButtonElement.addEventListener("click", async () => {
                 await this.deleteItem(this.currentModifyingItem.id);
-                NoteController.hideDeletePopUp();
+                ListView.hideDeletePopUp();
             });
         }
 
@@ -97,7 +97,7 @@ class NoteController {
         if (deleteConfirmCancelButtonElement) {
             // eslint-disable-next-line no-unused-vars
             deleteConfirmCancelButtonElement.addEventListener("click", () => {
-                NoteController.hideDeletePopUp();
+                ListView.hideDeletePopUp();
             });
         }
 
@@ -121,7 +121,7 @@ class NoteController {
 
         // add keypress-listener for + to add a new note faster
         document.addEventListener("keypress", (ev) => {
-            if (ev.key === "+" && !NoteController.isEditPopUpVisible()) {
+            if (ev.key === "+" && !EditView.isEditPopUpVisible()) {
                 this.createNewItem();
             }
         });
@@ -129,38 +129,38 @@ class NoteController {
         // add keydown-listener for capturing special keys
         document.addEventListener("keydown", async (ev) => {
             // esc, cancel edit-window
-            if (ev.key === "Escape" && NoteController.isEditPopUpVisible()) {
+            if (ev.key === "Escape" && EditView.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("cancelAndClose");
             }
             // ctrl+s save note
-            if (ev.ctrlKey && ev.key === "s" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.key === "s" && EditView.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("save");
                 ev.preventDefault(); // prevent the browser of trying to save the page
             }
             // ctrl+shift+s save note and close edit-window
-            if (ev.ctrlKey && ev.shiftKey && ev.key === "S" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.shiftKey && ev.key === "S" && EditView.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("saveAndClose");
-                await this.renderItemList();
+                await this.refreshItemList();
             }
             // left arrow
-            if (ev.ctrlKey && ev.key === "ArrowLeft" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.key === "ArrowLeft" && EditView.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("prev");
                 ev.preventDefault();
             }
             // right arrow
-            if (ev.ctrlKey && ev.key === "ArrowRight" && NoteController.isEditPopUpVisible()) {
+            if (ev.ctrlKey && ev.key === "ArrowRight" && EditView.isEditPopUpVisible()) {
                 await this.handleEditPopupAction("next");
                 ev.preventDefault();
             }
             // space, toggle show/hide completed filter
-            if (ev.code === "Space" && !NoteController.isEditPopUpVisible()) {
+            if (ev.code === "Space" && !EditView.isEditPopUpVisible()) {
                 this.currentHideCompleted = !this.currentHideCompleted;
                 if (this.currentHideCompleted) {
                     document.querySelector(".show-completed-switch").removeAttribute("checked");
                 } else {
                     document.querySelector(".show-completed-switch").setAttribute("checked", "true");
                 }
-                await this.renderItemList();
+                await this.refreshItemList();
             }
         });
     }
@@ -170,28 +170,28 @@ class NoteController {
         case "save": {
             const saveRet = await this.saveItem();
             if (saveRet === "") {
-                this.renderItemEditPopUp(this.currentModifyingItem);
+                this.showItemEditPopUp(this.currentModifyingItem);
             } else {
-                NoteController.showValidityWarning(saveRet);
+                EditView.showValidityWarning(saveRet);
             }
             break;
         }
         case "saveAndClose": {
             const saveRet = await this.saveItem();
             if (saveRet === "") {
-                NoteController.hideEditPopUp();
-                await this.renderItemList();
+                EditView.hideEditPopUp();
+                await this.refreshItemList();
             } else {
-                NoteController.showValidityWarning(saveRet);
+                EditView.showValidityWarning(saveRet);
             }
             break;
         }
         case "cancel":
-            this.renderItemEditPopUp(this.currentModifyingItem);
+            this.showItemEditPopUp(this.currentModifyingItem);
             break;
         case "cancelAndClose":
-            NoteController.hideEditPopUp();
-            await this.renderItemList();
+            EditView.hideEditPopUp();
+            await this.refreshItemList();
             break;
         case "prev": {
             const prevNote = await noteService.getPreviousNoteById(
@@ -202,7 +202,7 @@ class NoteController {
             );
             if (prevNote != null) {
                 this.currentModifyingItem = prevNote;
-                this.renderItemEditPopUp(this.currentModifyingItem);
+                this.showItemEditPopUp(this.currentModifyingItem);
             }
             break;
         }
@@ -215,7 +215,7 @@ class NoteController {
             );
             if (nextNote != null) {
                 this.currentModifyingItem = nextNote;
-                this.renderItemEditPopUp(this.currentModifyingItem);
+                this.showItemEditPopUp(this.currentModifyingItem);
             }
             break;
         }
@@ -228,31 +228,31 @@ class NoteController {
         const note = await noteService.getNoteById(id);
         note.isCompleted = state;
         await noteService.updateNote(note);
-        await this.renderItemList();
+        await this.refreshItemList();
     }
 
     createNewItem() {
         const note = noteService.createNewNote();
         this.currentModifyingItem = note;
-        NoteController.showEditPopUp();
-        this.renderItemEditPopUp(note);
+        EditView.showEditPopUp();
+        this.showItemEditPopUp(note);
     }
 
     async editItem(id) {
         const note = await noteService.getNoteById(id);
         this.currentModifyingItem = note;
-        NoteController.showEditPopUp();
-        this.renderItemEditPopUp(note);
+        EditView.showEditPopUp();
+        this.showItemEditPopUp(note);
     }
 
     async deleteItem(id) {
         await noteService.deleteNote(id);
         // re-render list
-        await this.renderItemList();
+        await this.refreshItemList();
     }
 
     async saveItem() {
-        const formElement = document.querySelector(".edit-form");
+        const formElement = EditView.getFormElement();
         const titleElement = formElement.querySelector(".title-field");
         if (titleElement.value === "") {
             return "Please enter a title";
@@ -280,63 +280,28 @@ class NoteController {
         return "";
     }
 
-    static showValidityWarning(text) {
-        const validityMessageElement = document.querySelector(".validation-message");
-        validityMessageElement.innerHTML = createValidityMessage(text);
-    }
-
     colorSelectorChange(newColorIndex) {
         this.currentModifyingItem.color = newColorIndex;
-        const editColorChooserElement = document.querySelector(".color-chooser-wrapper");
-        editColorChooserElement.innerHTML = createColorChooser(this.currentModifyingItem);
-    }
-
-    static isEditPopUpVisible() {
-        const isVisibleAttribute = document.querySelector(".edit-pane").getAttribute("data-is-popup-visible");
-        return isVisibleAttribute === "true";
-    }
-
-    static getActiveSortButton() {
-        return document.querySelector(".sort-button[data-is-active=\"true\"]");
-    }
-
-    static showEditPopUp() {
-        const popupPane = document.querySelector(".edit-pane");
-        popupPane.setAttribute("data-is-popup-visible", "true");
-    }
-
-    static hideEditPopUp() {
-        const popupPane = document.querySelector(".edit-pane");
-        popupPane.setAttribute("data-is-popup-visible", "false");
+        EditView.setColorChooserValue(this.currentModifyingItem);
     }
 
     async showDeletePopUp(id) {
         this.currentModifyingItem = await noteService.getNoteById(id);
-        const popupPane = document.querySelector(".confirm-delete-popup");
-        popupPane.setAttribute("data-is-popup-visible", "true");
+        ListView.displayDeletePopUp();
     }
 
-    static hideDeletePopUp() {
-        const popupPane = document.querySelector(".confirm-delete-popup");
-        popupPane.setAttribute("data-is-popup-visible", "false");
-    }
-
-    async renderItemList() {
+    async refreshItemList() {
         const todos = await noteService.getNotes(
             this.currentSortAttribute,
             this.currentSortOrderAsc,
             this.currentHideCompleted,
         );
 
-        const todoListElements = document.querySelector(".todos-list");
-        if (todoListElements) {
-            todoListElements.innerHTML = createListItems(todos);
-        }
+        ListView.renderItemList(todos);
     }
 
-    renderItemEditPopUp(todo) {
-        const todoEditElement = document.querySelector(".edit-form-wrapper");
-        todoEditElement.innerHTML = createEditPopUp(todo);
+    showItemEditPopUp(todo) {
+        EditView.renderItemEditPopUp(todo);
 
         // need to add event-listener for the color-chooser here, because it does not exist before
         // createEditPopUp is called
