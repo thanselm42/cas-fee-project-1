@@ -120,8 +120,7 @@
 .add-and-filter-pane {
     display: flex;
     justify-content: space-between;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
+    margin: 1rem 0.4rem 0.8rem;
 }
 
 .new-button {
@@ -142,7 +141,6 @@
     padding: 0.5rem;
     display: flex;
     flex-flow: row;
-    max-height: 6.5rem;
 }
 
 .list-entry-main {
@@ -160,11 +158,13 @@
 .list-entry-importance {
     width: 7rem;
     letter-spacing: 0.5rem;
+    padding-bottom: 0.3rem;
 }
 
 .list-entry-due-date {
     width: 12rem;
     text-align: right;
+    padding-top: 0.1rem;
 }
 
 .list-entry-description {
@@ -178,9 +178,10 @@
 }
 
 .list-entry-buttons {
-    margin: 0.1rem;
+    margin-left: 0.3rem;
     display: flex;
     flex-flow: column;
+    max-height: 5.5rem;
 }
 
 .list-entry-btn {

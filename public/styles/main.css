@@ -162,6 +162,7 @@ body {
     background: var(--button-background-color);
     text-decoration: none;
     width: 8rem;
+    margin-right: 0.2rem;
 }
 
 /* main part */

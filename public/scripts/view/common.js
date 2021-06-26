@@ -63,7 +63,7 @@ function getPageFooter() {
         <a class="footer-top-link" href="#top"><span>&#10140;</span></a>
     </div>
     <p>&copy; Tobias Hanselmann</p>
-    <p>v1.0 25.06.2021</p>`;
+    <p>v1.1 26.06.2021</p>`;
 }
 
 export function createAdditionalItemInfoString(todo) {
