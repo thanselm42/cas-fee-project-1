@@ -1,7 +1,8 @@
 import express from "express";
 import {quotesController} from "../controller/quotesController.js";
 
-const router = express.Router();
-router.get("/", quotesController.getQuotes.bind(quotesController));
+const quoteRoutes = express.Router();
+quoteRoutes.get("/", quotesController.getQuotes.bind(quotesController));
 
-export const quoteRoutes = router;
+// eslint-disable-next-line import/prefer-default-export
+export default quoteRoutes;

@@ -1,6 +1,6 @@
 import {getHumanReadableDate} from "../utils.js";
 
-export function getHeaderContent(currentPage) {
+function getHeaderContent(currentPage) {
     let indexIsActive = "false";
     let aboutIsActive = "false";
 
@@ -39,7 +39,7 @@ export function getHeaderContent(currentPage) {
     `;
 }
 
-export function getAsideContent() {
+function getAsideContent() {
     return `
     <div class="aside-info-wrapper">
         <h2>Quick edit key bindings</h2>
@@ -57,17 +57,46 @@ export function getAsideContent() {
   </div>`;
 }
 
-export function getPageFooter() {
+function getPageFooter() {
     return `
     <div class="footer-top-link-container">
         <a class="footer-top-link" href="#top"><span>&#10140;</span></a>
     </div>
     <p>&copy; Tobias Hanselmann</p>
-    <p>v1.0 25.06.2021</p>`;
+    <p>v1.1 26.06.2021</p>`;
 }
 
 export function createAdditionalItemInfoString(todo) {
     return `ID: ${todo.id}; creation date: ${getHumanReadableDate(todo.creationDate)}; 
     last modified: ${getHumanReadableDate(todo.modificationDate)}; 
     completed: ${todo.isCompleted}`;
+}
+
+export function renderHeader() {
+    const headerElement = document.querySelector(".page-header");
+    headerElement.innerHTML = getHeaderContent(headerElement.dataset.currentPage);
+}
+
+export function renderNotificationButton(isAlarmEnabled) {
+    const notificationSwitch = document.querySelector(".alarm-button");
+    if (isAlarmEnabled) {
+        notificationSwitch.dataset.isSelected = "true";
+    } else {
+        notificationSwitch.dataset.isSelected = "false";
+    }
+}
+
+export function selectThemeInThemeChooser(theme) {
+    document.querySelector(`.theme-changer option[value="${theme}"]`)
+        .setAttribute("selected", "true");
+}
+
+export function renderAside() {
+    const asideElement = document.querySelector(".main-aside");
+    asideElement.innerHTML = getAsideContent();
+}
+
+export function renderFooter() {
+    const footerElement = document.querySelector(".page-footer");
+    footerElement.innerHTML = getPageFooter();
 }

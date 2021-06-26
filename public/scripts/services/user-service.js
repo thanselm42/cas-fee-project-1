@@ -1,5 +1,5 @@
 import UserSettingsStorage from "./data/user-settings-storage-local.js";
-import UserSettings from "./user-Settings.js";
+import UserSettings from "./user-settings.js";
 
 export class UserService {
     constructor(storage) {

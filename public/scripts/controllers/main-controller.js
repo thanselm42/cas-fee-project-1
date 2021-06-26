@@ -1,8 +1,8 @@
 import {quoteService} from "../services/quotes-service.js";
 import {userService} from "../services/user-service.js";
-import createQuote from "../view/quote.js";
 import {noteService} from "../services/note-service.js";
-import {getAsideContent, getHeaderContent, getPageFooter} from "../view/common.js";
+import {renderHeader, renderAside, renderFooter, renderNotificationButton, selectThemeInThemeChooser} from "../view/common.js";
+import renderQuote from "../view/quote.js";
 
 class MainController {
     constructor() {
@@ -17,11 +17,11 @@ class MainController {
 
     async initialize() {
         await quoteService.load();
-        MainController.renderHeader();
-        MainController.renderNotificationButton();
-        MainController.renderAside();
-        MainController.renderQuote();
-        MainController.renderFooter();
+        renderHeader();
+        renderNotificationButton(userService.getShowNotifications());
+        renderAside();
+        renderQuote(quoteService.getRandomQuote());
+        renderFooter();
         this.initThemes();
         await this.initEventHandlers();
         await this.initNotification();
@@ -51,9 +51,7 @@ class MainController {
             userService.setAutoTheme(this.themes[1]);
         }
         // select appropriate theme
-        document.querySelector(`.theme-changer option[value="${userService.getTheme()}"]`)
-            .setAttribute("selected", "true");
-
+        selectThemeInThemeChooser(userService.getTheme());
         MainController.changeTheme(userService.getTheme(), true);
     }
 
@@ -128,37 +126,7 @@ class MainController {
 
     static enableDisableNotification() {
         userService.setShowNotifications(!userService.getShowNotifications());
-        MainController.renderNotificationButton();
-    }
-
-    static renderHeader() {
-        const headerElement = document.querySelector(".page-header");
-        headerElement.innerHTML = getHeaderContent(headerElement.dataset.currentPage);
-    }
-
-    static renderNotificationButton() {
-        const notificationSwitch = document.querySelector(".alarm-button");
-        if (userService.getShowNotifications()) {
-            notificationSwitch.dataset.isSelected = "true";
-        } else {
-            notificationSwitch.dataset.isSelected = "false";
-        }
-    }
-
-    static renderAside() {
-        const asideElement = document.querySelector(".main-aside");
-        asideElement.innerHTML = getAsideContent();
-    }
-
-    static renderQuote() {
-        const quote = quoteService.getRandomQuote();
-        const asideElement = document.querySelector(".aside-quote-wrapper");
-        asideElement.innerHTML = createQuote(quote);
-    }
-
-    static renderFooter() {
-        const footerElement = document.querySelector(".page-footer");
-        footerElement.innerHTML = getPageFooter();
+        renderNotificationButton(userService.getShowNotifications());
     }
 }
 

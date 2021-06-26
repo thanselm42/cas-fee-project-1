@@ -1,4 +1,4 @@
-import {httpService} from "../util/http-service.js";
+import httpService from "../util/http-service.js";
 
 export default class QuoteStorage {
     constructor() {
